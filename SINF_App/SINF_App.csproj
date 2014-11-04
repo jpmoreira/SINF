@@ -255,10 +255,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ArmazemController.cs" />
     <Compile Include="Controllers\ArtigosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DocCompraController.cs" />
     <Compile Include="Controllers\DocVendaController.cs" />
+    <Compile Include="Controllers\RecepcaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -267,7 +269,9 @@
     <Compile Include="Lib_Primavera\Comercial.cs" />
     <Compile Include="Lib_Primavera\MotorPrimavera.cs" />
     <Compile Include="Lib_Primavera\PriEngine.cs" />
+    <Compile Include="Models\Armazem.cs" />
     <Compile Include="Models\Artigo.cs" />
+    <Compile Include="Models\Recepcao.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DocCompra.cs" />
     <Compile Include="Models\DocVenda.cs" />

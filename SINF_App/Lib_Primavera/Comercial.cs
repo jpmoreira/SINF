@@ -8,6 +8,7 @@ using Interop.StdBE800;
 using Interop.GcpBE800;
 using ADODB;
 using Interop.IGcpBS800;
+using SINF_App.Models;
 //using Interop.StdBESql800;
 //using Interop.StdBSSql800;
 
@@ -678,5 +679,44 @@ namespace SINF_App.Lib_Primavera
             return null;
         }
 
+
+
+        // --------------- Armazens ------------------------------
+
+        public static List<SINF_App.Models.Armazem> ListaArmazens()
+        {
+            ErpBS objMotor = new ErpBS();
+
+            StdBELista objList;
+
+            Armazem cli = new Armazem();
+            List<Armazem> listClientes = new List<Armazem>();
+
+
+            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT Cliente, Nome, Moeda, NumContrib as NumContribuinte FROM  CLIENTES");
+
+                while (!objList.NoFim())
+                {
+                    cli = new Armazem();
+                    cli.CodCliente = objList.Valor("Cliente");
+                    cli.NomeCliente = objList.Valor("Nome");
+                    cli.Moeda = objList.Valor("Moeda");
+                    cli.NumContribuinte = objList.Valor("NumContribuinte");
+
+                    listClientes.Add(cli);
+                    objList.Seguinte();
+
+                }
+
+                return listClientes;
+            }
+            else
+                return null;
+        }
     }
 }
