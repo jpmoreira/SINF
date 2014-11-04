@@ -8,18 +8,18 @@ namespace SINF_App.Models
     public class Armazem
     {
 
-        string ID
+        public string ID
         {
             get;
             set;
         }
 
-        string Descricao
+        public string Descricao
         {
             get;
             set;
         }
-        string Morada
+        public string Morada
         {
             get;
             set;
