@@ -13,9 +13,16 @@ using Interop.IGcpBS800;
 
 namespace SINF_App.Lib_Primavera
 {
+    
     public class Comercial
     {
 
+        /// <summary>
+        /// Global variables   
+        /// </summary>
+        public const string companyName = "BELAFLOR";
+        public const string userName = "admin";
+        public const string passWord = "_admin";
 
         # region Cliente
 
@@ -29,7 +36,7 @@ namespace SINF_App.Lib_Primavera
             List<Model.Cliente> listClientes = new List<Model.Cliente>();
 
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
@@ -64,7 +71,7 @@ namespace SINF_App.Lib_Primavera
 
             Model.Cliente myCli = new Model.Cliente();
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
 
                 if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == true)
@@ -98,7 +105,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
                 {
 
                     if (PriEngine.Engine.Comercial.Clientes.Existe(cliente.CodCliente) == false)
@@ -154,7 +161,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
                 {
                     if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == false)
                     {
@@ -199,7 +206,7 @@ namespace SINF_App.Lib_Primavera
 
             try
             {
-                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
                 {
 
                     myCli.set_Cliente(cli.CodCliente);
@@ -264,7 +271,7 @@ namespace SINF_App.Lib_Primavera
             GcpBEArtigo objArtigo = new GcpBEArtigo();
             Model.Artigo myArt = new Model.Artigo();
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
 
                 if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
@@ -297,7 +304,7 @@ namespace SINF_App.Lib_Primavera
             Model.Artigo art = new Model.Artigo();
             List<Model.Artigo> listArts = new List<Model.Artigo>();
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
 
                 objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
@@ -410,7 +417,7 @@ namespace SINF_App.Lib_Primavera
             Model.LinhaDocCompra lindc = new Model.LinhaDocCompra();
             List<Model.LinhaDocCompra> listlindc = new List<Model.LinhaDocCompra>(); 
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
                 objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='VGR'");
                 while (!objListCab.NoFim())
@@ -470,7 +477,7 @@ namespace SINF_App.Lib_Primavera
 
             try
             {
-                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
                 {
                     // Atribui valores ao cabecalho do doc
                     //myEnc.set_DataDoc(dv.Data);
@@ -533,7 +540,7 @@ namespace SINF_App.Lib_Primavera
             
             try
             {
-                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
                 {
                     // Atribui valores ao cabecalho do doc
                     //myEnc.set_DataDoc(dv.Data);
@@ -590,7 +597,7 @@ namespace SINF_App.Lib_Primavera
             List<Model.LinhaDocVenda> listlindv = new
             List<Model.LinhaDocVenda>();
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
                 objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL'");
                 while (!objListCab.NoFim())
@@ -641,7 +648,7 @@ namespace SINF_App.Lib_Primavera
             Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
             List<Model.LinhaDocVenda> listlindv = new List<Model.LinhaDocVenda>();
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
                  
                 string st = "SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
