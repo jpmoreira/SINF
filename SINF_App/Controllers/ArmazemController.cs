@@ -14,7 +14,7 @@ namespace SINF_App.Controllers
         public IEnumerable<Armazem> Get()
         {
 
-            return null;
+            return SINF_App.Lib_Primavera.Comercial.ListaArmazens();
 
 
         }

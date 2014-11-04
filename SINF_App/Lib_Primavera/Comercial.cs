@@ -14,7 +14,7 @@ using SINF_App.Models;
 
 namespace SINF_App.Lib_Primavera
 {
-    
+
     public class Comercial
     {
 
@@ -30,7 +30,7 @@ namespace SINF_App.Lib_Primavera
         public static List<Cliente> ListaClientes()
         {
             ErpBS objMotor = new ErpBS();
-             
+
             StdBELista objList;
 
             Cliente cli = new Cliente();
@@ -155,7 +155,7 @@ namespace SINF_App.Lib_Primavera
         public static RespostaErro DelCliente(string codCliente)
         {
 
-           RespostaErro erro = new RespostaErro();
+            RespostaErro erro = new RespostaErro();
             GcpBECliente objCli = new GcpBECliente();
 
 
@@ -198,11 +198,42 @@ namespace SINF_App.Lib_Primavera
         }
 
 
+        public static RespostaErro Login(Login login)
+        {
+            RespostaErro erro = new RespostaErro();
+
+            try
+            {
+
+                if (PriEngine.InitializeCompany(login.Empresa, login.UserName, login.Password) == true)
+                {
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+                 
+                }
+                else
+                {
+                    erro.Erro = 2;
+                    erro.Descricao = "Impossivel fazer login";
+              
+                }
+            }
+
+            catch (Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+
+            }
+
+            return erro;
+        }
+
         public static RespostaErro InsereClienteObj(Cliente cli)
         {
 
             RespostaErro erro = new RespostaErro();
-         
+
             GcpBECliente myCli = new GcpBECliente();
 
             try
@@ -267,7 +298,7 @@ namespace SINF_App.Lib_Primavera
 
         public static Artigo GetArtigo(string codArtigo)
         {
-            
+
 
             GcpBEArtigo objArtigo = new GcpBEArtigo();
             Artigo myArt = new Artigo();
@@ -287,7 +318,7 @@ namespace SINF_App.Lib_Primavera
 
                     return myArt;
                 }
-                
+
             }
             else
             {
@@ -299,7 +330,7 @@ namespace SINF_App.Lib_Primavera
         public static List<Artigo> ListaArtigos()
         {
             ErpBS objMotor = new ErpBS();
-           
+
             StdBELista objList;
 
             Artigo art = new Artigo();
@@ -410,13 +441,13 @@ namespace SINF_App.Lib_Primavera
         public static List<DocCompra> VGR_List()
         {
             ErpBS objMotor = new ErpBS();
-            
+
             StdBELista objListCab;
             StdBELista objListLin;
             DocCompra dc = new DocCompra();
             List<DocCompra> listdc = new List<DocCompra>();
             LinhaDocCompra lindc = new LinhaDocCompra();
-            List<LinhaDocCompra> listlindc = new List<LinhaDocCompra>(); 
+            List<LinhaDocCompra> listlindc = new List<LinhaDocCompra>();
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
@@ -454,7 +485,7 @@ namespace SINF_App.Lib_Primavera
                     }
 
                     dc.LinhasDoc = listlindc;
-                    
+
                     listdc.Add(dc);
                     objListCab.Seguinte();
                 }
@@ -467,7 +498,7 @@ namespace SINF_App.Lib_Primavera
         public static RespostaErro VGR_New(DocCompra dc)
         {
             RespostaErro erro = new RespostaErro();
-            
+
 
             GcpBEDocumentoCompra myGR = new GcpBEDocumentoCompra();
             GcpBELinhaDocumentoCompra myLin = new GcpBELinhaDocumentoCompra();
@@ -520,7 +551,7 @@ namespace SINF_App.Lib_Primavera
                 return erro;
             }
         }
-        
+
 
 
         // ------ Documentos de venda ----------------------
@@ -531,14 +562,14 @@ namespace SINF_App.Lib_Primavera
         {
             RespostaErro erro = new RespostaErro();
             GcpBEDocumentoVenda myEnc = new GcpBEDocumentoVenda();
-             
+
             GcpBELinhaDocumentoVenda myLin = new GcpBELinhaDocumentoVenda();
 
             GcpBELinhasDocumentoVenda myLinhas = new GcpBELinhasDocumentoVenda();
-             
+
             PreencheRelacaoVendas rl = new PreencheRelacaoVendas();
             List<LinhaDocVenda> lstlindv = new List<LinhaDocVenda>();
-            
+
             try
             {
                 if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
@@ -558,7 +589,7 @@ namespace SINF_App.Lib_Primavera
                     }
 
 
-                   // PriEngine.Engine.Comercial.Compras.TransformaDocumento(
+                    // PriEngine.Engine.Comercial.Compras.TransformaDocumento(
 
                     PriEngine.Engine.IniciaTransaccao();
                     PriEngine.Engine.Comercial.Vendas.Actualiza(myEnc, "Teste");
@@ -589,7 +620,7 @@ namespace SINF_App.Lib_Primavera
         public static List<DocVenda> Encomendas_List()
         {
             ErpBS objMotor = new ErpBS();
-            
+
             StdBELista objListCab;
             StdBELista objListLin;
             DocVenda dv = new DocVenda();
@@ -642,7 +673,7 @@ namespace SINF_App.Lib_Primavera
         public static DocVenda Encomenda_Get(string numdoc)
         {
             ErpBS objMotor = new ErpBS();
-             
+
             StdBELista objListCab;
             StdBELista objListLin;
             DocVenda dv = new DocVenda();
@@ -651,7 +682,7 @@ namespace SINF_App.Lib_Primavera
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
-                 
+
                 string st = "SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
                 objListCab = PriEngine.Engine.Consulta(st);
                 dv = new DocVenda();
@@ -700,7 +731,7 @@ namespace SINF_App.Lib_Primavera
             List<Armazem> listArmazens = new List<Armazem>();
 
 
-            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, "outro", "belaflor") == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
@@ -709,19 +740,18 @@ namespace SINF_App.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
-                    
+
                     arm = new Armazem();
                     arm.ID = objList.Valor("Armazem");
-                    arm.NomeCliente = objList.Valor("Nome");
-                    arm.Moeda = objList.Valor("Moeda");
-                    arm.NumContribuinte = objList.Valor("NumContribuinte");
+                    arm.Descricao = objList.Valor("Descricao");
+                    arm.Morada = objList.Valor("Morada");
 
-                    listClientes.Add(cli);
+                    listArmazens.Add(arm);
                     objList.Seguinte();
-                   
+
                 }
 
-                return listClientes;
+                return listArmazens;
             }
             else
                 return null;
