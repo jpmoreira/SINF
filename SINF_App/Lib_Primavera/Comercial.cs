@@ -27,14 +27,14 @@ namespace SINF_App.Lib_Primavera
 
         # region Cliente
 
-        public static List<Model.Cliente> ListaClientes()
+        public static List<Cliente> ListaClientes()
         {
             ErpBS objMotor = new ErpBS();
              
             StdBELista objList;
 
-            Model.Cliente cli = new Model.Cliente();
-            List<Model.Cliente> listClientes = new List<Model.Cliente>();
+            Cliente cli = new Cliente();
+            List<Cliente> listClientes = new List<Cliente>();
 
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
@@ -46,7 +46,7 @@ namespace SINF_App.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
-                    cli = new Model.Cliente();
+                    cli = new Cliente();
                     cli.CodCliente = objList.Valor("Cliente");
                     cli.NomeCliente = objList.Valor("Nome");
                     cli.Moeda = objList.Valor("Moeda");
@@ -63,14 +63,14 @@ namespace SINF_App.Lib_Primavera
                 return null;
         }
 
-        public static Lib_Primavera.Model.Cliente GetCliente(string codCliente)
+        public static Cliente GetCliente(string codCliente)
         {
             ErpBS objMotor = new ErpBS();
 
             GcpBECliente objCli = new GcpBECliente();
 
 
-            Model.Cliente myCli = new Model.Cliente();
+            Cliente myCli = new Cliente();
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
@@ -93,12 +93,12 @@ namespace SINF_App.Lib_Primavera
                 return null;
         }
 
-        public static Lib_Primavera.Model.RespostaErro UpdCliente(Lib_Primavera.Model.Cliente cliente)
+        public static RespostaErro UpdCliente(Cliente cliente)
         {
 
 
 
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            RespostaErro erro = new RespostaErro();
             ErpBS objMotor = new ErpBS();
 
             GcpBECliente objCli = new GcpBECliente();
@@ -152,10 +152,10 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static Lib_Primavera.Model.RespostaErro DelCliente(string codCliente)
+        public static RespostaErro DelCliente(string codCliente)
         {
 
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+           RespostaErro erro = new RespostaErro();
             GcpBECliente objCli = new GcpBECliente();
 
 
@@ -198,10 +198,10 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static Lib_Primavera.Model.RespostaErro InsereClienteObj(Model.Cliente cli)
+        public static RespostaErro InsereClienteObj(Cliente cli)
         {
 
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            RespostaErro erro = new RespostaErro();
          
             GcpBECliente myCli = new GcpBECliente();
 
@@ -265,12 +265,12 @@ namespace SINF_App.Lib_Primavera
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
 
-        public static Lib_Primavera.Model.Artigo GetArtigo(string codArtigo)
+        public static Artigo GetArtigo(string codArtigo)
         {
             
 
             GcpBEArtigo objArtigo = new GcpBEArtigo();
-            Model.Artigo myArt = new Model.Artigo();
+            Artigo myArt = new Artigo();
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
@@ -296,14 +296,14 @@ namespace SINF_App.Lib_Primavera
 
         }
 
-        public static List<Model.Artigo> ListaArtigos()
+        public static List<Artigo> ListaArtigos()
         {
             ErpBS objMotor = new ErpBS();
            
             StdBELista objList;
 
-            Model.Artigo art = new Model.Artigo();
-            List<Model.Artigo> listArts = new List<Model.Artigo>();
+            Artigo art = new Artigo();
+            List<Artigo> listArts = new List<Artigo>();
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
@@ -312,7 +312,7 @@ namespace SINF_App.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
-                    art = new Model.Artigo();
+                    art = new Artigo();
                     art.CodArtigo = objList.Valor("artigo");
                     art.DescArtigo = objList.Valor("descricao");
 
@@ -335,16 +335,16 @@ namespace SINF_App.Lib_Primavera
 
         //------------------------------------ ENCOMENDA ---------------------
         /*
-        public static Model.RespostaErro TransformaDoc(Model.DocCompra dc)
+        public static RespostaErro TransformaDoc(DocCompra dc)
         {
 
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            RespostaErro erro = new RespostaErro();
             GcpBEDocumentoCompra objEnc = new GcpBEDocumentoCompra();
             GcpBEDocumentoCompra objGR = new GcpBEDocumentoCompra();
             GcpBELinhasDocumentoCompra objLinEnc = new GcpBELinhasDocumentoCompra();
             PreencheRelacaoCompras rl = new PreencheRelacaoCompras();
 
-            List<Model.LinhaDocCompra> lstlindc = new List<Model.LinhaDocCompra>();
+            List<LinhaDocCompra> lstlindc = new List<LinhaDocCompra>();
 
             try
             {
@@ -407,23 +407,23 @@ namespace SINF_App.Lib_Primavera
 
         // ------------------------ Documentos de Compra --------------------------//
 
-        public static List<Model.DocCompra> VGR_List()
+        public static List<DocCompra> VGR_List()
         {
             ErpBS objMotor = new ErpBS();
             
             StdBELista objListCab;
             StdBELista objListLin;
-            Model.DocCompra dc = new Model.DocCompra();
-            List<Model.DocCompra> listdc = new List<Model.DocCompra>();
-            Model.LinhaDocCompra lindc = new Model.LinhaDocCompra();
-            List<Model.LinhaDocCompra> listlindc = new List<Model.LinhaDocCompra>(); 
+            DocCompra dc = new DocCompra();
+            List<DocCompra> listdc = new List<DocCompra>();
+            LinhaDocCompra lindc = new LinhaDocCompra();
+            List<LinhaDocCompra> listlindc = new List<LinhaDocCompra>(); 
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
                 objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='VGR'");
                 while (!objListCab.NoFim())
                 {
-                    dc = new Model.DocCompra();
+                    dc = new DocCompra();
                     dc.id = objListCab.Valor("id");
                     dc.NumDocExterno = objListCab.Valor("NumDocExterno");
                     dc.Entidade = objListCab.Valor("Entidade");
@@ -432,11 +432,11 @@ namespace SINF_App.Lib_Primavera
                     dc.TotalMerc = objListCab.Valor("TotalMerc");
                     dc.Serie = objListCab.Valor("Serie");
                     objListLin = PriEngine.Engine.Consulta("SELECT idCabecCompras, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido, Armazem, Lote from LinhasCompras where IdCabecCompras='" + dc.id + "' order By NumLinha");
-                    listlindc = new List<Model.LinhaDocCompra>();
+                    listlindc = new List<LinhaDocCompra>();
 
                     while (!objListLin.NoFim())
                     {
-                        lindc = new Model.LinhaDocCompra();
+                        lindc = new LinhaDocCompra();
                         lindc.IdCabecDoc = objListLin.Valor("idCabecCompras");
                         lindc.CodArtigo = objListLin.Valor("Artigo");
                         lindc.DescArtigo = objListLin.Valor("Descricao");
@@ -464,9 +464,9 @@ namespace SINF_App.Lib_Primavera
 
 
 
-        public static Model.RespostaErro VGR_New(Model.DocCompra dc)
+        public static RespostaErro VGR_New(DocCompra dc)
         {
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            RespostaErro erro = new RespostaErro();
             
 
             GcpBEDocumentoCompra myGR = new GcpBEDocumentoCompra();
@@ -474,7 +474,7 @@ namespace SINF_App.Lib_Primavera
             GcpBELinhasDocumentoCompra myLinhas = new GcpBELinhasDocumentoCompra();
 
             PreencheRelacaoCompras rl = new PreencheRelacaoCompras();
-            List<Model.LinhaDocCompra> lstlindv = new List<Model.LinhaDocCompra>();
+            List<LinhaDocCompra> lstlindv = new List<LinhaDocCompra>();
 
             try
             {
@@ -490,7 +490,7 @@ namespace SINF_App.Lib_Primavera
                     // Linhas do documento para a lista de linhas
                     lstlindv = dc.LinhasDoc;
                     PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(myGR, rl);
-                    foreach (Model.LinhaDocCompra lin in lstlindv)
+                    foreach (LinhaDocCompra lin in lstlindv)
                     {
                         PriEngine.Engine.Comercial.Compras.AdicionaLinha(myGR, lin.CodArtigo, lin.Quantidade, lin.Armazem, "", lin.PrecoUnitario, lin.Desconto);
                     }
@@ -527,9 +527,9 @@ namespace SINF_App.Lib_Primavera
 
 
 
-        public static Model.RespostaErro Encomendas_New(Model.DocVenda dv)
+        public static RespostaErro Encomendas_New(DocVenda dv)
         {
-            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+            RespostaErro erro = new RespostaErro();
             GcpBEDocumentoVenda myEnc = new GcpBEDocumentoVenda();
              
             GcpBELinhaDocumentoVenda myLin = new GcpBELinhaDocumentoVenda();
@@ -537,7 +537,7 @@ namespace SINF_App.Lib_Primavera
             GcpBELinhasDocumentoVenda myLinhas = new GcpBELinhasDocumentoVenda();
              
             PreencheRelacaoVendas rl = new PreencheRelacaoVendas();
-            List<Model.LinhaDocVenda> lstlindv = new List<Model.LinhaDocVenda>();
+            List<LinhaDocVenda> lstlindv = new List<LinhaDocVenda>();
             
             try
             {
@@ -552,7 +552,7 @@ namespace SINF_App.Lib_Primavera
                     // Linhas do documento para a lista de linhas
                     lstlindv = dv.LinhasDoc;
                     PriEngine.Engine.Comercial.Vendas.PreencheDadosRelacionados(myEnc, rl);
-                    foreach (Model.LinhaDocVenda lin in lstlindv)
+                    foreach (LinhaDocVenda lin in lstlindv)
                     {
                         PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
                     }
@@ -586,24 +586,24 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static List<Model.DocVenda> Encomendas_List()
+        public static List<DocVenda> Encomendas_List()
         {
             ErpBS objMotor = new ErpBS();
             
             StdBELista objListCab;
             StdBELista objListLin;
-            Model.DocVenda dv = new Model.DocVenda();
-            List<Model.DocVenda> listdv = new List<Model.DocVenda>();
-            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
-            List<Model.LinhaDocVenda> listlindv = new
-            List<Model.LinhaDocVenda>();
+            DocVenda dv = new DocVenda();
+            List<DocVenda> listdv = new List<DocVenda>();
+            LinhaDocVenda lindv = new LinhaDocVenda();
+            List<LinhaDocVenda> listlindv = new
+            List<LinhaDocVenda>();
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
                 objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL'");
                 while (!objListCab.NoFim())
                 {
-                    dv = new Model.DocVenda();
+                    dv = new DocVenda();
                     dv.id = objListCab.Valor("id");
                     dv.Entidade = objListCab.Valor("Entidade");
                     dv.NumDoc = objListCab.Valor("NumDoc");
@@ -611,11 +611,11 @@ namespace SINF_App.Lib_Primavera
                     dv.TotalMerc = objListCab.Valor("TotalMerc");
                     dv.Serie = objListCab.Valor("Serie");
                     objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
-                    listlindv = new List<Model.LinhaDocVenda>();
+                    listlindv = new List<LinhaDocVenda>();
 
                     while (!objListLin.NoFim())
                     {
-                        lindv = new Model.LinhaDocVenda();
+                        lindv = new LinhaDocVenda();
                         lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
                         lindv.CodArtigo = objListLin.Valor("Artigo");
                         lindv.DescArtigo = objListLin.Valor("Descricao");
@@ -639,22 +639,22 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static Model.DocVenda Encomenda_Get(string numdoc)
+        public static DocVenda Encomenda_Get(string numdoc)
         {
             ErpBS objMotor = new ErpBS();
              
             StdBELista objListCab;
             StdBELista objListLin;
-            Model.DocVenda dv = new Model.DocVenda();
-            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
-            List<Model.LinhaDocVenda> listlindv = new List<Model.LinhaDocVenda>();
+            DocVenda dv = new DocVenda();
+            LinhaDocVenda lindv = new LinhaDocVenda();
+            List<LinhaDocVenda> listlindv = new List<LinhaDocVenda>();
 
             if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
                  
                 string st = "SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' and NumDoc='" + numdoc + "'";
                 objListCab = PriEngine.Engine.Consulta(st);
-                dv = new Model.DocVenda();
+                dv = new DocVenda();
                 dv.id = objListCab.Valor("id");
                 dv.Entidade = objListCab.Valor("Entidade");
                 dv.NumDoc = objListCab.Valor("NumDoc");
@@ -662,11 +662,11 @@ namespace SINF_App.Lib_Primavera
                 dv.TotalMerc = objListCab.Valor("TotalMerc");
                 dv.Serie = objListCab.Valor("Serie");
                 objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
-                listlindv = new List<Model.LinhaDocVenda>();
+                listlindv = new List<LinhaDocVenda>();
 
                 while (!objListLin.NoFim())
                 {
-                    lindv = new Model.LinhaDocVenda();
+                    lindv = new LinhaDocVenda();
                     lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
                     lindv.CodArtigo = objListLin.Valor("Artigo");
                     lindv.DescArtigo = objListLin.Valor("Descricao");
@@ -709,6 +709,7 @@ namespace SINF_App.Lib_Primavera
 
                 while (!objList.NoFim())
                 {
+                    /*
                     cli = new Armazem();
                     cli.CodCliente = objList.Valor("Cliente");
                     cli.NomeCliente = objList.Valor("Nome");
@@ -717,7 +718,7 @@ namespace SINF_App.Lib_Primavera
 
                     listClientes.Add(cli);
                     objList.Seguinte();
-
+                    */
                 }
 
                 return listClientes;

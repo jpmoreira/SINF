@@ -14,7 +14,7 @@ namespace SINF_App.Controllers
         public IEnumerable<Armazem> Get()
         {
 
-
+            return null;
 
 
         }

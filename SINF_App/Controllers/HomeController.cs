@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SINF_AppControllers
+namespace SINF_App.Controllers
 {
     public class HomeController : Controller
     {

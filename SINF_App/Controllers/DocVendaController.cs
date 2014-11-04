@@ -6,10 +6,10 @@ using System.Web.Mvc;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using SINF_App.Lib_Primavera.Model;
+using SINF_App.Models;
 
 
-namespace SINF_AppControllers
+namespace SINF_App.Controllers
 {
     public class DocVendaController : ApiController
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SINF_App.Lib_Primavera.Model
+namespace SINF_App.Models
 {
     public class DocCompra
     {

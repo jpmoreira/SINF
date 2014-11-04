@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json;
 
-namespace SINF_AppControllers
+namespace SINF_App.Controllers
 {
     public class ValuesController : ApiController
     {

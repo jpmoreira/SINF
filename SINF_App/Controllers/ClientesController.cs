@@ -5,16 +5,16 @@ using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using SINF_App.Lib_Primavera.Model;
+using SINF_App.Models;
 
-namespace SINF_AppControllers
+namespace SINF_App.Controllers
 {
     public class ClientesController : ApiController
     {
         //
         // GET: /Clientes/
 
-        public IEnumerable<SINF_App.Lib_Primavera.Model.Cliente> Get()
+        public IEnumerable<Cliente> Get()
         {
             return SINF_App.Lib_Primavera.Comercial.ListaClientes();
         }
@@ -23,7 +23,7 @@ namespace SINF_AppControllers
         // GET api/cliente/5    
         public Cliente Get(string id)
         {
-            SINF_App.Lib_Primavera.Model.Cliente cliente = SINF_App.Lib_Primavera.Comercial.GetCliente(id);
+            Cliente cliente = SINF_App.Lib_Primavera.Comercial.GetCliente(id);
             if (cliente == null)
             {
                 throw new HttpResponseException(
