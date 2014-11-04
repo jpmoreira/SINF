@@ -696,29 +696,29 @@ namespace SINF_App.Lib_Primavera
 
             StdBELista objList;
 
-            Armazem cli = new Armazem();
-            List<Armazem> listClientes = new List<Armazem>();
+            Armazem arm = new Armazem();
+            List<Armazem> listArmazens = new List<Armazem>();
 
 
-            if (PriEngine.InitializeCompany("BELAFLOR", "admin", "admin") == true)
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
 
-                objList = PriEngine.Engine.Consulta("SELECT Cliente, Nome, Moeda, NumContrib as NumContribuinte FROM  CLIENTES");
+                objList = PriEngine.Engine.Consulta("SELECT Armazem, Descricao, Morada FROM Armazens");
 
                 while (!objList.NoFim())
                 {
-                    /*
-                    cli = new Armazem();
-                    cli.CodCliente = objList.Valor("Cliente");
-                    cli.NomeCliente = objList.Valor("Nome");
-                    cli.Moeda = objList.Valor("Moeda");
-                    cli.NumContribuinte = objList.Valor("NumContribuinte");
+                    
+                    arm = new Armazem();
+                    arm.ID = objList.Valor("Armazem");
+                    arm.NomeCliente = objList.Valor("Nome");
+                    arm.Moeda = objList.Valor("Moeda");
+                    arm.NumContribuinte = objList.Valor("NumContribuinte");
 
                     listClientes.Add(cli);
                     objList.Seguinte();
-                    */
+                   
                 }
 
                 return listClientes;
