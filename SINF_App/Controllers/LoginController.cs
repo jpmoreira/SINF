@@ -26,7 +26,7 @@ namespace SINF_App.Controllers
 
             else
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(HttpStatusCode.Created,erro);
             }
         }
     }
