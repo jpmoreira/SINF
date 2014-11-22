@@ -19,14 +19,14 @@ namespace SINF_App.Controllers
             {
                 var response = Request.CreateResponse(
                    HttpStatusCode.Created, login.UserName);
-                string uri = Url.Link("DefaultApi", new { UserName = login.UserName});
-                response.Headers.Location = new Uri(uri);
+                //string uri = Url.Link("DefaultApi", new { UserName = login.UserName});
+                //response.Headers.Location = new Uri(uri);
                 return response;
             }
 
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Created,erro);
+                return Request.CreateResponse(HttpStatusCode.Forbidden,erro);
             }
         }
     }

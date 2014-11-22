@@ -14,9 +14,16 @@ namespace SINF_App.Controllers
     {
 
 
-        public IEnumerable<DocCompra> Get()
+        public Object Get([FromUri]Login LoginInfo)
         {
-            return SINF_App.Lib_Primavera.Comercial.VGR_List();
+
+
+            RespostaErro erro = new RespostaErro();
+            erro = SINF_App.Lib_Primavera.Comercial.Login(LoginInfo);
+
+            if (erro.Erro == 0) return SINF_App.Lib_Primavera.Comercial.VGR_List();
+
+            return erro;
         }
 
         /*
@@ -38,8 +45,11 @@ namespace SINF_App.Controllers
         */
 
 
-        public HttpResponseMessage Post(DocCompra dc)
+        public HttpResponseMessage Post(Login login)
         {
+            RespostaErro erro = new RespostaErro();
+
+            /*
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.VGR_New(dc);
 
@@ -57,6 +67,9 @@ namespace SINF_App.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
+             */
+
+            return null;
         }
 
     }
