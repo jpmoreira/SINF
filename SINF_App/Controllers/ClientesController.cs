@@ -36,7 +36,6 @@ namespace SINF_App.Controllers
             }
         }
 
-
         public HttpResponseMessage PostCliente (Cliente cliente)
         {
             RespostaErro erro = new RespostaErro();
