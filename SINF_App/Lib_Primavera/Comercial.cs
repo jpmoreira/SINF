@@ -25,6 +25,43 @@ namespace SINF_App.Lib_Primavera
         public const string userName = "admin";
         public const string passWord = "_admin";
 
+
+        #region Login
+        
+        public static RespostaErro Login(Login login)
+        {
+            RespostaErro erro = new RespostaErro();
+
+            try
+            {
+
+                if (PriEngine.InitializeCompany(login.Empresa, login.UserName, login.Password) == true)
+                {
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+
+                }
+                else
+                {
+                    erro.Erro = 2;
+                    erro.Descricao = "Impossivel fazer login";
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+
+            }
+
+            return erro;
+        }    
+
+        #endregion Login;
+
+
         # region Cliente
 
         public static List<Cliente> ListaClientes()
@@ -66,9 +103,7 @@ namespace SINF_App.Lib_Primavera
         public static Cliente GetCliente(string codCliente)
         {
             ErpBS objMotor = new ErpBS();
-
             GcpBECliente objCli = new GcpBECliente();
-
 
             Cliente myCli = new Cliente();
 
@@ -93,14 +128,11 @@ namespace SINF_App.Lib_Primavera
                 return null;
         }
 
+
         public static RespostaErro UpdCliente(Cliente cliente)
         {
-
-
-
             RespostaErro erro = new RespostaErro();
             ErpBS objMotor = new ErpBS();
-
             GcpBECliente objCli = new GcpBECliente();
 
             try
@@ -198,37 +230,6 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static RespostaErro Login(Login login)
-        {
-            RespostaErro erro = new RespostaErro();
-
-            try
-            {
-
-                if (PriEngine.InitializeCompany(login.Empresa, login.UserName, login.Password) == true)
-                {
-                    erro.Erro = 0;
-                    erro.Descricao = "Sucesso";
-
-                }
-                else
-                {
-                    erro.Erro = 2;
-                    erro.Descricao = "Impossivel fazer login";
-
-                }
-            }
-
-            catch (Exception ex)
-            {
-                erro.Erro = 1;
-                erro.Descricao = ex.Message;
-
-            }
-
-            return erro;
-        }
-
         public static RespostaErro InsereClienteObj(Cliente cli)
         {
 
@@ -295,6 +296,7 @@ namespace SINF_App.Lib_Primavera
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
 
+        #region Artigo
         public static Artigo GetArtigo(string codArtigo)
         {
 
@@ -361,10 +363,12 @@ namespace SINF_App.Lib_Primavera
 
         }
 
-
+        #endregion Artigo;
 
         //------------------------------------ ENCOMENDA ---------------------
 
+
+        #region Encomenda
         public static RespostaErro TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, List<int> quantidadesAConverter)
         {
 
@@ -391,7 +395,7 @@ namespace SINF_App.Lib_Primavera
             {
                 if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
                 {
-
+                
 
 
 
@@ -424,17 +428,17 @@ namespace SINF_App.Lib_Primavera
 
                             }
 
-
+ 
                         }
 
                     }
                     // façam p.f. o ciclo para percorrer as linhas da encomenda que pretendem copiar
-
+                     
                     //double QdeaCopiar;
                     //PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objEnc, "C", objGR, lin.NumLinha, QdeaCopiar);
-
-                    // precisamos aqui de um metodo que permita actualizar a Qde Satisfeita da linha de encomenda.  Existe em VB mas ainda não sei qual é em c#
-
+                       
+                        // precisamos aqui de um metodo que permita actualizar a Qde Satisfeita da linha de encomenda.  Existe em VB mas ainda não sei qual é em c#
+                       
                     PriEngine.Engine.IniciaTransaccao();
                     PriEngine.Engine.Comercial.Compras.Actualiza(docOriginal_ERP, "");
                     PriEngine.Engine.Comercial.Compras.Actualiza(docFinal_ERP, "");
@@ -460,16 +464,16 @@ namespace SINF_App.Lib_Primavera
                 erro.Descricao = ex.Message;
                 return erro;
             }
-
-
+        
+        
         }
 
 
 
-
+        #endregion Encomenda;
 
         // ------------------------ Documentos de Compra --------------------------//
-
+        #region DocCompra
         public static List<DocCompra> VGR_List()
         {
             ErpBS objMotor = new ErpBS();
@@ -675,10 +679,10 @@ namespace SINF_App.Lib_Primavera
             }
         }
 
-
+        #endregion DocCompra;
 
         // ------ Documentos de venda ----------------------
-
+        #region DocVenda
 
 
         public static RespostaErro Encomendas_New(DocVenda dv)
@@ -841,9 +845,10 @@ namespace SINF_App.Lib_Primavera
         }
 
 
+        #endregion DocVenda;
 
         // --------------- Armazens ------------------------------
-
+        #region Armazens
         public static List<SINF_App.Models.Armazem> ListaArmazens()
         {
             ErpBS objMotor = new ErpBS();
@@ -881,9 +886,10 @@ namespace SINF_App.Lib_Primavera
         }
 
 
+        #endregion Armazens
 
         // ---------------- Fornecedores ---------------------------
-
+        #region Fornecedores
         /**
          * 
          * Retorna true se o id e a descriçao de um fornecedor corresponderem. Se perfectMatch=false, entao é verificado se a descriçao fornecida está contida na descricao real
@@ -930,5 +936,7 @@ namespace SINF_App.Lib_Primavera
 
             return false;
         }
+
+        #endregion Fornecedores
     }
 }
