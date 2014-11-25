@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Interop.GcpBE800;
 
 namespace SINF_App.Models
 {
@@ -81,5 +82,32 @@ namespace SINF_App.Models
             get;
             set;
         }
+
+
+        public GcpBELinhaDocumentoCompra toERPType()
+        {
+
+
+            GcpBELinhaDocumentoCompra linha = new GcpBELinhaDocumentoCompra();
+
+            //idCabecDoc not set
+            linha.set_Artigo(CodArtigo);
+            linha.set_Descricao(DescArtigo);
+            linha.set_NumLinDocOriginal(NumLinha);
+            linha.set_Quantidade(Quantidade);
+            linha.set_Unidade(Unidade);
+            linha.set_Desconto1((float)Desconto);
+            linha.set_PrecUnit(PrecoUnitario);
+            linha.set_TotalIliquido(TotalILiquido);
+            linha.set_PrecoLiquido(TotalLiquido);
+            linha.set_Armazem(Armazem);
+            linha.set_Lote(Lote);
+
+
+
+            return linha;
+
+        }
+  
     }
 }

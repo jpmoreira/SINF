@@ -209,13 +209,13 @@ namespace SINF_App.Lib_Primavera
                 {
                     erro.Erro = 0;
                     erro.Descricao = "Sucesso";
-                 
+
                 }
                 else
                 {
                     erro.Erro = 2;
                     erro.Descricao = "Impossivel fazer login";
-              
+
                 }
             }
 
@@ -235,7 +235,6 @@ namespace SINF_App.Lib_Primavera
             RespostaErro erro = new RespostaErro();
 
             GcpBECliente myCli = new GcpBECliente();
-
             try
             {
                 if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
@@ -365,46 +364,80 @@ namespace SINF_App.Lib_Primavera
 
 
         //------------------------------------ ENCOMENDA ---------------------
-        /*
-        public static RespostaErro TransformaDoc(DocCompra dc)
+
+        public static RespostaErro TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, List<int> quantidadesAConverter)
         {
 
             RespostaErro erro = new RespostaErro();
-            GcpBEDocumentoCompra objEnc = new GcpBEDocumentoCompra();
-            GcpBEDocumentoCompra objGR = new GcpBEDocumentoCompra();
-            GcpBELinhasDocumentoCompra objLinEnc = new GcpBELinhasDocumentoCompra();
+
+
+            GcpBEDocumentoCompra docOriginal_ERP = documentoOriginal.toERPType();
+            GcpBEDocumentoCompra docFinal_ERP = new GcpBEDocumentoCompra();
+
+            docFinal_ERP.set_Entidade(docOriginal_ERP.get_Entidade());
+            docFinal_ERP.set_Serie(DateTime.Now.ToString("yyyy"));
+            docFinal_ERP.set_Tipodoc(DocCompra.typeString(tipoFinal));
+            docFinal_ERP.set_TipoEntidade("F");//Fornecedor???
+
+
+            //GcpBEDocumentoCompra objGR = new GcpBEDocumentoCompra();
+            GcpBELinhasDocumentoCompra linhas_originais = docOriginal_ERP.get_Linhas();
             PreencheRelacaoCompras rl = new PreencheRelacaoCompras();
+            docFinal_ERP = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(docFinal_ERP, rl);//wtf does this do???
 
             List<LinhaDocCompra> lstlindc = new List<LinhaDocCompra>();
 
             try
             {
-                if (PriEngine.InitializeCompany("BELAFLOR", "sa", "123456") == true)
+                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
                 {
-                
 
-                    objEnc = PriEngine.Engine.Comercial.Compras.Edita("000", "ECF", "2013", 3);
 
-                    // --- Criar os cabeçalhos da GR
-                    objGR.set_Entidade(objEnc.get_Entidade());
-                    objEnc.set_Serie("2013");
-                    objEnc.set_Tipodoc("ECF");
-                    objEnc.set_TipoEntidade("F");
 
-                    objGR = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(objGR,rl);
- 
 
+                    //objEnc = PriEngine.Engine.Comercial.Compras.Edita("000", "ECF", "2013", 3);
+
+
+                    // objGR = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(objGR,rl);
+
+
+                    for (int i = 0; i < documentoOriginal.LinhasDoc.Count; i++)
+                    {//for each line
+
+                        LinhaDocCompra lin = documentoOriginal.LinhasDoc[i];
+                        int valorAConverter = quantidadesAConverter[i];
+
+                        if (valorAConverter > 0)
+                        {
+
+                            //PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
+                            PriEngine.Engine.Comercial.Internos.CopiaLinha("C", docOriginal_ERP, "C", docFinal_ERP, lin.NumLinha, valorAConverter);
+
+                            foreach (GcpBELinhaDocumentoCompra lineToTrans in linhas_originais)
+                            {
+                                if (lineToTrans.get_NumLinDocOriginal() == lin.NumLinha)//if we find the line we are converting
+                                {
+
+                                    lineToTrans.set_QuantSatisfeita(lineToTrans.get_QuantSatisfeita() + valorAConverter);
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
                     // façam p.f. o ciclo para percorrer as linhas da encomenda que pretendem copiar
-                     
-                        double QdeaCopiar;
-                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objEnc, "C", objGR, lin.NumLinha, QdeaCopiar);
-                       
-                        // precisamos aqui de um metodo que permita actualizar a Qde Satisfeita da linha de encomenda.  Existe em VB mas ainda não sei qual é em c#
-                       
-                    PriEngine.Engine.IniciaTransaccao();
-                    PriEngine.Engine.Comercial.Compras.Actualiza(objEnc, "");
-                    PriEngine.Engine.Comercial.Compras.Actualiza(objGR, "");
 
+                    //double QdeaCopiar;
+                    //PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objEnc, "C", objGR, lin.NumLinha, QdeaCopiar);
+
+                    // precisamos aqui de um metodo que permita actualizar a Qde Satisfeita da linha de encomenda.  Existe em VB mas ainda não sei qual é em c#
+
+                    PriEngine.Engine.IniciaTransaccao();
+                    PriEngine.Engine.Comercial.Compras.Actualiza(docOriginal_ERP, "");
+                    PriEngine.Engine.Comercial.Compras.Actualiza(docFinal_ERP, "");
                     PriEngine.Engine.TerminaTransaccao();
 
                     erro.Erro = 0;
@@ -427,11 +460,10 @@ namespace SINF_App.Lib_Primavera
                 erro.Descricao = ex.Message;
                 return erro;
             }
-        
-        
+
+
         }
 
-        */
 
 
 
@@ -494,6 +526,97 @@ namespace SINF_App.Lib_Primavera
         }
 
 
+
+        public static List<EncomendaFornecedor> ECF_List(string idDoc = null, string descricaoFornecedor = null, string idFornecedor = null, string idArtigo = null)
+        {
+
+            ErpBS objMotor = new ErpBS();
+
+            StdBELista objListCab;
+            StdBELista objListLin;
+            EncomendaFornecedor dc = new EncomendaFornecedor();
+            List<EncomendaFornecedor> listdc = new List<EncomendaFornecedor>();
+            LinhaDocCompra lindc = new LinhaDocCompra();
+            List<LinhaDocCompra> listlindc = new List<LinhaDocCompra>();
+
+            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='ECF'");
+                while (!objListCab.NoFim())
+                {
+                    bool desiredFornecedor = idFornecedor == null || idFornecedor.Equals(objListCab.Valor("Entidade"), StringComparison.Ordinal);
+                    bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("id"));
+                    bool desiredDescricaoFornecedor = descricaoFornecedor == null;
+
+                    if (!desiredDescricaoFornecedor)
+                    {
+                        string idFornecedorObtido = objListCab.Valor("Entidade");
+                        desiredDescricaoFornecedor = desiredDescricaoFornecedor || FornecedorID_Descricao_Existe(idFornecedorObtido, descricaoFornecedor);
+                    }
+                    
+
+
+                    if (!desiredFornecedor || !desiredDocumentID || !desiredDescricaoFornecedor)
+                    {
+                        objListCab.Seguinte();
+                        continue;
+                    }
+
+                    dc = new EncomendaFornecedor();
+                    dc.id = objListCab.Valor("id");
+                    dc.NumDocExterno = objListCab.Valor("NumDocExterno");
+                    dc.Entidade = objListCab.Valor("Entidade");
+                    dc.NumDoc = objListCab.Valor("NumDoc");
+                    dc.Data = objListCab.Valor("DataDoc");
+                    dc.TotalMerc = objListCab.Valor("TotalMerc");
+                    dc.Serie = objListCab.Valor("Serie");
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecCompras, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido, Armazem, Lote from LinhasCompras where IdCabecCompras='" + dc.id + "' order By NumLinha");
+                    listlindc = new List<LinhaDocCompra>();
+
+
+                    bool desiredProductPresent = idArtigo == null;
+
+
+                    while (!objListLin.NoFim())
+                    {
+
+                        if (!desiredProductPresent)
+                        {//if we havent found the product yet
+                            desiredProductPresent = idArtigo.Equals(objListLin.Valor("Artigo"), StringComparison.Ordinal);//check ig this is it
+                        }
+
+                        lindc = new LinhaDocCompra();
+                        lindc.IdCabecDoc = objListLin.Valor("idCabecCompras");
+                        lindc.CodArtigo = objListLin.Valor("Artigo");
+                        lindc.DescArtigo = objListLin.Valor("Descricao");
+                        lindc.Quantidade = objListLin.Valor("Quantidade");
+                        lindc.Unidade = objListLin.Valor("Unidade");
+                        lindc.Desconto = objListLin.Valor("Desconto1");
+                        lindc.PrecoUnitario = objListLin.Valor("PrecUnit");
+                        lindc.TotalILiquido = objListLin.Valor("TotalILiquido");
+                        lindc.TotalLiquido = objListLin.Valor("PrecoLiquido");
+                        lindc.Armazem = objListLin.Valor("Armazem");
+                        lindc.Lote = objListLin.Valor("Lote");
+
+                        listlindc.Add(lindc);
+                        objListLin.Seguinte();
+                    }
+
+                    if (!desiredProductPresent)
+                    {
+                        objListCab.Seguinte();
+                        continue;
+                    }
+                    dc.LinhasDoc = listlindc;
+
+                    listdc.Add(dc);
+                    objListCab.Seguinte();
+                }
+            }
+            return listdc;
+
+
+        }
 
         public static RespostaErro VGR_New(DocCompra dc)
         {
@@ -755,6 +878,57 @@ namespace SINF_App.Lib_Primavera
             }
             else
                 return null;
+        }
+
+
+
+        // ---------------- Fornecedores ---------------------------
+
+        /**
+         * 
+         * Retorna true se o id e a descriçao de um fornecedor corresponderem. Se perfectMatch=false, entao é verificado se a descriçao fornecida está contida na descricao real
+         * 
+         * 
+         **/
+        public static bool FornecedorID_Descricao_Existe(string id, string desc, bool perfectMatch = false)
+        {
+
+            if (id == null || desc == null) return false;
+
+
+            StdBELista objList;
+
+
+
+            string queryString = "SELECT Fornecedor, Nome FROM Fornecedores WHERE Fornecedor = '" + id+"'";
+            objList = PriEngine.Engine.Consulta(queryString);
+
+
+            if (perfectMatch)
+            {
+                while (!objList.NoFim())
+                {
+                    if (desc.Equals(objList.Valor("Nome"), StringComparison.Ordinal)) return true;
+                    objList.Seguinte();
+
+                }
+
+            }
+
+            else
+            {
+
+                while (!objList.NoFim())
+                {
+                    string name = objList.Valor("Nome");
+                    if (name.Contains(desc)) return true;
+                    objList.Seguinte();
+
+                }
+
+            }
+
+            return false;
         }
     }
 }
