@@ -20,7 +20,7 @@ namespace SINF_App.Controllers
         {
             return SINF_App.Lib_Primavera.Comercial.ListaArtigos();
         }
-
+        //TODO: cenas
 
         // GET api/artigo/5    
         public Artigo Get(string id)

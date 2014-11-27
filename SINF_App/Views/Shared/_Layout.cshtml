@@ -19,14 +19,41 @@
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Login", "Login", "Home", new { area = "" }, null)</li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
     @RenderBody()
+    <div>
+        <ul id="products">
 
+        </ul>
+    </div>
+    @*<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>*@
+    
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+    var uri = 'api/Artigos/Get';
+
+    $(document).ready(function () {
+        // Send an AJAX request
+        $.getJSON(uri)
+            .done(function (data) {
+                // On success, 'data' contains a list of products.
+                $.each(data, function (key, item) {
+                    console.log(item);
+                    // Add a list item for the product.
+                    //$('<li>', { text: formatItem(item) }).appendTo($('#products'));
+                    $('#products').append($("<li></li>").text(item.DescArtigo));
+                });
+            });
+    });
+
+    </script>
 </body>
 </html>

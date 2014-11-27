@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SINF_App.Models;
+using System.Web.Mvc;
+using System.Web;
 
 namespace SINF_App.Controllers
 {
@@ -29,5 +31,17 @@ namespace SINF_App.Controllers
                 return Request.CreateResponse(HttpStatusCode.Forbidden,erro);
             }
         }
+
+         
+
+         //public HttpResponseMessage Login()
+         //{
+             
+         //    dynamic model = new { Name = "login" };
+         //    var response = new HttpResponseMessage(HttpStatusCode.OK);
+         //    string viewpath = HttpContext.Current.Server.MapPath("@~/Views/Login/Login.cshtml");
+         //    var template = File
+         //}
+      
     }
 }
