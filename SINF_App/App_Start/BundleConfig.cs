@@ -27,8 +27,8 @@ namespace SINF_App
 
             
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css",
-                "~/Content/themes/bootstrap.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css",
+                "~/Content/bootstrap.css", "~/Content/bootstrap-theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
