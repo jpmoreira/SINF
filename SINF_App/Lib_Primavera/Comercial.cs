@@ -9,6 +9,7 @@ using Interop.GcpBE800;
 using ADODB;
 using Interop.IGcpBS800;
 using SINF_App.Models;
+
 //using Interop.StdBESql800;
 //using Interop.StdBSSql800;
 
@@ -64,7 +65,7 @@ namespace SINF_App.Lib_Primavera
 
         # region Cliente
 
-        public static List<Cliente> ListaClientes()
+        public static List<Cliente> ListaClientes(Login loginInfo)
         {
             ErpBS objMotor = new ErpBS();
 
@@ -74,7 +75,7 @@ namespace SINF_App.Lib_Primavera
             List<Cliente> listClientes = new List<Cliente>();
 
 
-            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
@@ -100,14 +101,14 @@ namespace SINF_App.Lib_Primavera
                 return null;
         }
 
-        public static Cliente GetCliente(string codCliente)
+        public static Cliente GetCliente(Login loginInfo,string codCliente)
         {
             ErpBS objMotor = new ErpBS();
             GcpBECliente objCli = new GcpBECliente();
 
             Cliente myCli = new Cliente();
 
-            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName,loginInfo.Password) == true)
             {
 
                 if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == true)
@@ -129,7 +130,7 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static RespostaErro UpdCliente(Cliente cliente)
+        public static RespostaErro UpdCliente(Login loginInfo,Cliente cliente)
         {
             RespostaErro erro = new RespostaErro();
             ErpBS objMotor = new ErpBS();
@@ -138,7 +139,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
                 {
 
                     if (PriEngine.Engine.Comercial.Clientes.Existe(cliente.CodCliente) == false)
@@ -184,7 +185,7 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static RespostaErro DelCliente(string codCliente)
+        public static RespostaErro DelCliente(Login loginInfo,string codCliente)
         {
 
             RespostaErro erro = new RespostaErro();
@@ -194,7 +195,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
                 {
                     if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == false)
                     {
@@ -230,7 +231,7 @@ namespace SINF_App.Lib_Primavera
         }
 
 
-        public static RespostaErro InsereClienteObj(Cliente cli)
+        public static RespostaErro InsereClienteObj(Login loginInfo,Cliente cli)
         {
 
             RespostaErro erro = new RespostaErro();
@@ -238,7 +239,7 @@ namespace SINF_App.Lib_Primavera
             GcpBECliente myCli = new GcpBECliente();
             try
             {
-                if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
                 {
 
                     myCli.set_Cliente(cli.CodCliente);
@@ -297,14 +298,14 @@ namespace SINF_App.Lib_Primavera
 
 
         #region Artigo
-        public static Artigo GetArtigo(string codArtigo)
+        public static Artigo GetArtigo(Login loginInfo,string codArtigo)
         {
 
 
             GcpBEArtigo objArtigo = new GcpBEArtigo();
             Artigo myArt = new Artigo();
 
-            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
             {
 
                 if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
@@ -315,7 +316,7 @@ namespace SINF_App.Lib_Primavera
                 {
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
                     myArt.CodArtigo = objArtigo.get_Artigo();
-                    myArt.DescArtigo = objArtigo.get_Descricao();
+                    myArt.itigo = objArtigo.get_Descricao();
 
                     return myArt;
                 }
@@ -328,7 +329,7 @@ namespace SINF_App.Lib_Primavera
 
         }
 
-        public static List<Artigo> ListaArtigos()
+        public static List<Artigo> ListaArtigos(Login loginInfo)
         {
             ErpBS objMotor = new ErpBS();
 
@@ -337,7 +338,7 @@ namespace SINF_App.Lib_Primavera
             Artigo art = new Artigo();
             List<Artigo> listArts = new List<Artigo>();
 
-            if (PriEngine.InitializeCompany(Comercial.companyName, Comercial.userName, Comercial.passWord) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
             {
 
                 objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
@@ -369,105 +370,156 @@ namespace SINF_App.Lib_Primavera
 
 
         #region Encomenda
-        public static RespostaErro TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, List<int> quantidadesAConverter)
+        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter,string codDocExterno)
         {
+            
+              RespostaErro erro = new RespostaErro();
 
-            RespostaErro erro = new RespostaErro();
+            GcpBEDocumentoCompra objInicial;
 
+            GcpBEDocumentoCompra objFinal = new GcpBEDocumentoCompra();
 
-            GcpBEDocumentoCompra docOriginal_ERP = documentoOriginal.toERPType();
-            GcpBEDocumentoCompra docFinal_ERP = new GcpBEDocumentoCompra();
+            GcpBELinhasDocumentoCompra objLinEnc = new GcpBELinhasDocumentoCompra();
 
-            docFinal_ERP.set_Entidade(docOriginal_ERP.get_Entidade());
-            docFinal_ERP.set_Serie(DateTime.Now.ToString("yyyy"));
-            docFinal_ERP.set_Tipodoc(DocCompra.typeString(tipoFinal));
-            docFinal_ERP.set_TipoEntidade("F");//Fornecedor???
-
-
-            //GcpBEDocumentoCompra objGR = new GcpBEDocumentoCompra();
-            GcpBELinhasDocumentoCompra linhas_originais = docOriginal_ERP.get_Linhas();
             PreencheRelacaoCompras rl = new PreencheRelacaoCompras();
-            docFinal_ERP = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(docFinal_ERP, rl);//wtf does this do???
+
+
 
             List<LinhaDocCompra> lstlindc = new List<LinhaDocCompra>();
 
+
+
             try
+
             {
-                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+
+                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "_admin") == true)
+
                 {
+
                 
 
 
+                    objInicial=PriEngine.Engine.Comercial.Compras.EditaID(documentoOriginal.id);//get original document
 
-                    //objEnc = PriEngine.Engine.Comercial.Compras.Edita("000", "ECF", "2013", 3);
-
-
-                    // objGR = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(objGR,rl);
+                   
 
 
-                    for (int i = 0; i < documentoOriginal.LinhasDoc.Count; i++)
-                    {//for each line
 
-                        LinhaDocCompra lin = documentoOriginal.LinhasDoc[i];
-                        int valorAConverter = quantidadesAConverter[i];
+                    // --- Criar os cabeçalhos da GR
 
-                        if (valorAConverter > 0)
+                    objFinal.set_Entidade(objInicial.get_Entidade());
+
+                    objFinal.set_Serie(documentoOriginal.Serie);
+
+                    objFinal.set_Tipodoc("VFA");
+
+                    objFinal.set_TipoEntidade("F");
+                    objFinal.set_NumDocExterno(objInicial.get_NumDocExterno()+1);//Should be something else
+
+
+
+                    objFinal = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(objFinal,rl);
+
+                    GcpBELinhasDocumentoCompra linhasOriginal = objInicial.get_Linhas();
+
+                    foreach (KeyValuePair<int, double> entry in quantidadesAConverter)
+                    {
+
+                        int nrLinha = entry.Key;
+                        double quantAConverter = entry.Value;
+
+
+                        //faz verificaçoes necessarias
+                        if (quantAConverter == 0.0) continue;
+                        double quantPossivelDeConverter = 0;
+
+
+                        if (nrLinha > linhasOriginal.NumItens - 1) continue;//if the line doesnt exist continu
+                        GcpBELinhaDocumentoCompra line = linhasOriginal[nrLinha+1];
+
+                        double q = line.get_Quantidade();
+                        double qs = line.get_QuantSatisfeita();
+                        quantPossivelDeConverter = line.get_Quantidade() - line.get_QuantSatisfeita();
+                       
+
+                        if (quantAConverter > quantPossivelDeConverter)
                         {
-
-                            //PriEngine.Engine.Comercial.Vendas.AdicionaLinha(myEnc, lin.CodArtigo, lin.Quantidade, "", "", lin.PrecoUnitario, lin.Desconto);
-                            PriEngine.Engine.Comercial.Internos.CopiaLinha("C", docOriginal_ERP, "C", docFinal_ERP, lin.NumLinha, valorAConverter);
-
-                            foreach (GcpBELinhaDocumentoCompra lineToTrans in linhas_originais)
-                            {
-                                if (lineToTrans.get_NumLinDocOriginal() == lin.NumLinha)//if we find the line we are converting
-                                {
-
-                                    lineToTrans.set_QuantSatisfeita(lineToTrans.get_QuantSatisfeita() + valorAConverter);
-
-                                }
-
-                            }
-
- 
+                            erro.Descricao="Impossivel converter quantidade desejada para linha número " + nrLinha;
+                            erro.Erro = 427;//change this code
+                            return erro;
                         }
 
+
+                        //tudo está ok aqui... entao faz conversao
+
+                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha + 1, quantAConverter);
+
+
+                        line.set_QuantSatisfeita(line.get_QuantSatisfeita() + quantAConverter);
+
+                       
                     }
-                    // façam p.f. o ciclo para percorrer as linhas da encomenda que pretendem copiar
-                     
-                    //double QdeaCopiar;
-                    //PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objEnc, "C", objGR, lin.NumLinha, QdeaCopiar);
-                       
-                        // precisamos aqui de um metodo que permita actualizar a Qde Satisfeita da linha de encomenda.  Existe em VB mas ainda não sei qual é em c#
-                       
+
+
+
+
+       
+
                     PriEngine.Engine.IniciaTransaccao();
-                    PriEngine.Engine.Comercial.Compras.Actualiza(docOriginal_ERP, "");
-                    PriEngine.Engine.Comercial.Compras.Actualiza(docFinal_ERP, "");
+
+                    PriEngine.Engine.Comercial.Compras.Actualiza(objInicial, "");
+
+                    PriEngine.Engine.Comercial.Compras.Actualiza(objFinal, "");
+
+
+
                     PriEngine.Engine.TerminaTransaccao();
 
-                    erro.Erro = 0;
-                    erro.Descricao = "Sucesso";
-                    return erro;
+
+
+                    return DocCompra.fromERPType(objFinal);
+
                 }
+
                 else
+
                 {
+
                     erro.Erro = 1;
+
                     erro.Descricao = "Erro ao abrir empresa";
+
                     return erro;
+
+
 
                 }
 
-            }
-            catch (Exception ex)
-            {
-                PriEngine.Engine.DesfazTransaccao();
-                erro.Erro = 1;
-                erro.Descricao = ex.Message;
-                return erro;
-            }
-        
-        
-        }
 
+
+            }
+
+            catch (Exception ex)
+
+            {
+
+                PriEngine.Engine.DesfazTransaccao();
+
+                erro.Erro = 1;
+
+                erro.Descricao = ex.Message;
+
+                return erro;
+
+            }
+
+        
+
+        
+
+        }
+        
 
 
         #endregion Encomenda;
@@ -574,7 +626,7 @@ namespace SINF_App.Lib_Primavera
                     dc.Data = objListCab.Valor("DataDoc");
                     dc.TotalMerc = objListCab.Valor("TotalMerc");
                     dc.Serie = objListCab.Valor("Serie");
-                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecCompras, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido, Armazem, Lote from LinhasCompras where IdCabecCompras='" + dc.id + "' order By NumLinha");
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecCompras, NumLinha, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido, Armazem, Lote from LinhasCompras where IdCabecCompras='" + dc.id + "' order By NumLinha");
                     listlindc = new List<LinhaDocCompra>();
 
 
@@ -601,6 +653,7 @@ namespace SINF_App.Lib_Primavera
                         lindc.TotalLiquido = objListLin.Valor("PrecoLiquido");
                         lindc.Armazem = objListLin.Valor("Armazem");
                         lindc.Lote = objListLin.Valor("Lote");
+                        lindc.NumLinha = objListLin.Valor("NumLinha");
 
                         listlindc.Add(lindc);
                         objListLin.Seguinte();
@@ -849,7 +902,7 @@ namespace SINF_App.Lib_Primavera
 
         // --------------- Armazens ------------------------------
         #region Armazens
-        public static List<SINF_App.Models.Armazem> ListaArmazens()
+        public static List<SINF_App.Models.Armazem> ListaArmazens(Login loginInfo)
         {
             ErpBS objMotor = new ErpBS();
 
@@ -859,7 +912,7 @@ namespace SINF_App.Lib_Primavera
             List<Armazem> listArmazens = new List<Armazem>();
 
 
-            if (PriEngine.InitializeCompany(Comercial.companyName, "outro", "belaflor") == true)
+            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();

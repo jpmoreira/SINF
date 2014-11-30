@@ -11,10 +11,10 @@ namespace SINF_App.Controllers
     public class ArmazemController : ApiController
     {
 
-        public IEnumerable<Armazem> Get()
+        public IEnumerable<Armazem> Get(Login loginInfo)
         {
 
-            return SINF_App.Lib_Primavera.Comercial.ListaArmazens();
+            return SINF_App.Lib_Primavera.Comercial.ListaArmazens(loginInfo);
 
 
         }

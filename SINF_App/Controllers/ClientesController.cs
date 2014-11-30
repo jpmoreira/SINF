@@ -14,16 +14,16 @@ namespace SINF_App.Controllers
         //
         // GET: /Clientes/
 
-        public IEnumerable<Cliente> Get()
+        public IEnumerable<Cliente> Get(Login loginInfo)
         {
-            return SINF_App.Lib_Primavera.Comercial.ListaClientes();
+            return SINF_App.Lib_Primavera.Comercial.ListaClientes(loginInfo);
         }
 
 
         // GET api/cliente/5    
-        public Cliente Get(string id)
+        public Cliente Get(Login loginInfo,string id)
         {
-            Cliente cliente = SINF_App.Lib_Primavera.Comercial.GetCliente(id);
+            Cliente cliente = SINF_App.Lib_Primavera.Comercial.GetCliente(loginInfo,id);
             if (cliente == null)
             {
                 throw new HttpResponseException(
@@ -36,10 +36,10 @@ namespace SINF_App.Controllers
             }
         }
 
-        public HttpResponseMessage PostCliente (Cliente cliente)
+        public HttpResponseMessage PostCliente (Login loginInfo,Cliente cliente)
         {
             RespostaErro erro = new RespostaErro();
-            erro = SINF_App.Lib_Primavera.Comercial.InsereClienteObj(cliente);
+            erro = SINF_App.Lib_Primavera.Comercial.InsereClienteObj(loginInfo,cliente);
 
             if (erro.Erro == 0)
             {
@@ -58,14 +58,14 @@ namespace SINF_App.Controllers
         }
 
 
-        public HttpResponseMessage Put(int id,Cliente cliente)
+        public HttpResponseMessage Put(Login loginInfo,Cliente cliente)
         {
 
            RespostaErro erro = new RespostaErro();
 
             try
             {
-                erro =SINF_App.Lib_Primavera.Comercial.UpdCliente(cliente);
+                erro =SINF_App.Lib_Primavera.Comercial.UpdCliente(loginInfo,cliente);
                 if (erro.Erro == 0)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
@@ -84,7 +84,7 @@ namespace SINF_App.Controllers
 
 
 
-        public HttpResponseMessage Delete(string id)
+        public HttpResponseMessage Delete(Login loginInfo,string id)
         {
 
 
@@ -93,7 +93,7 @@ namespace SINF_App.Controllers
             try
             {
 
-                erro = SINF_App.Lib_Primavera.Comercial.DelCliente(id);
+                erro = SINF_App.Lib_Primavera.Comercial.DelCliente(loginInfo,id);
 
                 if (erro.Erro == 0)
                 {

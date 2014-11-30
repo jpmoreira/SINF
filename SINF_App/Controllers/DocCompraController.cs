@@ -15,15 +15,28 @@ namespace SINF_App.Controllers
     public class DocCompraController : ApiController
     {
 
-        public class FiltroEncomendas
-        {
 
+        public class Filtro
+        {
             public Login loginInfo;
             public string idDocument;
+        }
+
+        public class FiltroEncomendas: Filtro
+        {
+
             public string descricaoFornecedor;
             public string idFornecedor;
             public string idArtigo;
 
+
+        }
+
+        public class FiltroConversao : Filtro
+        {
+            public string nrDocumentoExterno;
+            public Dictionary<int, double> quantidades;
+            public string tipoDestino;
 
         }
 
@@ -84,7 +97,23 @@ namespace SINF_App.Controllers
 
             return null;
         }
-        
+
+
+        public HttpResponseMessage ConvertDocument(FiltroConversao f)
+        {
+
+            DocCompra d = new DocCompra();
+            d.id = f.idDocument;
+
+
+            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.nrDocumentoExterno);
+
+
+
+
+            return null;
+
+        }
 
        [System.Web.Mvc.HttpGet]//this is a get method!!!!
         public Object Testx()

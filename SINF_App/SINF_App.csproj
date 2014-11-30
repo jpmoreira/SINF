@@ -261,6 +261,7 @@
     <Compile Include="Controllers\DocCompraController.cs" />
     <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Models\EncomendaFornecedor.cs" />
+    <Compile Include="Models\Factura.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RecepcaoController.cs" />

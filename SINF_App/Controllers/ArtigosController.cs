@@ -16,16 +16,16 @@ namespace SINF_App.Controllers
         //
         // GET: /Artigos/
 
-        public IEnumerable<Artigo> Get()
+        public IEnumerable<Artigo> Get(Login loginInfo)
         {
-            return SINF_App.Lib_Primavera.Comercial.ListaArtigos();
+            return SINF_App.Lib_Primavera.Comercial.ListaArtigos(loginInfo);
         }
 
 
         // GET api/artigo/5    
-        public Artigo Get(string id)
+        public Artigo Get(Login loginInfo,string id)
         {
-            Artigo artigo = SINF_App.Lib_Primavera.Comercial.GetArtigo(id);
+            Artigo artigo = SINF_App.Lib_Primavera.Comercial.GetArtigo(loginInfo,id);
             if (artigo == null)
             {
                 throw new HttpResponseException(

@@ -14,14 +14,20 @@ namespace SINF_App.Models
     {
 
 
-        public GcpBEDocumentoCompra toERPType()
+        public override GcpBEDocumentoCompra toERPType()
         {
 
-           GcpBEDocumentoCompra doc= base.toERPType();
-           doc.set_Tipodoc("ECF");
+           GcpBEDocumentoCompra doc = new GcpBEDocumentoCompra();
+           doc.set_Tipodoc(DocCompra.typeString(TipoDoc.Encomenda_Fornecedor));
+           return base.toERPType(doc);
 
-           return doc;
+          
 
+        }
+
+        public EncomendaFornecedor()
+        {
+            
         }
     }
 }

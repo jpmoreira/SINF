@@ -61,14 +61,14 @@ namespace SINF_App.Controllers
         }
 
 
-        public HttpResponseMessage Put(int id, Cliente cliente)
+        public HttpResponseMessage Put(Login loginInfo,Cliente cliente)
         {
 
             RespostaErro erro = new RespostaErro();
 
             try
             {
-                erro = SINF_App.Lib_Primavera.Comercial.UpdCliente(cliente);
+                erro = SINF_App.Lib_Primavera.Comercial.UpdCliente(loginInfo,cliente);
                 if (erro.Erro == 0)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, erro.Descricao);
@@ -87,7 +87,7 @@ namespace SINF_App.Controllers
 
 
 
-        public HttpResponseMessage Delete(string id)
+        public HttpResponseMessage Delete(Login loginInfo,string id)
         {
 
 
@@ -96,7 +96,7 @@ namespace SINF_App.Controllers
             try
             {
 
-                erro = SINF_App.Lib_Primavera.Comercial.DelCliente(id);
+                erro = SINF_App.Lib_Primavera.Comercial.DelCliente(loginInfo,id);
 
                 if (erro.Erro == 0)
                 {
