@@ -35,7 +35,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany(login.Empresa, login.UserName, login.Password) == true)
+                if (PriEngine.InitializeCompany(login.Company, login.Username, login.Password) == true)
                 {
                     erro.Erro = 0;
                     erro.Descricao = "Sucesso";
@@ -393,7 +393,7 @@ namespace SINF_App.Lib_Primavera
 
             try
             {
-                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
                 {
                 
 

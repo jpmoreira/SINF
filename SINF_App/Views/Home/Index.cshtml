@@ -1,1 +1,17 @@
-﻿
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Session username</h3>
+    <label>@Session["Username"]</label>
+</div>
+<div>
+    <h3>Session password</h3>
+    <label>@Session["Password"]</label>
+</div>
+<div>
+    <h3>Session Company</h3>
+    <label>@Session["Company"]</label>
+</div>

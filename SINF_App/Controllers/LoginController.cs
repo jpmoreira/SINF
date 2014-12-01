@@ -14,21 +14,36 @@ namespace SINF_App.Controllers
     {
          public HttpResponseMessage PostLogin(Login login)
          {
+             
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(login);
-
+            
             if (erro.Erro == 0)
             {
-                var response = Request.CreateResponse(
-                   HttpStatusCode.Created, login.UserName);
-                //string uri = Url.Link("DefaultApi", new { UserName = login.UserName});
-                //response.Headers.Location = new Uri(uri);
-                return response;
+                try
+                {
+                    var response = Request.CreateResponse(HttpStatusCode.Created, login.Username);
+                    return response;
+                    //string uri = Url.Link("DefaultApi", new { Username = login.Username});
+                    //response.Headers.Location = new Uri(uri);
+                }
+                catch (ArgumentNullException theException)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.Created);
+                }
+                
             }
 
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Forbidden,erro);
+                try
+                {
+                    return Request.CreateResponse(HttpStatusCode.Forbidden, erro);
+                }
+                catch(ArgumentNullException theException){
+                    System.Console.WriteLine("Caught it");
+                    return new HttpResponseMessage(HttpStatusCode.Forbidden);
+                }
             }
         }
 

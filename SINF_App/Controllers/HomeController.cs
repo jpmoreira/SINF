@@ -25,11 +25,20 @@ namespace SINF_App.Controllers
         [HttpPost]
         public ViewResult Login(Login loginInfo)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                RedirectToRouteResult resultRoute = RedirectToAction("PostLogin", "Login", loginInfo);
-                System.Console.WriteLine(resultRoute.ToString());          
-       
+                //RedirectToRouteResult resultRoute = RedirectToAction("PostLogin", "Login", loginInfo);
+                //System.Console.WriteLine(resultRoute.ToString()); 
+                LoginController logC = new LoginController();
+                if (logC.PostLogin(loginInfo).IsSuccessStatusCode)
+                {
+                    Session["Username"] = loginInfo.Username;
+                    Session["Password"] = loginInfo.Password;
+                    Session["Company"] = loginInfo.Company;
+                    return View("Index");
+                }
+                    
+
             }
 
             return View();

@@ -10,7 +10,7 @@ namespace SINF_App.Models
     {
         [Required(ErrorMessage = "Username is required")] // make the field required
         [Display(Name = "Username")]  // Set the display name of the field
-        public string UserName{ get; set; }
+        public string Username{ get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [Display(Name = "Password")]
