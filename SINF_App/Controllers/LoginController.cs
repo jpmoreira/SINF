@@ -13,39 +13,23 @@ namespace SINF_App.Controllers
     public class LoginController : ApiController
     {
          public HttpResponseMessage PostLogin(Login login)
-        {
+         {
              
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(login);
-
+            
             if (erro.Erro == 0)
             {
-                try
-                {
-                    var response = Request.CreateResponse(HttpStatusCode.Created, login.Username);
-                    return response;
-                    //string uri = Url.Link("DefaultApi", new { Username = login.Username});
-                //response.Headers.Location = new Uri(uri);
-                }
-                catch (ArgumentNullException theException)
-                {
-                    return new HttpResponseMessage(HttpStatusCode.Created);
-                }
+
+                return new { Username = login.Username };
                 
             }
 
             else
             {
-                try
-                {
-                    return Request.CreateResponse(HttpStatusCode.Forbidden, erro);
+                return erro;
             }
-                catch(ArgumentNullException theException){
-                    System.Console.WriteLine("Caught it");
-                    return new HttpResponseMessage(HttpStatusCode.Forbidden);
         }
-    }
-}
 
          
 
