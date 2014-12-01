@@ -12,7 +12,7 @@ namespace SINF_App.Controllers
 {
     public class LoginController : ApiController
     {
-         public HttpResponseMessage PostLogin(Login login)
+         public Object PostLogin(Login login)
          {
              
             RespostaErro erro = new RespostaErro();
