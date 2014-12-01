@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SINF_App.Models;
+using Newtonsoft.Json;
 
 
 
@@ -44,6 +45,16 @@ namespace SINF_App.Controllers
         {
 
 
+            var headers = Request.Headers;
+            var content = Request.Content;
+            /*
+            var headers=Request.Headers;
+            HttpContent content=Request.Content;
+            
+            string jsonContent = content.ReadAsStringAsync().Result;
+            filtro = JsonConvert.DeserializeObject<FiltroEncomendas>(jsonContent);
+            System.Console.WriteLine();
+            */
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
 

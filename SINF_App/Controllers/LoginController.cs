@@ -18,7 +18,7 @@ namespace SINF_App.Controllers
             if (erro.Erro == 0)
             {
                 var response = Request.CreateResponse(
-                   HttpStatusCode.Created, login.UserName);
+                    HttpStatusCode.Created, new {UserName = login.UserName});
                 //string uri = Url.Link("DefaultApi", new { UserName = login.UserName});
                 //response.Headers.Location = new Uri(uri);
                 return response;

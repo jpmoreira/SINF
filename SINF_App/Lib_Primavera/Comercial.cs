@@ -316,7 +316,7 @@ namespace SINF_App.Lib_Primavera
                 {
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
                     myArt.CodArtigo = objArtigo.get_Artigo();
-                    myArt.itigo = objArtigo.get_Descricao();
+                    myArt.DescArtigo = objArtigo.get_Descricao();
 
                     return myArt;
                 }
