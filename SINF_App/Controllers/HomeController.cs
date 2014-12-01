@@ -30,14 +30,43 @@ namespace SINF_App.Controllers
                 //RedirectToRouteResult resultRoute = RedirectToAction("PostLogin", "Login", loginInfo);
                 //System.Console.WriteLine(resultRoute.ToString()); 
                 LoginController logC = new LoginController();
-                if (logC.PostLogin(loginInfo).IsSuccessStatusCode)
+                if (logC.PostLogin(loginInfo).GetType() != typeof(RespostaErro))
                 {
                     Session["Username"] = loginInfo.Username;
                     Session["Password"] = loginInfo.Password;
                     Session["Company"] = loginInfo.Company;
                     return View("Index");
                 }
-                    
+
+
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult DocsCompra()
+        {
+            
+            try
+            {
+                Login user = new Login();
+                user.Company=Session["Company"].ToString();
+                user.Password=Session["Password"].ToString();
+                user.Username=Session["Username"].ToString();
+            }
+            catch(Exception e)
+            {
+                return View("Error");
+            }
+            if (ModelState.IsValid)
+            {
+                //RedirectToRouteResult resultRoute = RedirectToAction("PostLogin", "Login", loginInfo);
+                //System.Console.WriteLine(resultRoute.ToString()); 
+                DocCompraController docCmpC = new DocCompraController();
+
+                //docCmpC.FetchEncomendas()
+
 
             }
 
