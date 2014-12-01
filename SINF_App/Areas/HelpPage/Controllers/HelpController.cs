@@ -40,5 +40,7 @@ namespace SINF_App.Areas.HelpPage.Controllers
 
             return View("Error");
         }
+
+       
     }
 }

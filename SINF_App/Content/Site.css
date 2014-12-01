@@ -4,6 +4,14 @@
     padding: 0;
 }
 
+/*body {
+  padding-top: 50px;
+}*/
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
 body {
     background-color: #fff;
     border-top: solid 10px #000;
@@ -11,7 +19,7 @@ body {
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
-    padding: 0;
+    padding: 50px;
 }
 
 a {

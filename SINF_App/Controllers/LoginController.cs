@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SINF_App.Models;
+using System.Web.Mvc;
+using System.Web;
 
 namespace SINF_App.Controllers
 {
@@ -12,22 +14,49 @@ namespace SINF_App.Controllers
     {
          public HttpResponseMessage PostLogin(Login login)
         {
+             
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(login);
 
             if (erro.Erro == 0)
             {
-                var response = Request.CreateResponse(
-                    HttpStatusCode.Created, new {UserName = login.UserName});
-                //string uri = Url.Link("DefaultApi", new { UserName = login.UserName});
+                try
+                {
+                    var response = Request.CreateResponse(HttpStatusCode.Created, login.Username);
+                    return response;
+                    //string uri = Url.Link("DefaultApi", new { Username = login.Username});
                 //response.Headers.Location = new Uri(uri);
-                return response;
+                }
+                catch (ArgumentNullException theException)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.Created);
+                }
+                
             }
 
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Forbidden,erro);
+                try
+                {
+                    return Request.CreateResponse(HttpStatusCode.Forbidden, erro);
             }
+                catch(ArgumentNullException theException){
+                    System.Console.WriteLine("Caught it");
+                    return new HttpResponseMessage(HttpStatusCode.Forbidden);
         }
+    }
+}
+
+         
+
+         //public HttpResponseMessage Login()
+         //{
+             
+         //    dynamic model = new { Name = "login" };
+         //    var response = new HttpResponseMessage(HttpStatusCode.OK);
+         //    string viewpath = HttpContext.Current.Server.MapPath("@~/Views/Login/Login.cshtml");
+         //    var template = File
+         //}
+      
     }
 }

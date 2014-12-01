@@ -36,7 +36,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany(login.Empresa, login.UserName, login.Password) == true)
+                if (PriEngine.InitializeCompany(login.Company, login.Username, login.Password) == true)
                 {
                     erro.Erro = 0;
                     erro.Descricao = "Sucesso";
@@ -372,8 +372,8 @@ namespace SINF_App.Lib_Primavera
         #region Encomenda
         public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter,string codDocExterno)
         {
-            
-              RespostaErro erro = new RespostaErro();
+
+            RespostaErro erro = new RespostaErro();
 
             GcpBEDocumentoCompra objInicial;
 
@@ -392,11 +392,9 @@ namespace SINF_App.Lib_Primavera
             try
 
             {
-
-                if (PriEngine.InitializeCompany("BELAFLOR", "admin", "_admin") == true)
-
+                if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
                 {
-
+                
                 
 
 
@@ -424,7 +422,7 @@ namespace SINF_App.Lib_Primavera
                     GcpBELinhasDocumentoCompra linhasOriginal = objInicial.get_Linhas();
 
                     foreach (KeyValuePair<int, double> entry in quantidadesAConverter)
-                    {
+                        {
 
                         int nrLinha = entry.Key;
                         double quantAConverter = entry.Value;
@@ -441,8 +439,8 @@ namespace SINF_App.Lib_Primavera
                         double q = line.get_Quantidade();
                         double qs = line.get_QuantSatisfeita();
                         quantPossivelDeConverter = line.get_Quantidade() - line.get_QuantSatisfeita();
-                       
 
+ 
                         if (quantAConverter > quantPossivelDeConverter)
                         {
                             erro.Descricao="Impossivel converter quantidade desejada para linha número " + nrLinha;
@@ -460,9 +458,9 @@ namespace SINF_App.Lib_Primavera
 
                        
                     }
-
-
-
+                     
+                       
+                       
 
        
 
@@ -513,13 +511,13 @@ namespace SINF_App.Lib_Primavera
                 return erro;
 
             }
-
+        
         
 
         
 
         }
-        
+
 
 
         #endregion Encomenda;

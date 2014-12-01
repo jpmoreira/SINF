@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model SINF_App.Models.Login
+
+<div class="panel-body">
+
+
+    <h2>Login</h2>
+
+    <div class="col-lg-4">
+        @using (Html.BeginForm("Login", "Home", new { role = "form", @class = "form-horizontal col-md-2" }))
+        {
+            @*Username*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Username)
+            </div>
+
+            @*Password*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+
+            @*Company*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Company, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Company, new { placeholder = "Company", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Company)
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+
+
+        }
+    </div>
+</div> @*container*@
+
