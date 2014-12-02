@@ -31,14 +31,8 @@ namespace SINF_App.Controllers
                 //System.Console.WriteLine(resultRoute.ToString()); 
                 LoginController logC = new LoginController();
                 var response = logC.PostLogin(loginInfo);
-                if (logC.PostLogin(loginInfo).GetType() != typeof(RespostaErro))
-                {
-                    Session["Username"] = loginInfo.Username;
-                    Session["Password"] = loginInfo.Password;   //TODO Don't use Session, instead, javascrip on client side
-                    Session["Company"] = loginInfo.Company;
-                    
+                if (logC.PostLogin(loginInfo).GetType() != typeof(RespostaErro))                   
                     return View("Index");
-                }
             }
 
             return View();
