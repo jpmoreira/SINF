@@ -30,15 +30,15 @@ namespace SINF_App.Controllers
                 //RedirectToRouteResult resultRoute = RedirectToAction("PostLogin", "Login", loginInfo);
                 //System.Console.WriteLine(resultRoute.ToString()); 
                 LoginController logC = new LoginController();
+                var response = logC.PostLogin(loginInfo);
                 if (logC.PostLogin(loginInfo).GetType() != typeof(RespostaErro))
                 {
                     Session["Username"] = loginInfo.Username;
-                    Session["Password"] = loginInfo.Password;
+                    Session["Password"] = loginInfo.Password;   //TODO Don't use Session, instead, javascrip on client side
                     Session["Company"] = loginInfo.Company;
+                    
                     return View("Index");
                 }
-
-
             }
 
             return View();
@@ -47,15 +47,15 @@ namespace SINF_App.Controllers
         [HttpPost]
         public ViewResult DocsCompra()
         {
-            
+
             try
             {
                 Login user = new Login();
-                user.Company=Session["Company"].ToString();
-                user.Password=Session["Password"].ToString();
-                user.Username=Session["Username"].ToString();
+                user.Company = Session["Company"].ToString();
+                user.Password = Session["Password"].ToString();
+                user.Username = Session["Username"].ToString();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View("Error");
             }

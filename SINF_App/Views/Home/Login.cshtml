@@ -10,8 +10,8 @@
 
     <h2>Login</h2>
 
-    <div class="col-lg-4">
-        @using (Html.BeginForm("Login", "Home", new { role = "form", @class = "form-horizontal col-md-2" }))
+    <div class="col-lg-4" margin:"auto">
+        @using (Html.BeginForm("Login", "Home", new { @class = "col-md-2 form-horizontal", role = "form" }))
         {
             @*Username*@
             <div class="form-group">
@@ -39,5 +39,5 @@
 
         }
     </div>
-</div> @*container*@
+</div> @*panel-body*@
 

@@ -75,7 +75,7 @@ namespace SINF_App.Lib_Primavera
             List<Cliente> listClientes = new List<Cliente>();
 
 
-            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
@@ -108,7 +108,7 @@ namespace SINF_App.Lib_Primavera
 
             Cliente myCli = new Cliente();
 
-            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName,loginInfo.Password) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username,loginInfo.Password) == true)
             {
 
                 if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == true)
@@ -139,7 +139,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
                 {
 
                     if (PriEngine.Engine.Comercial.Clientes.Existe(cliente.CodCliente) == false)
@@ -195,7 +195,7 @@ namespace SINF_App.Lib_Primavera
             try
             {
 
-                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
                 {
                     if (PriEngine.Engine.Comercial.Clientes.Existe(codCliente) == false)
                     {
@@ -239,7 +239,7 @@ namespace SINF_App.Lib_Primavera
             GcpBECliente myCli = new GcpBECliente();
             try
             {
-                if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+                if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
                 {
 
                     myCli.set_Cliente(cli.CodCliente);
@@ -305,7 +305,7 @@ namespace SINF_App.Lib_Primavera
             GcpBEArtigo objArtigo = new GcpBEArtigo();
             Artigo myArt = new Artigo();
 
-            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
             {
 
                 if (PriEngine.Engine.Comercial.Artigos.Existe(codArtigo) == false)
@@ -338,7 +338,7 @@ namespace SINF_App.Lib_Primavera
             Artigo art = new Artigo();
             List<Artigo> listArts = new List<Artigo>();
 
-            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
             {
 
                 objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
@@ -910,7 +910,7 @@ namespace SINF_App.Lib_Primavera
             List<Armazem> listArmazens = new List<Armazem>();
 
 
-            if (PriEngine.InitializeCompany(loginInfo.Empresa, loginInfo.UserName, loginInfo.Password) == true)
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
             {
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
