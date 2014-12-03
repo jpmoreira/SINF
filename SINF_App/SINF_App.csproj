@@ -413,7 +413,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\DocsCompra.cshtml" />
+    <Content Include="Views\Login\_login_Layout.cshtml" />
+    <Content Include="Views\Home\Encomendas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

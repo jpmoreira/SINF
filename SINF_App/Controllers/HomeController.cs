@@ -32,14 +32,16 @@ namespace SINF_App.Controllers
                 LoginController logC = new LoginController();
                 var response = logC.PostLogin(loginInfo);
                 if (logC.PostLogin(loginInfo).GetType() != typeof(RespostaErro))
-                    return View("Index");
+                {
+                    return Encomendas(loginInfo);
+                }
             }
-
+            ViewBag.ErrorMessage = "Invalid Login";
             return View();
         }
 
-        
-        public ViewResult DocsCompra()
+
+        public ViewResult Encomendas(Login loginInfo)
         {
 
 
@@ -52,19 +54,15 @@ namespace SINF_App.Controllers
             filtro.descricaoFornecedor = null;
             filtro.idArtigo = null;
             filtro.idFornecedor = null;
-
-            filtro.loginInfo = new Login();
-            filtro.loginInfo.Company = "BELAFLOR";
-            filtro.loginInfo.Password = "belaflor2";
-            filtro.loginInfo.Username = "outro";
+            filtro.loginInfo = loginInfo;
+            ViewBag.loginInfo = filtro.loginInfo;
             var ans = docCmpC.FetchEncomendas(filtro);
 
-            //docCmpC.FetchEncomendas()
+            if (ans.GetType() != typeof(RespostaErro))
+                return View("Encomendas", ans);
 
-
-
-
-            return View(ans);
+            ViewBag.ErrorMessage = "Invalid Login";
+            return View("Login");
         }
 
     }

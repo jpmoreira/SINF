@@ -28,7 +28,7 @@
 
 <body id="body" class="fill">
     <div class="container-fluid fill">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" r5ole="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -41,28 +41,12 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>                       
-                        <li>@Html.ActionLink("Encomendas", "Encomendas", "Home", new { Username = ViewBag.loginInfo.Username, Company=ViewBag.loginInfo.Company,
-                           Password=ViewBag.loginInfo.Password  }, null)
-                        </li>
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>                        
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        <div id="hiddenform">
-            @using (Html.BeginForm())
-            {
-                <input type="text" name="Username" hidden/>
-                <input type="text" name="Password" hidden/>
-                <input type="text" name="Company" hidden/>
-                <input type="submit" hidden />
-            }
-        </div>
-
-        @*<div class="starter-template">
-                <h1>Bootstrap starter template</h1>
-                <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-            </div>*@
 
         @RenderBody()
 
@@ -87,3 +71,69 @@
 
 
 
+
+
+
+
+
+
+@*@model SINF_App.Models.Login
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_login_Layout</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>Login</legend>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Username)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Username)
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Company)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Company)
+                @Html.ValidationMessageFor(model => model.Company)
+            </div>
+    
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>*@

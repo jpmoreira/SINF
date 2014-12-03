@@ -1,12 +1,20 @@
 ﻿@{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Login/_login_Layout.cshtml";
 }
 
 @model SINF_App.Models.Login
 
 <div class="panel-body">
-
+    @if (@ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> @ViewBag.ErrorMessage
+        </div>
+    }
+        
+    
 
     <h2>Login</h2>
 
