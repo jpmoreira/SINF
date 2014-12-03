@@ -16,16 +16,16 @@ namespace SINF_App.Controllers
         //
         // GET: /Clientes/
 
-        public IEnumerable<DocVenda> Get()
+        public IEnumerable<DocCompra> Get(Login loginInfo)
         {
-            return SINF_App.Lib_Primavera.Comercial.Encomendas_List();
+            return SINF_App.Lib_Primavera.Comercial.Encomendas_List(loginInfo);
         }
 
 
         // GET api/cliente/5    
-        public DocVenda Get(string id)
+        public DocCompra Get(Login loginInfo,string id)
         {
-            DocVenda docvenda = SINF_App.Lib_Primavera.Comercial.Encomenda_Get(id);
+            DocCompra docvenda = SINF_App.Lib_Primavera.Comercial.Encomenda_Get(loginInfo,id);
             if (docvenda == null)
             {
                 throw new HttpResponseException(
@@ -39,10 +39,10 @@ namespace SINF_App.Controllers
         }
 
 
-        public HttpResponseMessage Post(DocVenda dv)
+        public HttpResponseMessage Post(Login info,DocVenda dv)
         {
             RespostaErro erro = new RespostaErro();
-            erro = SINF_App.Lib_Primavera.Comercial.Encomendas_New(dv);
+            erro = SINF_App.Lib_Primavera.Comercial.Encomendas_New(info,dv);
 
             if (erro.Erro == 0)
             {

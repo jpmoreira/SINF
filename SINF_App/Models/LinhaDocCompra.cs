@@ -83,6 +83,12 @@ namespace SINF_App.Models
             set;
         }
 
+        public double QuantidadeSatisfeita
+        {
+            get;
+            set;
+        }
+
 
         public GcpBELinhaDocumentoCompra toERPType()
         {
@@ -102,6 +108,7 @@ namespace SINF_App.Models
             linha.set_PrecoLiquido(TotalLiquido);
             linha.set_Armazem(Armazem);
             linha.set_Lote(Lote);
+            linha.set_QuantSatisfeita(QuantidadeSatisfeita);
 
 
 
