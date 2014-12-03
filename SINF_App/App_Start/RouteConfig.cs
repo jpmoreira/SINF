@@ -13,6 +13,14 @@ namespace SINF_App
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+
+            routes.MapRoute(
+                name: "Armazem",
+                url: "api/Armazem/",
+                defaults: new { controller = "Armazem", action = "Get" }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

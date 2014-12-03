@@ -11,7 +11,7 @@ namespace SINF_App.Controllers
     public class ArmazemController : ApiController
     {
 
-        public IEnumerable<Armazem> Get(Login loginInfo)
+        public IEnumerable<Armazem> Get([FromUri] Login loginInfo)
         {
 
             return SINF_App.Lib_Primavera.Comercial.ListaArmazens(loginInfo);

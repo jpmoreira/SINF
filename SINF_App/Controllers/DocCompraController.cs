@@ -37,6 +37,7 @@ namespace SINF_App.Controllers
         {
             public string nrDocumentoExterno;
             public Dictionary<int, double> quantidades;
+            public Dictionary<int, string> armazens;
             public string tipoDestino;
 
         }
@@ -58,7 +59,7 @@ namespace SINF_App.Controllers
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
 
-            if (erro.Erro == 0) return SINF_App.Lib_Primavera.Comercial.ECF_List(filtro.idDocument,filtro.descricaoFornecedor,filtro.idFornecedor,filtro.idArtigo);
+            if (erro.Erro == 0) return SINF_App.Lib_Primavera.Comercial.ECF_List(filtro.loginInfo,filtro.idDocument,filtro.descricaoFornecedor,filtro.idFornecedor,filtro.idArtigo);
 
             return erro;
         }
@@ -117,7 +118,7 @@ namespace SINF_App.Controllers
             d.id = f.idDocument;
 
 
-            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.nrDocumentoExterno);
+            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.armazens,f.nrDocumentoExterno);
 
 
 
@@ -130,7 +131,7 @@ namespace SINF_App.Controllers
         public Object Testx()
         {
 
-            List<EncomendaFornecedor> docs=Lib_Primavera.Comercial.ECF_List();
+            //List<EncomendaFornecedor> docs=Lib_Primavera.Comercial.ECF_List();
 
             return null;
 
