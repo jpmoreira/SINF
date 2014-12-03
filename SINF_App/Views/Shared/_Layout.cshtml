@@ -10,7 +10,7 @@
 
     <title>Conferencia e Recepção de Material</title>
 
-   
+
     <!-- Bootstrap core CSS -->
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
@@ -26,55 +26,55 @@
     <![endif]-->
 </head>
 
-<body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Recepção de material</a>
+<body id="body" class="fill">
+    <div class="container-fluid fill">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Recepção de material</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Login", "Login", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Guias", "DocsCompra", "Home", new { area = "" }, null)</li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Login", "Login", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Guias","DocsCompra", "Home", new { area ="" }, null)</li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </nav>
-
-    <div class="container">
+        </nav>
 
         @*<div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-        </div>*@
+                <h1>Bootstrap starter template</h1>
+                <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+            </div>*@
 
         @RenderBody()
-    </div><!-- /.container -->
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted">@DateTime.Now</p>
-        </div>
-    </footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/page")
-    @RenderSection("scripts", required: false)
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">@DateTime.Now</p>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/page")
+        @RenderSection("scripts", required: false)
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    </div>
 </body>
 </html>
 
-     
+
 
