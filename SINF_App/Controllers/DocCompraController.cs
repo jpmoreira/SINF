@@ -46,8 +46,8 @@ namespace SINF_App.Controllers
         {
 
 
-            var headers = Request.Headers;
-            var content = Request.Content;
+            //var headers = Request.Headers;
+            //var content = Request.Content;
             /*
             var headers=Request.Headers;
             HttpContent content=Request.Content;

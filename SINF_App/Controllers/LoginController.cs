@@ -31,16 +31,6 @@ namespace SINF_App.Controllers
             }
         }
 
-         
-
-         //public HttpResponseMessage Login()
-         //{
-             
-         //    dynamic model = new { Name = "login" };
-         //    var response = new HttpResponseMessage(HttpStatusCode.OK);
-         //    string viewpath = HttpContext.Current.Server.MapPath("@~/Views/Login/Login.cshtml");
-         //    var template = File
-         //}
       
     }
 }
