@@ -600,12 +600,18 @@ namespace SINF_App.Lib_Primavera
             List<LinhaDocCompra> listlindc = new List<LinhaDocCompra>();
 
             if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
-            {
+           {
                 objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='ECF'");
                 while (!objListCab.NoFim())
                 {
                     bool desiredFornecedor = idFornecedor == null || idFornecedor.Equals(objListCab.Valor("Entidade"), StringComparison.Ordinal);
-                    bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("id"));
+                    //bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("id"));
+                    bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("NumDoc").ToString());
+                    
+                    var test_id = objListCab.Valor("id");
+                    var test_NumDoc = objListCab.Valor("NumDoc");
+
+
                     bool desiredDescricaoFornecedor = descricaoFornecedor == null;
 
                     if (!desiredDescricaoFornecedor)
