@@ -64,6 +64,17 @@ namespace SINF_App.Controllers
             return erro;
         }
 
+        public Object FetchEncomenda(FiltroEncomendas filtro)
+        {
+            RespostaErro erro = new RespostaErro();
+            erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
+            if (erro.Erro == 0)
+                return SINF_App.Lib_Primavera.Comercial.ECF_List(filtro.loginInfo, filtro.idDocument, filtro.descricaoFornecedor, filtro.idFornecedor, filtro.idArtigo);
+
+            return erro;
+
+        }
+
         /*
         // GET api/cliente/5    
         public Lib_Primavera.Model.DocCompra Get(string id)

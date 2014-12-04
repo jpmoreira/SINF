@@ -1,0 +1,57 @@
+﻿@model SINF_App.Models.DocCompra
+
+@{
+    ViewBag.Title = "DetailOrder";
+}
+
+<h2>DetailOrder</h2>
+
+<fieldset>
+    <legend>DocCompra</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NumDocExterno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumDocExterno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Entidade)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Entidade)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NumDoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumDoc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Data)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Data)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalMerc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalMerc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Serie)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Serie)
+    </div>
+</fieldset>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

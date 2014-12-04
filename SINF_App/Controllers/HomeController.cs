@@ -65,5 +65,21 @@ namespace SINF_App.Controllers
             return View("Login");
         }
 
+        public ViewResult DetailOrder(Login loginInfo, string idDocument)
+        {
+            DocCompraController docCmpC = new DocCompraController();
+            DocCompraController.FiltroEncomendas filterOrder = new DocCompraController.FiltroEncomendas();
+            filterOrder.descricaoFornecedor = null;
+            filterOrder.idArtigo = null;
+            filterOrder.idFornecedor = null;
+            filterOrder.loginInfo = new Login();
+            filterOrder.loginInfo = loginInfo;
+            filterOrder.idDocument = idDocument;
+            ViewBag.loginInfo = loginInfo;
+            var ans = docCmpC.FetchEncomendas(filterOrder);
+
+            return View(ans);
+        }
+
     }
 }
