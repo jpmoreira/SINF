@@ -707,11 +707,11 @@ namespace SINF_App.Lib_Primavera
 
             if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='ECF'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='ECF' and NumDoc="+idDoc);
                 while (!objListCab.NoFim())
                 {
                     bool desiredDocumentID = idDoc.Equals(objListCab.Valor("NumDoc").ToString());
-
+                    var tmp = objListCab.Valor("NumDoc").ToString();
                     if (!desiredDocumentID)
                     {
                         return null;

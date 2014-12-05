@@ -416,7 +416,6 @@
     <Content Include="Views\Login\_login_Layout.cshtml" />
     <Content Include="Views\Home\Encomendas.cshtml" />
     <Content Include="Views\Home\DetailOrder.cshtml" />
-    <Content Include="Views\Home\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
