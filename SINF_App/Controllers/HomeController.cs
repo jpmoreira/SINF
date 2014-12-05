@@ -72,9 +72,12 @@ namespace SINF_App.Controllers
             ViewBag.loginInfo = loginInfo;
 
             var ans = docCmpC.FetchEncomenda(filterOrder);
-            if(ans!=null)
+
+            if(ans.GetType() != typeof(RespostaErro))
                 return View(ans);            
-            return View("Erro");
+
+            return View("ErrorOrder", ans);
+
         }
 
     }
