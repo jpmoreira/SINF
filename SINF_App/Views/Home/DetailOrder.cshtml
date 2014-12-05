@@ -6,121 +6,54 @@
 
 <h2>Encomenda</h2>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <tr>
-            <th>
-                <div class="display-field">
-                    @Html.DisplayNameFor(model => model.Entidade)
-                </div>
-            </th>
-
-            <th>
-                <div class="display-field">
-                    @Html.DisplayNameFor(model => model.Data)
-                </div>
-            </th>
-
-            <th>
-                <div class="display-field">
-                    Total
-                </div>
-            </th>
-
-            <th>
-                <div class="display-field">
-                    Num de Linhas
-                </div>
-            </th>
-        </tr>
-
-        <tr>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.Entidade)
-                </div>
-            </td>
-
-            <td>
-                <div class="display-field">
-                    @Model.Data.ToShortDateString()
-                </div>
-            </td>
-
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.TotalMerc) €
-                </div>
-            </td>
-
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.LinhasDoc.Count) linhas
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
-
 <!-- ====================== DETALHES ====================== -->
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
-            <h4 class="panel-title">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Detalhes
-                </a>
-            </h4>
+
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4 class="panel-title">
+                    @Html.DisplayFor(model => model.Entidade)
+                </h4>
+                <h4 class="panel-title">
+                    <small>@Model.Data.ToShortDateString()</small>
+                </h4>
+
+                <h4 class="panel-title">
+                    @Html.DisplayFor(model => model.TotalMerc) €
+                </h4>
+            </a>
+
         </div>
         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
-            <div class="panel-body">
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.NumDocExterno)
-                </div>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.NumDocExterno)
-                </div>
+            <div class="panel-body">                
 
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.Entidade)
-                </div>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.Entidade)
-                </div>
+                <h4>
+                    <small>@Html.DisplayNameFor(model => model.Entidade)</small> @Html.DisplayFor(model => model.Entidade)
+                </h4>
 
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.NumDoc)
-                </div>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.NumDoc)
-                </div>
+                <h4>
+                    <small>@Html.DisplayNameFor(model => model.Data)</small> @Model.Data.ToShortDateString()
+                </h4>
 
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.Data)
-                </div>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.Data)
-                </div>
+                <h4>
+                    <small>Total </small> @Html.DisplayFor(model => model.TotalMerc) €
+                </h4>
 
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.TotalMerc)
-                </div>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.TotalMerc)
-                </div>
+                <h4>
+                    <small>@Html.DisplayNameFor(model => model.NumDoc)</small> @Html.DisplayFor(model => model.NumDoc)
+                </h4>
 
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.Serie)
-                </div>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.Serie)
-                </div>
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => model.LinhasDoc)
-                </div>
-                
+                <h4>
+                    <small>@Html.DisplayNameFor(model => model.Serie)</small> @Html.DisplayFor(model => model.Serie)
+                </h4>
+
+                <h4>
+                    <small>@Html.DisplayNameFor(model => model.NumDocExterno)</small> @Html.DisplayFor(model => model.NumDocExterno)
+                </h4>
+
             </div>
         </div>
     </div>
