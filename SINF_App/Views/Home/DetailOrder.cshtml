@@ -12,50 +12,199 @@
         <legend>DocCompra</legend>
 
         <div class="display-label">
-             @Html.DisplayNameFor(model => model.NumDocExterno)
+            @Html.DisplayNameFor(model => model.NumDocExterno)
         </div>
         <div class="display-field">
             @Html.DisplayFor(modelItem => item.NumDocExterno)
         </div>
 
         <div class="display-label">
-             @Html.DisplayNameFor(model => model.Entidade)
+            @Html.DisplayNameFor(model => model.Entidade)
         </div>
         <div class="display-field">
             @Html.DisplayFor(modelItem => item.Entidade)
         </div>
 
         <div class="display-label">
-             @Html.DisplayNameFor(model => model.NumDoc)
+            @Html.DisplayNameFor(model => model.NumDoc)
         </div>
         <div class="display-field">
             @Html.DisplayFor(modelItem => item.NumDoc)
         </div>
 
         <div class="display-label">
-             @Html.DisplayNameFor(model => model.Data)
+            @Html.DisplayNameFor(model => model.Data)
         </div>
         <div class="display-field">
             @Html.DisplayFor(modelItem => item.Data)
         </div>
 
         <div class="display-label">
-             @Html.DisplayNameFor(model => model.TotalMerc)
+            @Html.DisplayNameFor(model => model.TotalMerc)
         </div>
         <div class="display-field">
             @Html.DisplayFor(modelItem => item.TotalMerc)
         </div>
 
         <div class="display-label">
-             @Html.DisplayNameFor(model => model.Serie)
+            @Html.DisplayNameFor(model => model.Serie)
         </div>
         <div class="display-field">
             @Html.DisplayFor(modelItem => item.Serie)
         </div>
     </fieldset>
+
+
+    <!-- LINHAS DOC -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    <!-- Num Linha -->
+                    <div class="display-label">
+                        NumLinha
+                    </div>
+                </th>
+                <th>
+                    <!-- Armazem -->
+                    <div class="display-label">
+                        Armazem
+                    </div>
+                </th>
+                <th>
+                    <!-- CodArtig -->
+                    <div class="display-label">
+                        CodArtigo
+                    </div>
+                </th>
+                <th>
+                    <!-- DescArtigo -->
+                    <div class="display-label">
+                        DescArtigo
+                    </div>
+                </th>
+                <th>
+                    <!-- Desconto -->
+                    <div class="display-label">
+                        Desconto
+                    </div>
+                </th>
+                <th>
+                    <!-- Lote -->
+                    <div class="display-label">
+                        Lote
+                    </div>
+                </th>
+                <th>
+                    <!-- PrecoUnitario -->
+                    <div class="display-label">
+                        PrecoUnitario
+                    </div>
+                </th>
+                <th>
+                    <!-- Unidade -->
+                    <div class="display-label">
+                        Unidade
+                    </div>
+                </th>
+                <th>
+                    <!-- Quantidade -->
+                    <div class="display-label">
+                        Quantidade
+                    </div>
+                </th>
+                <th>
+                    <!-- Quantidade Satisfeita -->
+                    <div class="display-label">
+                        Quantidade Satisfeita
+                    </div>
+                </th>
+                <th>
+                    <!-- Total Iliquido -->
+                    <div class="display-label">
+                        Total Iliquido
+                    </div>
+                </th>
+                <th>
+                    <!-- Total Liquido -->
+                    <div class="display-label">
+                        Total Liquido
+                    </div>
+                </th>
+
+            </tr>
+
+           @foreach (var line in item.LinhasDoc)
+           {
+                <tr>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.NumLinha)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.Armazem)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.CodArtigo)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.DescArtigo)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.Desconto)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.Lote)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.PrecoUnitario)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.Unidade)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.Quantidade)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.QuantidadeSatisfeita)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.TotalILiquido)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(modelItem => line.TotalLiquido)
+                        </div>
+                    </td> 
+                </tr>
+            }
+
+        </table>
+    </div>
 }
-    
+
 @*<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+        @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
