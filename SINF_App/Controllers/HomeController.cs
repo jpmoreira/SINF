@@ -73,7 +73,7 @@ namespace SINF_App.Controllers
 
             var ans = docCmpC.FetchEncomenda(filterOrder);
             if(ans!=null)
-                return View(ans);            
+                return View("View1", ans);            
             return View("Erro");
         }
 
