@@ -6,10 +6,10 @@
 <div class="container">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="row ">
-            <div class="col-lg-3">@Html.DisplayNameFor(model => model.Entidade)</div>
-            <div class="col-lg-3">@Html.DisplayNameFor(model => model.Data)</div>
-            <div class="col-lg-3">@Html.DisplayNameFor(model => model.TotalMerc)</div>
-            <div class="col-lg-3">Nr. Linhas</div>
+            <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.Entidade)</h4></div>
+            <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.Data)</h4></div>
+            <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.TotalMerc)</h4></div>
+            <div class="col-sm-3"><h4>Nr. Linhas</h4></div>
         </div>
         @foreach (var item in Model)
         {
@@ -19,19 +19,19 @@
             <div class="panel panel-default row">
                 <div role="tab" id=@rowId>
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls=@rowCollapse>
-                        <div class="col-lg-3">@Html.DisplayFor(model => item.Entidade)</div>
-                        <div class="col-lg-3">@item.Data.ToShortDateString()</div>
-                        <div class="col-lg-3">@Html.DisplayFor(modelItem => item.TotalMerc)</div>
-                        <div class="col-lg-3">@Html.DisplayFor(modelItem => item.LinhasDoc.Count)</div>
+                        <div class="col-sm-3">@Html.DisplayFor(model => item.Entidade)</div>
+                        <div class="col-sm-3">@item.Data.ToShortDateString()</div>
+                        <div class="col-sm-3">@Html.DisplayFor(modelItem => item.TotalMerc)</div>
+                        <div class="col-sm-3">@Html.DisplayFor(modelItem => item.LinhasDoc.Count)</div>
                     </a>
                 </div>
             </div>
             <div class="panel panel-default row">
                 <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby=@rowId>
                     <div class="panel-body">
-                        <div class="col-lg-4">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>
-                        <div class="col-lg-4">@Html.DisplayFor(model => item.NumDocExterno)</div>
-                        <div class="col-lg-4">
+                        <div class="col-sm-4">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>
+                        <div class="col-sm-4">@Html.DisplayFor(model => item.NumDocExterno)</div>
+                        <div class="col-sm-4">
                             @Html.ActionLink("Details", "DetailOrder", "Home", new
                {
                    //loginInfo = new {
@@ -41,7 +41,7 @@
                    ,
                    idDocument = @Html.DisplayFor(modelItem => item.id)
                }, htmlAttributes: null)
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
