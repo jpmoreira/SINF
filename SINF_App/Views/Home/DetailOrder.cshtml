@@ -4,64 +4,131 @@
     ViewBag.Title = Html.DisplayFor(model => model.NumDoc);
 }
 
-<h2>"Encomenda"</h2>
+<h2>Encomenda</h2>
 
-<fieldset>
-    <legend>EncomendaFornecedor</legend>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                <div class="display-field">
+                    @Html.DisplayNameFor(model => model.Entidade)
+                </div>
+            </th>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.NumDocExterno)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NumDocExterno)
-    </div>
+            <th>
+                <div class="display-field">
+                    @Html.DisplayNameFor(model => model.Data)
+                </div>
+            </th>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Entidade)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Entidade)
-    </div>
+            <th>
+                <div class="display-field">
+                    Total
+                </div>
+            </th>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.NumDoc)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NumDoc)
-    </div>
+            <th>
+                <div class="display-field">
+                    Num de Linhas
+                </div>
+            </th>
+        </tr>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Data)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data)
-    </div>
+        <tr>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Entidade)
+                </div>
+            </td>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.TotalMerc)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TotalMerc)
-    </div>
+            <td>
+                <div class="display-field">
+                    @Model.Data.ToShortDateString()
+                </div>
+            </td>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Serie)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Serie)
-    </div>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.LinhasDoc)
-    </div>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.TotalMerc) €
+                </div>
+            </td>
 
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.LinhasDoc.Count) linhas
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- ====================== DETALHES ====================== -->
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Detalhes
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
+            <div class="panel-body">
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.NumDocExterno)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.NumDocExterno)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Entidade)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Entidade)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.NumDoc)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.NumDoc)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Data)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Data)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.TotalMerc)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.TotalMerc)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Serie)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Serie)
+                </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.LinhasDoc)
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<!-- LINHAS DOC -->
+<!-- ================= LINHAS DOC ======================= -->
+
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -208,3 +275,4 @@
 
     </table>
 </div>
+
