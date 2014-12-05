@@ -54,4 +54,8 @@ input[type="checkbox"].input-validation-error {
     width: auto;
 }
 
-
+/* ErrorOrder.cshtml */
+.errorMessage
+{
+    margin-top: 10px;
+}
