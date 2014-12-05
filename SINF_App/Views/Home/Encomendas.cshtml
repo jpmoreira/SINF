@@ -4,128 +4,47 @@
 
 }
 <div class="container">
-    <form class="form-inline" role="form">
-        <div class="form-group">
-            @*descricaoFornecedor*@
-            <div class="input-group">
-                <label class="sr-only" for="descricaoFornecedor"></label>
-                <input type="text" class="form-control" id="descricaoFornecedor" placeholder="Fornecedor">
-            </div>
-            @*idFornecedor*@
-            <div class="input-group">
-                <label class="sr-only" for="idFornecedor"></label>
-                <input type="text" class="form-control" id="idFornecedor" placeholder="Código Fornecedor">
-            </div>
-            @*idArtigo*@
-            <div class="input-group">
-                <label class="sr-only" for="idArtigo"></label>
-                <input type="text" class="form-control" id="idArtigo" placeholder="Código Artigo">
-            </div>
-            @*idDocument*@
-            <div class="input-group">
-                <label class="sr-only" for="idDocument"></label>
-                <input type="text" class="form-control" id="idDocument" placeholder="Nr. Documento">
-            </div>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="row ">
+            <div class="col-lg-3">@Html.DisplayNameFor(model => model.Entidade)</div>
+            <div class="col-lg-3">@Html.DisplayNameFor(model => model.Data)</div>
+            <div class="col-lg-3">@Html.DisplayNameFor(model => model.TotalMerc)</div>
+            <div class="col-lg-3">Nr. Linhas</div>
         </div>
-        <button type="submit" class="btn btn-default">Pesquisar</button>
-    </form>
-</div>
-
-<div class="table-responsive">
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NumDocExterno)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumDoc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Data)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalMerc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Serie)
-            </th>
-            <th></th>
-        </tr>
-
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumDocExterno)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entidade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumDoc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Data)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalMerc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Serie)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "DetailOrder", "Home", new {
-              //loginInfo = new {
-                  Company = ViewBag.loginInfo.Company,
-                  Username = ViewBag.loginInfo.Username,
-                  Password = ViewBag.loginInfo.Password //} 
-                  ,
-              idDocument = @Html.DisplayFor(modelItem => item.NumDoc)
-          }, htmlAttributes:null) @*endActionLink*@
-    </td>
-</tr>
-        }
-
-
-    </table>
-
-    @*<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            @foreach (var item in Model)
-            {
-                var collapse = "collapse" + @Html.DisplayFor(modelItem => item.NumDoc);
-                var collapse_id = "#" + collapse;
-                var tmp = "Campo vazio";
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id=@Html.DisplayFor(modelItem => item.NumDoc)>
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@collapse_id aria-expanded="false" aria-controls=@collapse>
-                                @if (String.Compare(Html.DisplayFor(modelItem => item.NumDocExterno).ToString(), "") != 0)
-                                {
-                                    tmp = Html.DisplayFor(modelItem => item.NumDocExterno).ToString();
-                                }
-                                @tmp
-                            </a>
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@collapse_id aria-expanded="false" aria-controls=@collapse>
-                                @Html.DisplayFor(modelItem => item.Entidade)
-                            </a>
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@collapse_id aria-expanded="false" aria-controls=@collapse>
-                                @Html.DisplayFor(modelItem => item.Data)
-                            </a>
-                        </h4>
-                    </div>
-                    <div id=@collapse class="panel-collapse collapse" role="tabpanel" aria-labelledby=@Html.DisplayFor(modelItem => item.NumDoc)>
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
+            var rowId = item.Serie.ToString() + item.NumDoc.ToString();
+            var rowCollapse = rowId + "Collapse";
+            var rowCollapseId = "#" + rowCollapse;
+            <div class="panel panel-default row">
+                <div role="tab" id=@rowId>
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls=@rowCollapse>
+                        <div class="col-lg-3">@Html.DisplayFor(model => item.Entidade)</div>
+                        <div class="col-lg-3">@item.Data.ToShortDateString()</div>
+                        <div class="col-lg-3">@Html.DisplayFor(modelItem => item.TotalMerc)</div>
+                        <div class="col-lg-3">@Html.DisplayFor(modelItem => item.LinhasDoc.Count)</div>
+                    </a>
+                </div>
+            </div>
+            <div class="panel panel-default row">
+                <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby=@rowId>
+                    <div class="panel-body">
+                        <div class="col-lg-4">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>
+                        <div class="col-lg-4">@Html.DisplayFor(model => item.NumDocExterno)</div>
+                        <div class="col-lg-4">
+                            @Html.ActionLink("Details", "DetailOrder", "Home", new
+               {
+                   //loginInfo = new {
+                   Company = ViewBag.loginInfo.Company,
+                   Username = ViewBag.loginInfo.Username,
+                   Password = ViewBag.loginInfo.Password //}
+                   ,
+                   idDocument = @Html.DisplayFor(modelItem => item.id)
+               }, htmlAttributes: null)
                     </div>
                 </div>
-
-            }
-
-
-        </div>*@
-
+            </div>
+        </div>
+        }
+    </div>
 </div>
