@@ -69,7 +69,7 @@ namespace SINF_App.Controllers
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
             if (erro.Erro == 0)
-                return SINF_App.Lib_Primavera.Comercial.ECF_List(filtro.loginInfo, filtro.idDocument, filtro.descricaoFornecedor, filtro.idFornecedor, filtro.idArtigo);
+                return SINF_App.Lib_Primavera.Comercial.ECF_Single(filtro.loginInfo, filtro.idDocument, filtro.descricaoFornecedor, filtro.idFornecedor, filtro.idArtigo);
 
             return erro;
 

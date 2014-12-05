@@ -1,0 +1,65 @@
+﻿@model SINF_App.Models.EncomendaFornecedor
+
+@{
+    ViewBag.Title = Html.DisplayFor(model => model.NumDoc);
+}
+
+<h2>"Encomenda"</h2>
+
+<fieldset>
+    <legend>EncomendaFornecedor</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.NumDocExterno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumDocExterno)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Entidade)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Entidade)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.NumDoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumDoc)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Data)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Data)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.TotalMerc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalMerc)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Serie)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Serie)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.LinhasDoc)
+    </div>
+    @foreach (var item in Model.LinhasDoc)
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Armazem)
+        </div>
+
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
