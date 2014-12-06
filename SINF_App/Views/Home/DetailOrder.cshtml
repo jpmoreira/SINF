@@ -12,23 +12,44 @@
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
 
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                <h4 class="panel-title">
-                    @Html.DisplayFor(model => model.Entidade)
-                </h4>
-                <h4 class="panel-title">
-                    <small>@Model.Data.ToShortDateString()</small>
-                </h4>
+            <div class="row">
 
-                <h4 class="panel-title">
-                    @Html.DisplayFor(model => model.TotalMerc) €
-                </h4>
-            </a>
+                <div class="col-md-2">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <h4 class="panel-title">
+                            @Html.DisplayFor(model => model.Entidade)
+                        </h4>
+                        <h4 class="panel-title">
+                            <small>@Model.Data.ToShortDateString()</small>
+                        </h4>
+
+                        <h4 class="panel-title">
+                            @Html.DisplayFor(model => model.TotalMerc) €
+                        </h4>
+                    </a>
+                </div>
+
+                <div class="col-md-10">
+                    <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+                        Aceitar Encomenda
+                    </button>
+                </div>
+            </div>
+
+            @*
+                <script>
+                    $('#myButton').on('click', function () {
+                        var $btn = $(this).button('loading')
+                        // business logic...
+                        $btn.button('reset')
+                    })
+                </script>
+            *@
 
         </div>
         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
-            <div class="panel-body">                
+            <div class="panel-body">
 
                 <h4>
                     <small>@Html.DisplayNameFor(model => model.Entidade)</small> @Html.DisplayFor(model => model.Entidade)
