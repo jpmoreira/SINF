@@ -41,49 +41,58 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>                       
-                        <li>@Html.ActionLink("Encomendas", "Encomendas", "Home", new { Username = ViewBag.loginInfo.Username, Company=ViewBag.loginInfo.Company,
-                           Password=ViewBag.loginInfo.Password  }, null)
-                        </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-        <div id="hiddenform">
-            @using (Html.BeginForm())
-            {
-                <input type="text" name="Username" hidden/>
-                <input type="text" name="Password" hidden/>
-                <input type="text" name="Company" hidden/>
-                <input type="submit" hidden />
-            }
+                        <li>
+                            @Html.ActionLink("API", "Index", "Help", new
+                       {
+                           Username = ViewBag.loginInfo.Username,
+                           Company = ViewBag.loginInfo.Company,
+                           Password = ViewBag.loginInfo.Password
+                       }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Encomendas", "Encomendas", "Home", new
+                       {
+                           Username = ViewBag.loginInfo.Username,
+                           Company = ViewBag.loginInfo.Company,
+                           Password = ViewBag.loginInfo.Password
+                       }, null)
+                </li>
+            </ul>
         </div>
-
-        @*<div class="starter-template">
-                <h1>Bootstrap starter template</h1>
-                <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-            </div>*@
-
-        @RenderBody()
-
-
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted">@DateTime.Now</p>
-            </div>
-        </footer>
-
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <!--missing-->
     </div>
+</nav>
+<div id="hiddenform">
+    @using (Html.BeginForm())
+    {
+        <input type="text" name="Username" hidden />
+        <input type="text" name="Password" hidden />
+        <input type="text" name="Company" hidden />
+        <input type="submit" hidden />
+    }
+</div>
+
+@*<div class="starter-template">
+        <h1>Bootstrap starter template</h1>
+        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+    </div>*@
+
+@RenderBody()
+
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">@DateTime.Now</p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!--missing-->
+</div>
 </body>
 </html>
-
-
-
