@@ -93,6 +93,15 @@ namespace SINF_App.Controllers
             return View("ErrorOrder", ans);
         }
 
+        /**
+         * Validate order fields and adds supplier delivery doc
+         */
+        public ViewResult ConfirmOrder(Login loginInfo, string idDocument)
+        {
+            ViewBag.loginInfo = loginInfo;
+            return View();
+        }
+
 
         public ActionResult Armazens(Login loginInfo)
         {
