@@ -6,12 +6,12 @@
 
 
 @using (Html.BeginForm("ConfirmOrder", "Home", new
-{
-    Company = ViewBag.loginInfo.Company,
-    Username = ViewBag.loginInfo.Username,
-    Password = ViewBag.loginInfo.Password,
-    idDocument = @Model.id
-}))
+    {
+        Company = ViewBag.loginInfo.Company,
+        Username = ViewBag.loginInfo.Username,
+        Password = ViewBag.loginInfo.Password,
+        idDocument = @Model.id
+    }))
 {
 
     <h2>Encomenda</h2>
@@ -336,3 +336,5 @@
     }
 
 }
+
+
