@@ -21,6 +21,12 @@
 
                 </div>
 
+                <div class="col-md-2">
+                    <h4 class="panel-title">
+                        <strong>Armazem</strong>
+                    </h4>
+                </div>
+
                 <div class="col-md-1">
                     <h4 class="panel-title">
                         <strong>@Html.DisplayNameFor(model => model.Entidade)</strong>
@@ -38,8 +44,6 @@
                         <strong>Total</strong>
                     </h4>
                 </div>
-
-                <div class="col-md-7"></div>
 
             </div>
 
@@ -63,35 +67,29 @@
                         Confirmar recepção
                     </button>
 
-                    @*
-                        <script>
-                            $('#myButton').on('click', function () {
-                                var $btn = $(this).button('loading')
-                                // business logic...
-                                $btn.button('reset')
-                            })
-                        </script>
-                    *@
-
                 </div>
 
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <div class="col-md-2">
+                    @{Html.RenderAction("Armazens");}
+                </div>
 
-                    <div class="col-md-1">
-                        <h4 class="panel-title">@Html.DisplayFor(model => model.Entidade)</h4>
-                    </div>
+                <div class="col-md-1">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @Html.DisplayFor(model => model.Entidade)
+                    </a>
+                </div>
 
-                    <div class="col-md-1">
-                        <h4 class="panel-title">@Model.Data.ToShortDateString()</h4>
-                    </div>
+                <div class="col-md-1">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @Model.Data.ToShortDateString()
+                    </a>
+                </div>
 
-                    <div class="col-md-1">
-                        <h4 class="panel-title">@Html.DisplayFor(model => model.TotalMerc) €</h4>
-                    </div>
-
-                </a>
-
-                <div class="col-md-7"></div>
+                <div class="col-md-1">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @Html.DisplayFor(model => model.TotalMerc) €
+                    </a>
+                </div>
 
             </div>
 
@@ -177,9 +175,6 @@
                     </h4>
                 </div>
 
-
-                <div class="col-md-6"></div>
-
             </div>
 
         </div>
@@ -212,7 +207,7 @@
                                 </button>
                             </span>
 
-                            <input type="text"  name=@rowId class="form-control input-number" value=@Html.DisplayFor(modelItem => line.Quantidade) min="0" max=@Html.DisplayFor(modelItem => line.Quantidade)>
+                            <input type="text" name=@rowId class="form-control input-number" value=@Html.DisplayFor(modelItem => line.Quantidade) min="0" max=@Html.DisplayFor(modelItem => line.Quantidade)>
 
                             <span class="input-group-btn">
                                 <button type="button" id="testaObutao" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
@@ -226,31 +221,29 @@
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
 
                         <div class="col-md-1">
-                            <h4 class="panel-title">
-                                @Html.DisplayFor(modelItem => line.CodArtigo)
-                            </h4>
+
+                            @Html.DisplayFor(modelItem => line.CodArtigo)
+
                         </div>
 
                         <div class="col-md-1">
-                            <h4 class="panel-title">
-                                @Html.DisplayFor(modelItem => line.DescArtigo)
-                            </h4>
+
+                            @Html.DisplayFor(modelItem => line.DescArtigo)
+
                         </div>
 
                         <div class="col-md-1">
-                            <h4 class="panel-title">
-                                @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
-                                @qtdEmFalta @Html.DisplayFor(modelItem => line.Unidade)
-                            </h4>
+
+                            @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
+                            @qtdEmFalta @Html.DisplayFor(modelItem => line.Unidade)
+
                         </div>
 
                         <div class="col-md-1">
-                            <h4 class="panel-title">
-                                @Html.DisplayFor(modelItem => line.PrecoUnitario) €
-                            </h4>
-                        </div>
 
-                        <div class="col-md-6"></div>
+                            @Html.DisplayFor(modelItem => line.PrecoUnitario) €
+
+                        </div>
 
                     </a>
 
