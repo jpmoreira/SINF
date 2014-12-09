@@ -15,13 +15,19 @@ namespace SINF_App.Controllers
             return View();
         }
 
-        // Login 
+        /**
+         * Login Default View
+         */
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
+
+        /**
+         * Do Login View
+         */
         [HttpPost]
         public ViewResult Login(Login loginInfo)
         {
@@ -39,6 +45,9 @@ namespace SINF_App.Controllers
         }
 
 
+        /**
+         * View all orders
+         */
         public ViewResult Encomendas(Login loginInfo)
         {
 
@@ -59,6 +68,11 @@ namespace SINF_App.Controllers
             return View("Login");
         }
 
+
+
+        /**
+         *Detailed view of an order 
+         */
         public ViewResult DetailOrder(Login loginInfo, string idDocument)
         {
             DocCompraController docCmpC = new DocCompraController();
@@ -77,7 +91,13 @@ namespace SINF_App.Controllers
                 return View(ans);            
 
             return View("ErrorOrder", ans);
+        }
 
+
+        public ActionResult Armazens(Login loginInfo)
+        {
+            var ans = SINF_App.Lib_Primavera.Comercial.ListaArmazens(loginInfo);
+            return PartialView("Armazens", ans);
         }
 
     }

@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<SINF_App.Models.DocCompra>
 
-@{
 
-}
 <div class="container">
+
+
+    @{Html.RenderAction("Armazens");}
+
+
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="row ">
             <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.Entidade)</h4></div>
@@ -42,9 +45,9 @@
                    idDocument = @Html.DisplayFor(modelItem => item.id)
                }, htmlAttributes: null)
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
         }
     </div>
 </div>
