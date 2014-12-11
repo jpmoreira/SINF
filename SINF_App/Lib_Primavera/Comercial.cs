@@ -22,9 +22,7 @@ namespace SINF_App.Lib_Primavera
         /// <summary>
         /// Global variables   
         /// </summary>
-        public const string companyName = "BELAFLOR";
-        public const string userName = "admin";
-        public const string passWord = "_admin";
+
 
 
         #region Login
@@ -434,7 +432,7 @@ namespace SINF_App.Lib_Primavera
 
 
                         if (nrLinha > linhasOriginal.NumItens - 1) continue;//if the line doesnt exist continue
-                        GcpBELinhaDocumentoCompra line = linhasOriginal[nrLinha+1];
+                        GcpBELinhaDocumentoCompra line = linhasOriginal[nrLinha];//nrLinha+1
 
                         double q = line.get_Quantidade();
                         double qs = line.get_QuantSatisfeita();
@@ -454,7 +452,7 @@ namespace SINF_App.Lib_Primavera
                         string previousArmazem = line.get_Armazem();
                         line.set_Armazem(idArmazem);//temporarly change armazem to the desired one
 
-                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha + 1, quantAConverter);
+                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha, quantAConverter); //nrLinha+1
 
 
                         line.set_Armazem(previousArmazem);//change to the original armazem again!
@@ -478,10 +476,6 @@ namespace SINF_App.Lib_Primavera
 
 
                     PriEngine.Engine.TerminaTransaccao();
-
-
-
-                    return DocCompra.fromERPType(objFinal);
 
                 }
 
@@ -516,9 +510,9 @@ namespace SINF_App.Lib_Primavera
                 return erro;
 
             }
-        
-        
 
+
+            return DocCompra.fromERPType(objFinal);
         
 
         }

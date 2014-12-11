@@ -6,7 +6,7 @@
 
 <h2>Confirmar Documento</h2>
 
-<fieldset>
+<fieldset> @*campos so para confirmar info*@
     <legend>FiltroConversao</legend>
 
     <div class="display-label">
@@ -37,7 +37,19 @@
         @Html.DisplayFor(model => model.idDocument)
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+ @if(String.Compare("VGT", Model.idDocument) == 0){
+     @*mostra botao confirmar*@
+     <div>VGT</div>
+ }
+ @if (String.Compare("VFA", Model.idDocument) == 0)
+ {
+     //tratar estorno
+     foreach(KeyValuePair<int, double> linhaQtdd in Model.quantidades)
+     {
+         
+     }
+        <div>VFA</div>
+     @*mostra botao confirmar*@
+ }

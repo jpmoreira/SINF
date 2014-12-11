@@ -101,15 +101,15 @@ namespace SINF_App.Controllers
         {
 
             ViewBag.loginInfo = loginInfo;
-           // SINF_App.Controllers.DocCompraController.FiltroConversao f = new SINF_App.Controllers.DocCompraController.FiltroConversao();
+            // SINF_App.Controllers.DocCompraController.FiltroConversao f = new SINF_App.Controllers.DocCompraController.FiltroConversao();
             SINF_App.Models.FiltroConversao f = new SINF_App.Models.FiltroConversao();
 
             f.idDocument = idDocument;
             f.loginInfo = loginInfo;
-            
+
             //todo documento externo
             Random rnd = new Random();
-            f.nrDocumentoExterno = idDocument + rnd.Next(0, 100); 
+            f.nrDocumentoExterno = idDocument + rnd.Next(0, 100);
             //
 
             f.quantidades = new Dictionary<int, double>();
@@ -120,17 +120,23 @@ namespace SINF_App.Controllers
                 ViewBag.ErrorMessage = "Armazem não seleccionado ou inválido";
                 return View("GenericError");
             }
-            if(f.tipoDestino == null)
+            if (f.tipoDestino == null)
             {
                 ViewBag.ErrorMessage = "Documento de destino inválido";
                 return View("GenericError");
             }
 
+            TipoDoc tipoDest;
+
+            if (String.Compare(f.tipoDestino, "VFA") == 0)
+                tipoDest = TipoDoc.Factura_Fornecedor;
+            else
+                tipoDest = TipoDoc.Guia_Transporte_Fornecedor;
 
 
             int nrLinha = 0;
             double quantidade = 0.0;
-            foreach(string key in Request.Form.AllKeys)
+            foreach (string key in Request.Form.AllKeys)
             {
                 if (!Int32.TryParse(key, out nrLinha) || !Double.TryParse(Request.Form[key], out quantidade))
                     continue;
@@ -139,9 +145,14 @@ namespace SINF_App.Controllers
                 f.quantidades.Add(nrLinha, quantidade);
             }
 
-            string fQuantidadesStr = f.quantidades.ToString();
 
+            DocCompraController.FiltroEncomendas filterOrder = new DocCompraController.FiltroEncomendas();
+            DocCompraController docCmpC = new DocCompraController();
+            filterOrder.loginInfo = loginInfo;
+            filterOrder.idDocument = idDocument;
+            DocCompra ans = (DocCompra)docCmpC.FetchEncomenda(filterOrder);
 
+            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(ans, tipoDest, loginInfo, f.quantidades, f.idArmazem, f.nrDocumentoExterno);
 
             return View(f);
         }
