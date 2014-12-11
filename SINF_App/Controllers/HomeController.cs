@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections.Specialized;
 
 using SINF_App.Models;
 
@@ -57,9 +58,9 @@ namespace SINF_App.Controllers
             filtro.idArtigo = null;
             filtro.idFornecedor = null;
             filtro.loginInfo = loginInfo;
-            
+
             ViewBag.loginInfo = filtro.loginInfo;
-           
+
             var ans = docCmpC.FetchEncomendas(filtro);
             if (ans.GetType() != typeof(RespostaErro))
                 return View("Encomendas", ans);
@@ -87,8 +88,8 @@ namespace SINF_App.Controllers
 
             var ans = docCmpC.FetchEncomenda(filterOrder);
 
-            if(ans.GetType() != typeof(RespostaErro))
-                return View(ans);            
+            if (ans.GetType() != typeof(RespostaErro))
+                return View(ans);
 
             return View("ErrorOrder", ans);
         }
@@ -96,10 +97,53 @@ namespace SINF_App.Controllers
         /**
          * Validate order fields and adds supplier delivery doc
          */
-        public ViewResult ConfirmOrder(Login loginInfo, string idDocument)
+        public ActionResult ConfirmOrder(Login loginInfo, string idDocument)
         {
+
             ViewBag.loginInfo = loginInfo;
-            return View();
+           // SINF_App.Controllers.DocCompraController.FiltroConversao f = new SINF_App.Controllers.DocCompraController.FiltroConversao();
+            SINF_App.Models.FiltroConversao f = new SINF_App.Models.FiltroConversao();
+
+            f.idDocument = idDocument;
+            f.loginInfo = loginInfo;
+            
+            //todo documento externo
+            Random rnd = new Random();
+            f.nrDocumentoExterno = idDocument + rnd.Next(0, 100); 
+            //
+
+            f.quantidades = new Dictionary<int, double>();
+            f.idArmazem = Request.Form["armazem"];
+            f.tipoDestino = Request.Form["tipoDestino"];
+            if (f.idArmazem == null)
+            {
+                ViewBag.ErrorMessage = "Armazem não seleccionado ou inválido";
+                return View("GenericError");
+            }
+            if(f.tipoDestino == null)
+            {
+                ViewBag.ErrorMessage = "Documento de destino inválido";
+                return View("GenericError");
+            }
+
+
+
+            int nrLinha = 0;
+            double quantidade = 0.0;
+            foreach(string key in Request.Form.AllKeys)
+            {
+                if (!Int32.TryParse(key, out nrLinha) || !Double.TryParse(Request.Form[key], out quantidade))
+                    continue;
+                if (quantidade == 0)
+                    continue;
+                f.quantidades.Add(nrLinha, quantidade);
+            }
+
+            string fQuantidadesStr = f.quantidades.ToString();
+
+
+
+            return View(f);
         }
 
 

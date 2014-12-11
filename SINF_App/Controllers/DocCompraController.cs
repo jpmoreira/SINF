@@ -37,7 +37,7 @@ namespace SINF_App.Controllers
         {
             public string nrDocumentoExterno;
             public Dictionary<int, double> quantidades;
-            public Dictionary<int, string> armazens;
+            public string idArmazem;
             public string tipoDestino;
 
         }
@@ -45,17 +45,6 @@ namespace SINF_App.Controllers
         public Object FetchEncomendas(FiltroEncomendas filtro)
         {
 
-
-            //var headers = Request.Headers;
-            //var content = Request.Content;
-            /*
-            var headers=Request.Headers;
-            HttpContent content=Request.Content;
-            
-            string jsonContent = content.ReadAsStringAsync().Result;
-            filtro = JsonConvert.DeserializeObject<FiltroEncomendas>(jsonContent);
-            System.Console.WriteLine();
-            */
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
 
@@ -129,7 +118,7 @@ namespace SINF_App.Controllers
             d.id = f.idDocument;
 
 
-            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.armazens,f.nrDocumentoExterno);
+            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.idArmazem,f.nrDocumentoExterno);
 
 
 

@@ -27,16 +27,6 @@
 
                 <div class="row">
 
-                    <div class="col-md-2">
-
-                    </div>
-
-                    <div class="col-md-2">
-                        <h4 class="panel-title">
-                            <strong>Armazem</strong>
-                        </h4>
-                    </div>
-
                     <div class="col-md-1">
                         <h4 class="panel-title">
                             <strong>@Html.DisplayNameFor(model => model.Entidade)</strong>
@@ -71,18 +61,6 @@
             <div class="panel-heading" role="tab" id="headingTwo">
 
                 <div class="row">
-
-                    <div class="col-md-2">
-
-                        <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
-                            Confirmar recepção
-                        </button>
-
-                    </div>
-
-                    <div class="col-md-2">
-                        @{Html.RenderAction("Armazens");}
-                    </div>
 
                     <div class="col-md-1">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -158,7 +136,7 @@
 
                     <div class="col-md-2">
                         <h4 class="panel-title">
-                            <strong>Quantidade recepcionada</strong>
+                            <strong>Quantidade recebida</strong>
                         </h4>
                     </div>
 
@@ -168,7 +146,7 @@
                         </h4>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-md-4">
                         <h4 class="panel-title">
                             <strong>Descricao</strong>
                         </h4>
@@ -191,16 +169,17 @@
             </div>
 
         </div>
-    </div>
 
-    <!-- LINHAS DOC - Lista de Artigos -->
-    foreach (var line in Model.LinhasDoc)
-    {
-        var rowId = line.NumLinha.ToString();
-        var rowCollapse = rowId + "Collapse";
-        var rowCollapseId = "#" + rowCollapse;
 
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <!-- LINHAS DOC - Lista de Artigos -->
+        @foreach (var line in Model.LinhasDoc)
+        {
+            var rowId = line.NumLinha.ToString();
+            var rowCollapse = rowId + "Collapse";
+            var rowCollapseId = "#" + rowCollapse;
+
+            if (line.QuantidadeSatisfeita >= line.Quantidade) { continue; }
+
 
             <div class="panel panel-default">
 
@@ -208,10 +187,8 @@
                 <div class="panel-heading" role="tab" id="headingTwo">
 
                     <div class="row">
-
                         <div class="col-md-2">
-
-                            <div class="input-group">
+                            <div class="input-group input-group-sm">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
                                         <span class="glyphicon glyphicon-minus"></span>
@@ -220,7 +197,7 @@
 
                                 <input type="text" name=@rowId class="form-control input-number" value=@Html.DisplayFor(modelItem => line.Quantidade) min="0" max=@Html.DisplayFor(modelItem => line.Quantidade)>
 
-                                <span class="input-group-btn">
+                                <span class="input-group-btn ">
                                     <button type="button" id="testaObutao" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
@@ -237,7 +214,7 @@
 
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-md-4">
 
                                 @Html.DisplayFor(modelItem => line.DescArtigo)
 
@@ -275,9 +252,9 @@
                         </h4>
 
                         <!-- Armazem -->
-                        <h4>
-                            <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
-                        </h4>
+                        @*<h4>
+                                <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
+                            </h4>*@
 
                         <!-- CodArtig -->
                         <h4>
@@ -291,18 +268,18 @@
 
                         <!-- Desconto -->
                         <h4>
-                            <small>Desconto</small> @Html.DisplayFor(modelItem => line.Desconto)
+                            <small>Desconto</small> @Html.DisplayFor(modelItem => line.Desconto)%
                         </h4>
 
                         <!-- Lote -->
-                        <h4>
-                            <small>Lote</small> @Html.DisplayFor(modelItem => line.Lote)
-                        </h4>
+                        @*<h4>
+                                <small>Lote</small> @Html.DisplayFor(modelItem => line.Lote)
+                            </h4>*@
 
                         <!-- PrecoUnitario -->
-                        <h4>
-                            <small>Preco Unitario</small> @Html.DisplayFor(modelItem => line.PrecoUnitario) €
-                        </h4>
+                        @*<h4>
+                                <small>Preco Unitario</small> @Html.DisplayFor(modelItem => line.PrecoUnitario) €
+                            </h4>*@
 
                         <!-- Unidade -->
                         <h4>
@@ -320,21 +297,71 @@
                         </h4>
 
                         <!-- Total Iliquido -->
-                        <h4>
-                            <small>Total Iliquido</small> @Html.DisplayFor(modelItem => line.TotalILiquido) €
-                        </h4>
+                        @*<h4>
+                                <small>Total Iliquido</small> @Html.DisplayFor(modelItem => line.TotalILiquido) €
+                            </h4>*@
 
                         <!-- Total Liquido -->
-                        <h4>
-                            <small>Total Liquido</small> @Html.DisplayFor(modelItem => line.TotalLiquido) €
-                        </h4>
+                        @*<h4>
+                                <small>Total Liquido</small> @Html.DisplayFor(modelItem => line.TotalLiquido) €
+                            </h4>*@
 
                     </div>
                 </div>
             </div>
+
+        }
+    </div>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+
+        <div class="panel panel-default">
+
+            <!-- VISIBLE -->
+            <div class="panel-heading" role="tab" id="headingTwo">
+
+                <div class="row">
+                    <div class="col-md-2">
+                       <small><strong>Armazem</strong> </small>
+                    </div>
+
+                    <div class="col-md-2">
+                        <small><strong>Documento</strong></small>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
 
+        <div class="panel panel-default">
+
+            <!-- VISIBLE -->
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        @{Html.RenderAction("Armazens");}
+                    </div>
+
+                    <div class="col-md-2">
+                        <select class="form-control" name="tipoDestino">
+                            <option value="VFA">Factura</option>
+                            <option value="VGT">Guia de Transporte</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
+                            Confirmar recepção
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 }
-
-
+@section Scripts {
+    @Scripts.Render("~/bundles/page")
+}

@@ -370,7 +370,7 @@ namespace SINF_App.Lib_Primavera
 
 
         #region Encomenda
-        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter,Dictionary<int,string>armazens, string codDocExterno)
+        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter, string idArmazem, string codDocExterno)
         {
 
             RespostaErro erro = new RespostaErro();
@@ -452,7 +452,7 @@ namespace SINF_App.Lib_Primavera
                         //tudo está ok aqui... entao faz conversao
 
                         string previousArmazem = line.get_Armazem();
-                        line.set_Armazem(armazens[nrLinha]);//temporarly change armazem to the desired one
+                        line.set_Armazem(idArmazem);//temporarly change armazem to the desired one
 
                         PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha + 1, quantAConverter);
 

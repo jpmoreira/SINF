@@ -1,0 +1,43 @@
+﻿@model SINF_App.Models.FiltroConversao
+
+@{
+    ViewBag.Title = "ConfirmOrder";
+}
+
+<h2>Confirmar Documento</h2>
+
+<fieldset>
+    <legend>FiltroConversao</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nrDocumentoExterno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nrDocumentoExterno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.idArmazem)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.idArmazem)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tipoDestino)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tipoDestino)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.idDocument)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.idDocument)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

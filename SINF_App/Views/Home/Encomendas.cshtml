@@ -42,16 +42,16 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
-    @foreach (var item in Model)
-    {
-        var rowId = item.Serie.ToString() + item.NumDoc.ToString();
-        var rowCollapse = rowId + "Collapse";
-        var rowCollapseId = "#" + rowCollapse;
 
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        @foreach (var item in Model)
+        {
+            var rowId = item.Serie.ToString() + item.NumDoc.ToString();
+            var rowCollapse = rowId + "Collapse";
+            var rowCollapseId = "#" + rowCollapse;
+
+
 
             <div class="panel panel-default">
 
@@ -101,10 +101,11 @@
                     </div>
                 </div>
             </div>
-        </div>
 
 
-    }
+
+        }
+    </div>
 </div>
 
 

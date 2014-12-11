@@ -262,6 +262,7 @@
     <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Models\EncomendaFornecedor.cs" />
     <Compile Include="Models\Factura.cs" />
+    <Compile Include="Models\FiltroConversao.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RecepcaoController.cs" />
@@ -416,8 +417,8 @@
     <Content Include="Views\Login\_login_Layout.cshtml" />
     <Content Include="Views\Home\Encomendas.cshtml" />
     <Content Include="Views\Home\DetailOrder.cshtml" />
-    <Content Include="Views\Home\ErrorOrder.cshtml" />
     <Content Include="Views\Home\Armazens.cshtml" />
+    <Content Include="Views\Home\GenericError.cshtml" />
     <Content Include="Views\Home\ConfirmOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
