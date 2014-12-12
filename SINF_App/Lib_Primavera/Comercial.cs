@@ -22,9 +22,7 @@ namespace SINF_App.Lib_Primavera
         /// <summary>
         /// Global variables   
         /// </summary>
-        public const string companyName = "BELAFLOR";
-        public const string userName = "admin";
-        public const string passWord = "_admin";
+
 
 
         #region Login
@@ -370,7 +368,7 @@ namespace SINF_App.Lib_Primavera
 
 
         #region Encomenda
-        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter,string armazem, string codDocExterno)
+        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter, string idArmazem, string codDocExterno)
         {
 
             RespostaErro erro = new RespostaErro();
@@ -434,7 +432,7 @@ namespace SINF_App.Lib_Primavera
 
 
                         if (nrLinha > linhasOriginal.NumItens - 1) continue;//if the line doesnt exist continue
-                        GcpBELinhaDocumentoCompra line = linhasOriginal[nrLinha+1];
+                        GcpBELinhaDocumentoCompra line = linhasOriginal[nrLinha];//nrLinha+1
 
                         double q = line.get_Quantidade();
                         double qs = line.get_QuantSatisfeita();
@@ -452,10 +450,12 @@ namespace SINF_App.Lib_Primavera
                         //tudo está ok aqui... entao faz conversao
 
                         string previousArmazem = line.get_Armazem();
-                        //line.set_Armazem(armazem);//temporarly change armazem to the desired one
+                        line.set_Armazem(idArmazem);//temporarly change armazem to the desired one
+                        line.set_Localizacao(idArmazem);
+                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha, quantAConverter); //nrLinha+1
 
-                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha + 1, quantAConverter);
-
+                        line.set_Armazem(previousArmazem);
+                        line.set_Localizacao(idArmazem);
 
                         //line.set_Armazem(previousArmazem);//change to the original armazem again!
 
@@ -478,10 +478,6 @@ namespace SINF_App.Lib_Primavera
 
 
                     PriEngine.Engine.TerminaTransaccao();
-
-
-
-                    return DocCompra.fromERPType(objFinal);
 
                 }
 
@@ -518,9 +514,9 @@ namespace SINF_App.Lib_Primavera
             }
         
         
+            return DocCompra.fromERPType(objFinal);
 
         
-
         }
 
         public static Object EstornaFactura(Login loginInfo, DocCompra factura, Dictionary<int, double> quantidadeEstornar,string motivo)
@@ -779,7 +775,13 @@ namespace SINF_App.Lib_Primavera
                 while (!objListCab.NoFim())
                 {
                     bool desiredFornecedor = idFornecedor == null || idFornecedor.Equals(objListCab.Valor("Entidade"), StringComparison.Ordinal);
-                    bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("id"));
+                    //bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("id"));
+                    bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("NumDoc").ToString());
+                    
+                    var test_id = objListCab.Valor("id");
+                    var test_NumDoc = objListCab.Valor("NumDoc");
+
+
                     bool desiredDescricaoFornecedor = descricaoFornecedor == null;
 
                     if (!desiredDescricaoFornecedor)
@@ -859,6 +861,76 @@ namespace SINF_App.Lib_Primavera
             }
             return listdc;
 
+
+        }
+        public static EncomendaFornecedor ECF_Single(Login loginInfo, string idDoc = null, string descricaoFornecedor = null, string idFornecedor = null, string idArtigo = null)
+        {
+
+            ErpBS objMotor = new ErpBS();
+
+            StdBELista objListCab;
+            StdBELista objListLin;
+            StdBELista objListLinStatus;
+            EncomendaFornecedor dc = new EncomendaFornecedor();
+            List<EncomendaFornecedor> listdc = new List<EncomendaFornecedor>();
+            LinhaDocCompra lindc = new LinhaDocCompra();
+            List<LinhaDocCompra> listlindc = new List<LinhaDocCompra>();
+
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='ECF'");
+                while (!objListCab.NoFim())
+                {
+                    bool desiredDocumentID = idDoc.Equals(objListCab.Valor("id").ToString());
+                    var tmp = objListCab.Valor("NumDoc").ToString();
+                    if (!desiredDocumentID)
+                    {
+                        objListCab.Seguinte();
+                        continue;
+                    }
+
+                    dc = new EncomendaFornecedor();
+                    dc.id = objListCab.Valor("id");
+                    dc.NumDocExterno = objListCab.Valor("NumDocExterno");
+                    dc.Entidade = objListCab.Valor("Entidade");
+                    dc.NumDoc = objListCab.Valor("NumDoc");
+                    dc.Data = objListCab.Valor("DataDoc");
+                    dc.TotalMerc = objListCab.Valor("TotalMerc");
+                    dc.Serie = objListCab.Valor("Serie");
+                    objListLin = PriEngine.Engine.Consulta("SELECT Id, idCabecCompras, NumLinha, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido, Armazem, Lote from LinhasCompras where IdCabecCompras='" + dc.id + "' order By NumLinha");
+
+
+                    listlindc = new List<LinhaDocCompra>();
+                    while (!objListLin.NoFim())
+                    {
+
+                        lindc = new LinhaDocCompra();
+                        lindc.IdCabecDoc = objListLin.Valor("idCabecCompras");
+                        lindc.CodArtigo = objListLin.Valor("Artigo");
+                        lindc.DescArtigo = objListLin.Valor("Descricao");
+                        lindc.Quantidade = objListLin.Valor("Quantidade");
+                        lindc.Unidade = objListLin.Valor("Unidade");
+                        lindc.Desconto = objListLin.Valor("Desconto1");
+                        lindc.PrecoUnitario = objListLin.Valor("PrecUnit");
+                        lindc.TotalILiquido = objListLin.Valor("TotalILiquido");
+                        lindc.TotalLiquido = objListLin.Valor("PrecoLiquido");
+                        lindc.Armazem = objListLin.Valor("Armazem");
+                        lindc.Lote = objListLin.Valor("Lote");
+                        lindc.NumLinha = objListLin.Valor("NumLinha");
+
+
+                        objListLinStatus = PriEngine.Engine.Consulta("SELECT QuantTrans from LinhasComprasStatus where IdLinhasCompras='" + objListLin.Valor("Id") + "'");
+                        lindc.QuantidadeSatisfeita = objListLinStatus.Valor("QuantTrans");
+                        listlindc.Add(lindc);
+                        objListLin.Seguinte();
+                    }
+
+                    dc.LinhasDoc = listlindc;
+                    return dc;
+                }
+            }
+
+            return null;
 
         }
 

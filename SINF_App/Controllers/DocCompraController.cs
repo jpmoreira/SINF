@@ -38,6 +38,7 @@ namespace SINF_App.Controllers
             public string nrDocumentoExterno;
             public Dictionary<int, double> quantidades;
             public string armazem;
+            public string idArmazem;
             public string tipoDestino;
 
         }
@@ -55,23 +56,23 @@ namespace SINF_App.Controllers
         public Object FetchEncomendas(FiltroEncomendas filtro)
         {
 
-
-            //var headers = Request.Headers;
-            //var content = Request.Content;
-            /*
-            var headers=Request.Headers;
-            HttpContent content=Request.Content;
-            
-            string jsonContent = content.ReadAsStringAsync().Result;
-            filtro = JsonConvert.DeserializeObject<FiltroEncomendas>(jsonContent);
-            System.Console.WriteLine();
-            */
             RespostaErro erro = new RespostaErro();
             erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
 
             if (erro.Erro == 0) return SINF_App.Lib_Primavera.Comercial.ECF_List(filtro.loginInfo,filtro.idDocument,filtro.descricaoFornecedor,filtro.idFornecedor,filtro.idArtigo);
+            
+            return erro;
+        }
+
+        public Object FetchEncomenda(FiltroEncomendas filtro)
+        {
+            RespostaErro erro = new RespostaErro();
+            erro = SINF_App.Lib_Primavera.Comercial.Login(filtro.loginInfo);
+            if (erro.Erro == 0)
+                return SINF_App.Lib_Primavera.Comercial.ECF_Single(filtro.loginInfo, filtro.idDocument, filtro.descricaoFornecedor, filtro.idFornecedor, filtro.idArtigo);
 
             return erro;
+
         }
 
         /*
@@ -137,16 +138,7 @@ namespace SINF_App.Controllers
 
         }
 
-        public Object EstornaFactura(FiltroEstorno f)
-        {
-
-            DocCompra d = new DocCompra();
-            d.id = f.idDocument;
-
-
-            return SINF_App.Lib_Primavera.Comercial.EstornaFactura(f.loginInfo,d,f.quantidades,f.motivo);
-
-        }
+      
 
 
         public List<string> GetMotivosEstorno([FromUri]Login loginInfo)

@@ -1,89 +1,187 @@
 ﻿@model IEnumerable<SINF_App.Models.DocCompra>
 
-@{
 
-}
 <div class="container">
-    <form class="form-inline" role="form">
-        <div class="form-group">
-            @*descricaoFornecedor*@
-            <div class="input-group">
-                <label class="sr-only" for="descricaoFornecedor"></label>
-                <input type="text" class="form-control" id="descricaoFornecedor" placeholder="Fornecedor">
-            </div>
-            @*idFornecedor*@
-            <div class="input-group">
-                <label class="sr-only" for="idFornecedor"></label>
-                <input type="text" class="form-control" id="idFornecedor" placeholder="Código Fornecedor">
-            </div>
-            @*idArtigo*@
-            <div class="input-group">
-                <label class="sr-only" for="idArtigo"></label>
-                <input type="text" class="form-control" id="idArtigo" placeholder="Código Artigo">
-            </div>
-            @*idDocument*@
-            <div class="input-group">
-                <label class="sr-only" for="idDocument"></label>
-                <input type="text" class="form-control" id="idDocument" placeholder="Nr. Documento">
+
+
+    <h2>Encomendas</h2>
+
+
+    <!-- HEADER -->
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading" role="tab" id="headingTwo">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <h4 class="panel-title">
+                            <strong>@Html.DisplayNameFor(model => model.Entidade)</strong>
+                        </h4>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h4 class="panel-title">
+                            <strong>@Html.DisplayNameFor(model => model.Data)</strong>
+                        </h4>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h4 class="panel-title">
+                            <strong>@Html.DisplayNameFor(model => model.TotalMerc)</strong>
+                        </h4>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h4 class="panel-title">
+                            <strong>Nr. Linhas</strong>
+                        </h4>
+                    </div>
+                </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-default">Pesquisar</button>
-    </form>
-</div>
 
-<div class="table-responsive">
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NumDocExterno)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumDoc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Data)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalMerc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Serie)
-            </th>
-            <th></th>
-        </tr>
+
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumDocExterno)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entidade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumDoc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Data)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalMerc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Serie)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>
-            </tr>
-        }
-        
+            var rowId = item.Serie.ToString() + item.NumDoc.ToString();
+            var rowCollapse = rowId + "Collapse";
+            var rowCollapseId = "#" + rowCollapse;
 
-    </table>
+
+
+            <div class="panel panel-default">
+
+                <!-- VISIBLE -->
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <div class="row">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
+                            <div class="col-md-3">
+                                <h4 class="panel-title">
+                                    @Html.DisplayFor(model => item.Entidade)
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="panel-title">
+                                    @item.Data.ToShortDateString()
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="panel-title">
+                                    @Html.DisplayFor(model => item.TotalMerc)
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="panel-title">
+                                    @Html.DisplayFor(model => item.LinhasDoc.Count)
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                @*COLLAPSE*@
+                <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
+                    <div class="panel-body">
+                        <div class="col-sm-4">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>
+                        <div class="col-sm-4">@Html.DisplayFor(model => item.NumDocExterno)</div>
+                        <div class="col-sm-4">
+                            @Html.ActionLink("Details", "DetailOrder", "Home", new
+                       {
+                           Company = ViewBag.loginInfo.Company,
+                           Username = ViewBag.loginInfo.Username,
+                           Password = ViewBag.loginInfo.Password,
+                           idDocument = @Html.DisplayFor(modelItem => item.id)
+                       }, htmlAttributes: null)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        }
+    </div>
 </div>
+
+
+
+@*
+    old container content
+     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="row ">
+            <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.Entidade)</h4></div>
+            <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.Data)</h4></div>
+            <div class="col-sm-3"><h4>@Html.DisplayNameFor(model => model.TotalMerc)</h4></div>
+            <div class="col-sm-3"><h4>Nr. Linhas</h4></div>
+        </div>
+        @foreach (var item in Model)
+        {
+            var rowId = item.Serie.ToString() + item.NumDoc.ToString();
+            var rowCollapse = rowId + "Collapse";
+            var rowCollapseId = "#" + rowCollapse;
+            <div class="panel panel-default row">
+                <div role="tab" id=@rowId>
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls=@rowCollapse>
+                        <div class="col-sm-3">@Html.DisplayFor(model => item.Entidade)</div>
+                        <div class="col-sm-3">@item.Data.ToShortDateString()</div>
+                        <div class="col-sm-3">@Html.DisplayFor(modelItem => item.TotalMerc)</div>
+                        <div class="col-sm-3">@Html.DisplayFor(modelItem => item.LinhasDoc.Count)</div>
+                    </a>
+                </div>
+            </div>
+            <div class="panel panel-default row">
+                <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby=@rowId>
+                    <div class="panel-body">
+                        <div class="col-sm-4">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>
+                        <div class="col-sm-4">@Html.DisplayFor(model => item.NumDocExterno)</div>
+                        <div class="col-sm-4">
+                            @Html.ActionLink("Details", "DetailOrder", "Home", new
+               {
+                   //loginInfo = new {
+                   Company = ViewBag.loginInfo.Company,
+                   Username = ViewBag.loginInfo.Username,
+                   Password = ViewBag.loginInfo.Password //}
+                   ,
+                   idDocument = @Html.DisplayFor(modelItem => item.id)
+               }, htmlAttributes: null)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+*@
+
+@*<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="row ">
+            <div class="col-sm-3"><h4></h4></div>
+            <div class="col-sm-3"><h4></h4></div>
+            <div class="col-sm-3"><h4></h4></div>
+            <div class="col-sm-3"><h4></h4></div>
+        </div>
+        <div class="panel panel-default row">
+            <div role="tab" id=@rowId>
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls=@rowCollapse>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3"></div>
+                </a>
+            </div>
+        </div>
+        <div class="panel panel-default row">
+            <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby=@rowId>
+                <div class="panel-body">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@

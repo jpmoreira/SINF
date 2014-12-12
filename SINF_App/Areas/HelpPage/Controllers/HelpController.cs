@@ -22,8 +22,9 @@ namespace SINF_App.Areas.HelpPage.Controllers
 
         public HttpConfiguration Configuration { get; private set; }
 
-        public ActionResult Index()
+        public ActionResult Index(SINF_App.Models.Login loginInfo)
         {
+            ViewBag.loginInfo = loginInfo;
             return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
         }
 

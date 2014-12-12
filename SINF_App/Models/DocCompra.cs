@@ -8,7 +8,7 @@ namespace SINF_App.Models
 {
 
 
-    public enum TipoDoc { Tipo_Desconhecido,Encomenda_Fornecedor, Factura_Fornecedor, Guia_Transporte_Fornecedor,Guia_Remessa_Fornecedor };
+    public enum TipoDoc { Tipo_Desconhecido, Encomenda_Fornecedor, Factura_Fornecedor, Guia_Transporte_Fornecedor, Guia_Remessa_Fornecedor };
     public class DocCompra
     {
 
@@ -71,8 +71,8 @@ namespace SINF_App.Models
 
         public virtual GcpBEDocumentoCompra toERPType(GcpBEDocumentoCompra doc)
         {
-                                                                          
-           
+
+
 
             doc.set_ID(id);
             doc.set_NumDocExterno(NumDocExterno);
@@ -83,7 +83,7 @@ namespace SINF_App.Models
             doc.set_Serie(Serie);
             doc.set_TipoEntidade("F");
             PreencheRelacaoCompras rl = new PreencheRelacaoCompras();
-            
+
             SINF_App.Lib_Primavera.PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(doc, rl);//dunno what this does!!!
 
             foreach (LinhaDocCompra linha in LinhasDoc)
@@ -154,43 +154,46 @@ namespace SINF_App.Models
         {
 
             DocCompra doc;
-            if(docOriginal.get_Tipodoc().Equals(typeString(TipoDoc.Encomenda_Fornecedor)))doc=new EncomendaFornecedor();
-            else if(docOriginal.get_Tipodoc().Equals(typeString(TipoDoc.Factura_Fornecedor)))doc=new Factura();
-            else doc=new DocCompra();
+            if (docOriginal.get_Tipodoc().Equals(typeString(TipoDoc.Encomenda_Fornecedor))) doc = new EncomendaFornecedor();
+            else if (docOriginal.get_Tipodoc().Equals(typeString(TipoDoc.Factura_Fornecedor))) doc = new Factura();
+            else doc = new DocCompra();
 
-            doc.id=docOriginal.get_ID();
-            doc.NumDocExterno=docOriginal.get_NumDocExterno();
-            doc.NumDoc=docOriginal.get_NumDoc();
-            doc.Entidade=docOriginal.get_Entidade();
-            doc.Data=docOriginal.get_DataDoc();
-            doc.TotalMerc=docOriginal.get_TotalMerc();
-            doc.Serie=docOriginal.get_Serie();
-            doc.LinhasDoc=new List<LinhaDocCompra>();
+            doc.id = docOriginal.get_ID();
+            doc.NumDocExterno = docOriginal.get_NumDocExterno();
+            doc.NumDoc = docOriginal.get_NumDoc();
+            doc.Entidade = docOriginal.get_Entidade();
+            doc.Data = docOriginal.get_DataDoc();
+            doc.TotalMerc = docOriginal.get_TotalMerc();
+            doc.Serie = docOriginal.get_Serie();
+            doc.LinhasDoc = new List<LinhaDocCompra>();
 
-            GcpBELinhasDocumentoCompra linhas=docOriginal.get_Linhas();
+            GcpBELinhasDocumentoCompra linhas = docOriginal.get_Linhas();
 
-            for(int i=0;i<linhas.NumItens;i++){
-
-                GcpBELinhaDocumentoCompra linha=linhas[i];
-
-                LinhaDocCompra l=new LinhaDocCompra();
-                l.Armazem=linha.get_Armazem();
-                l.CodArtigo=linha.get_Artigo();
-                l.DescArtigo=linha.get_Descricao();
-                l.Desconto=linha.get_Desconto1();
-                l.Lote=linha.get_Lote();
-                l.NumLinha=i;
-                l.PrecoUnitario=linha.get_PrecUnit();
-                l.Quantidade=linha.get_Quantidade();
-                l.TotalILiquido=linha.get_TotalIliquido();
-                l.TotalLiquido=linha.get_PrecoLiquido();
-                l.Unidade=linha.get_Unidade();
+            int nritems = linhas.NumItens;
+            int i = 0;
+            // for(int i=0;i<linhas.NumItens;i++)
+            foreach (GcpBELinhaDocumentoCompra linha in linhas)
+            {
+                i++;
+                // GcpBELinhaDocumentoCompra linha=linhas[i];
+                LinhaDocCompra l = new LinhaDocCompra();
+                l.Armazem = linha.get_Armazem();
+                l.CodArtigo = linha.get_Artigo();
+                l.DescArtigo = linha.get_Descricao();
+                l.Desconto = linha.get_Desconto1();
+                l.Lote = linha.get_Lote();
+                l.NumLinha = i;
+                l.PrecoUnitario = linha.get_PrecUnit();
+                l.Quantidade = linha.get_Quantidade();
+                l.TotalILiquido = linha.get_TotalIliquido();
+                l.TotalLiquido = linha.get_PrecoLiquido();
+                l.Unidade = linha.get_Unidade();
 
                 doc.LinhasDoc.Add(l);
             }
 
 
-            
+
             return doc;
 
         }
