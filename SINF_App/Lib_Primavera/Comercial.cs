@@ -370,7 +370,7 @@ namespace SINF_App.Lib_Primavera
 
 
         #region Encomenda
-        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter,Dictionary<int,string>armazens, string codDocExterno)
+        public static Object TransformaEncomenda(DocCompra documentoOriginal, TipoDoc tipoFinal, Login loginInfo, Dictionary<int,double> quantidadesAConverter,string armazem, string codDocExterno)
         {
 
             RespostaErro erro = new RespostaErro();
@@ -410,10 +410,10 @@ namespace SINF_App.Lib_Primavera
 
                     objFinal.set_Serie(documentoOriginal.Serie);
 
-                    objFinal.set_Tipodoc("VFA");
+                    objFinal.set_Tipodoc(DocCompra.typeString(tipoFinal));
 
                     objFinal.set_TipoEntidade("F");
-                    objFinal.set_NumDocExterno(objInicial.get_NumDocExterno()+1);//Should be something else
+                    objFinal.set_NumDocExterno(codDocExterno);//Should be something else
 
 
 
@@ -452,12 +452,12 @@ namespace SINF_App.Lib_Primavera
                         //tudo está ok aqui... entao faz conversao
 
                         string previousArmazem = line.get_Armazem();
-                        line.set_Armazem(armazens[nrLinha]);//temporarly change armazem to the desired one
+                        //line.set_Armazem(armazem);//temporarly change armazem to the desired one
 
                         PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha + 1, quantAConverter);
 
 
-                        line.set_Armazem(previousArmazem);//change to the original armazem again!
+                        //line.set_Armazem(previousArmazem);//change to the original armazem again!
 
                         line.set_QuantSatisfeita(line.get_QuantSatisfeita() + quantAConverter);
 
@@ -523,6 +523,180 @@ namespace SINF_App.Lib_Primavera
 
         }
 
+        public static Object EstornaFactura(Login loginInfo, DocCompra factura, Dictionary<int, double> quantidadeEstornar,string motivo)
+        {
+            RespostaErro erro = new RespostaErro();
+
+            GcpBEDocumentoCompra objInicial;
+
+            GcpBEDocumentoCompra objFinal = new GcpBEDocumentoCompra();
+
+            GcpBELinhasDocumentoCompra objLinEnc = new GcpBELinhasDocumentoCompra();
+
+            PreencheRelacaoCompras rl = new PreencheRelacaoCompras();
+
+
+
+            List<LinhaDocCompra> lstlindc = new List<LinhaDocCompra>();
+
+
+
+            try
+            {
+                if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
+                {
+
+
+
+
+                    objInicial = PriEngine.Engine.Comercial.Compras.EditaID(factura.id);//get original document
+
+
+
+
+
+                    // --- Criar os cabeçalhos da GR
+
+                    objFinal.set_Entidade(objInicial.get_Entidade());
+
+                    objFinal.set_Serie("A");
+
+                    objFinal.set_Tipodoc("VNC");
+
+                    objFinal.set_TipoEntidade("F");
+
+
+
+                    objFinal = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(objFinal, rl);
+
+                    GcpBELinhasDocumentoCompra linhasOriginal = objInicial.get_Linhas();
+
+                    foreach (KeyValuePair<int, double> entry in quantidadeEstornar)
+                    {
+
+                        int nrLinha = entry.Key;
+                        double quantAEstornar = entry.Value;
+
+
+                        //faz verificaçoes necessarias
+                        if (quantAEstornar == 0.0) continue;
+                        double quantPossivelEstornar = 0;
+
+
+                        if (nrLinha > linhasOriginal.NumItens - 1) continue;//if the line doesnt exist continue
+                        GcpBELinhaDocumentoCompra line = linhasOriginal[nrLinha + 1];
+
+                        double q = line.get_Quantidade();
+                        double qs = line.get_QuantSatisfeita();
+                        quantPossivelEstornar = line.get_Quantidade();
+
+
+                        if (quantAEstornar > quantPossivelEstornar)
+                        {
+                            erro.Descricao = "Impossivel estornar quantidade desejada para linha número " + nrLinha;
+                            erro.Erro = 427;//change this code
+                            return erro;
+                        }
+
+
+                        //tudo está ok aqui... entao faz conversao
+
+                       
+
+                        PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha + 1, quantAEstornar);
+
+
+                    }
+
+                    objFinal.set_Serie("A");
+
+
+                   objFinal=PriEngine.Engine.Comercial.Compras.EstornaDocumentoCompra(factura.id, motivo, "Feito via API", DateTime.Now, DateTime.Now, objFinal);
+
+
+
+
+
+
+                    PriEngine.Engine.IniciaTransaccao();
+
+                    PriEngine.Engine.Comercial.Compras.Actualiza(objInicial, "");
+
+                    PriEngine.Engine.Comercial.Compras.Actualiza(objFinal, "");
+
+                    PriEngine.Engine.TerminaTransaccao();
+
+
+
+                    return DocCompra.fromERPType(objFinal);
+
+                }
+
+                else
+                {
+
+                    erro.Erro = 1;
+
+                    erro.Descricao = "Erro ao abrir empresa";
+
+                    return erro;
+
+
+
+                }
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                PriEngine.Engine.DesfazTransaccao();
+
+                erro.Erro = 1;
+
+                erro.Descricao = ex.Message;
+
+                return erro;
+
+            }
+
+
+            return null;
+        }
+
+        public static List<string> MotivosEstorno(Login loginInfo)
+        {
+
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
+            {
+
+
+                List<string> listaDeMotivos = new List<string>();
+
+                StdBELista motivos = PriEngine.Engine.Comercial.MotivosEstorno.LstMotivos();
+
+
+                while (!motivos.NoFim())
+                {
+
+                    string motivo = motivos.Valor("Descricao");
+
+                    listaDeMotivos.Add(motivo);
+
+                    motivos.Seguinte();
+                }
+
+
+                return listaDeMotivos;
+
+            }
+
+            return null;
+
+
+        }
 
 
         #endregion Encomenda;
@@ -623,6 +797,7 @@ namespace SINF_App.Lib_Primavera
                     }
 
                     dc = new EncomendaFornecedor();
+                    dc.tipo = "ECF";
                     dc.id = objListCab.Valor("id");
                     dc.NumDocExterno = objListCab.Valor("NumDocExterno");
                     dc.Entidade = objListCab.Valor("Entidade");

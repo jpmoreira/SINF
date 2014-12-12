@@ -37,8 +37,18 @@ namespace SINF_App.Controllers
         {
             public string nrDocumentoExterno;
             public Dictionary<int, double> quantidades;
-            public Dictionary<int, string> armazens;
+            public string armazem;
             public string tipoDestino;
+
+        }
+
+
+        public class FiltroEstorno : Filtro
+        {
+
+            public Dictionary<int, double> quantidades;
+            public string motivo;
+
 
         }
 
@@ -111,21 +121,41 @@ namespace SINF_App.Controllers
         }
 
 
-        public HttpResponseMessage ConvertDocument(FiltroConversao f)
+        public Object ConvertDocument(FiltroConversao f)
         {
 
             DocCompra d = new DocCompra();
             d.id = f.idDocument;
 
 
-            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.armazens,f.nrDocumentoExterno);
+            return SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(d, DocCompra.typeFromString(f.tipoDestino), f.loginInfo, f.quantidades,f.armazem,f.nrDocumentoExterno);
 
 
 
 
-            return null;
+            
 
         }
+
+        public Object EstornaFactura(FiltroEstorno f)
+        {
+
+            DocCompra d = new DocCompra();
+            d.id = f.idDocument;
+
+
+            return SINF_App.Lib_Primavera.Comercial.EstornaFactura(f.loginInfo,d,f.quantidades,f.motivo);
+
+        }
+
+
+        public List<string> GetMotivosEstorno([FromUri]Login loginInfo)
+        {
+
+            return SINF_App.Lib_Primavera.Comercial.MotivosEstorno(loginInfo);
+
+        }
+
 
        [System.Web.Mvc.HttpGet]//this is a get method!!!!
         public Object Testx()
