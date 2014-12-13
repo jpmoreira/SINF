@@ -152,9 +152,15 @@ namespace SINF_App.Controllers
             filterOrder.idDocument = idDocument;
             DocCompra ans = (DocCompra)docCmpC.FetchEncomenda(filterOrder);
 
-            SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(ans, tipoDest, loginInfo, f.quantidades, f.idArmazem, f.nrDocumentoExterno);
+            Object transfReturn = SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(ans, tipoDest, loginInfo, f.quantidades, f.idArmazem, f.nrDocumentoExterno);
 
-            return View(f);
+            if(transfReturn.GetType() == typeof(RespostaErro))
+            {
+                ViewBag.ErrorMessage = "Falhou a transformação de documentos";
+                return View("GenericError");
+            }
+
+            return View(transfReturn);
         }
 
 

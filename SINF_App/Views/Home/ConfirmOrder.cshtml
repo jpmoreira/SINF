@@ -1,55 +1,61 @@
-﻿@model SINF_App.Models.FiltroConversao
+﻿@model SINF_App.Models.DocCompra
 
 @{
     ViewBag.Title = "ConfirmOrder";
 }
 
-<h2>Confirmar Documento</h2>
+<h2>ConfirmOrder</h2>
 
-<fieldset> @*campos so para confirmar info*@
-    <legend>FiltroConversao</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.nrDocumentoExterno)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nrDocumentoExterno)
-    </div>
+<fieldset>
+    <legend>DocCompra</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.idArmazem)
+         @Html.DisplayNameFor(model => model.tipo)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.idArmazem)
+        @Html.DisplayFor(model => model.tipo)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.tipoDestino)
+         @Html.DisplayNameFor(model => model.NumDocExterno)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.tipoDestino)
+        @Html.DisplayFor(model => model.NumDocExterno)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.idDocument)
+         @Html.DisplayNameFor(model => model.Entidade)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.idDocument)
+        @Html.DisplayFor(model => model.Entidade)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NumDoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumDoc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Data)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Data)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalMerc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalMerc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Serie)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Serie)
     </div>
 </fieldset>
 
-
- @if(String.Compare("VGT", Model.idDocument) == 0){
-     @*mostra botao confirmar*@
-     <div>VGT</div>
- }
- @if (String.Compare("VFA", Model.idDocument) == 0)
- {
-     //tratar estorno
-     foreach(KeyValuePair<int, double> linhaQtdd in Model.quantidades)
-     {
-         
-     }
-        <div>VFA</div>
-     @*mostra botao confirmar*@
- }
