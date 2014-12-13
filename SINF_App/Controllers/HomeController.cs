@@ -110,7 +110,7 @@ namespace SINF_App.Controllers
             //
 
             f.quantidades = new Dictionary<int, double>();
-            f.idArmazem = Request.Form["armazem"];
+            f.idArmazem = Request.Form["storage"];
             f.tipoDestino = Request.Form["tipoDestino"];
             if (f.idArmazem == null)
             {
