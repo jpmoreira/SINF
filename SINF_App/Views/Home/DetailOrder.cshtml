@@ -135,6 +135,8 @@
 
                 <div class="row">
 
+                    <div class="col-md-1"></div>
+
                     <div class="col-md-2">
                         <h4 class="panel-title">
                             <strong>Quantidade recebida</strong>
@@ -188,6 +190,11 @@
                 <div class="panel-heading" role="tab" id="headingTwo">
 
                     <div class="row">
+
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-primary">Qtd. Total</button>
+                        </div>
+
                         <div class="col-md-2">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-btn">
@@ -196,10 +203,11 @@
                                     </button>
                                 </span>
 
-                                <input type="text" name=@rowId class="form-control input-number" value=@Html.DisplayFor(modelItem => line.Quantidade) min="0" max=@Html.DisplayFor(modelItem => line.Quantidade)>
+                                @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
+                                <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
 
                                 <span class="input-group-btn ">
-                                    <button type="button" id="testaObutao" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                 </span>
@@ -221,9 +229,8 @@
 
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-md-1" id="qtdEmFalta">
 
-                                @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
                                 @qtdEmFalta @Html.DisplayFor(modelItem => line.Unidade)
 
                             </div>
