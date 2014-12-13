@@ -10,6 +10,7 @@
         Company = ViewBag.loginInfo.Company,
         Username = ViewBag.loginInfo.Username,
         Password = ViewBag.loginInfo.Password,
+        Storage = ViewBag.loginInfo.Storage,
         idDocument = @Model.id
     }))
 {
@@ -252,9 +253,9 @@
                         </h4>
 
                         <!-- Armazem -->
-                        @*<h4>
+                        <h4>
                                 <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
-                            </h4>*@
+                            </h4>
 
                         <!-- CodArtig -->
                         <h4>

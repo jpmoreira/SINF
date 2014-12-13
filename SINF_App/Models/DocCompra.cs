@@ -31,6 +31,7 @@ namespace SINF_App.Models
             set;
         }
 
+        public string Descricao { get; set; }
 
         public string Entidade
         {

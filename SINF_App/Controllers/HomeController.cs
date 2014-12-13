@@ -38,10 +38,13 @@ namespace SINF_App.Controllers
                 var response = logC.PostLogin(loginInfo);
                 if (logC.PostLogin(loginInfo).GetType() != typeof(RespostaErro))
                 {
-                    return Encomendas(loginInfo);
+                    ViewBag.loginInfo = loginInfo;
+                    if (loginInfo.Storage != null)
+                        return Encomendas(loginInfo);
+                    return View();
                 }
             }
-            ViewBag.LoginErrorMessage = "Invalid Login";
+            ViewBag.LoginErrorMessage = "Login invalido";
             return View();
         }
 
@@ -54,18 +57,15 @@ namespace SINF_App.Controllers
 
             DocCompraController docCmpC = new DocCompraController();
             DocCompraController.FiltroEncomendas filtro = new DocCompraController.FiltroEncomendas();
-            filtro.descricaoFornecedor = null;
-            filtro.idArtigo = null;
-            filtro.idFornecedor = null;
             filtro.loginInfo = loginInfo;
 
-            ViewBag.loginInfo = filtro.loginInfo;
+            ViewBag.loginInfo = loginInfo;
 
             var ans = docCmpC.FetchEncomendas(filtro);
             if (ans.GetType() != typeof(RespostaErro))
                 return View("Encomendas", ans);
 
-            ViewBag.LoginErrorMessage = "Invalid Login";
+            ViewBag.LoginErrorMessage = "Login Invalido";
             return View("Login");
         }
 
@@ -78,9 +78,6 @@ namespace SINF_App.Controllers
         {
             DocCompraController docCmpC = new DocCompraController();
             DocCompraController.FiltroEncomendas filterOrder = new DocCompraController.FiltroEncomendas();
-            filterOrder.descricaoFornecedor = null;
-            filterOrder.idArtigo = null;
-            filterOrder.idFornecedor = null;
             filterOrder.loginInfo = loginInfo;
             filterOrder.idDocument = idDocument;
 
@@ -161,6 +158,7 @@ namespace SINF_App.Controllers
         public ActionResult Armazens(Login loginInfo)
         {
             var ans = SINF_App.Lib_Primavera.Comercial.ListaArmazens(loginInfo);
+            ViewBag.loginInfo = loginInfo;
             return PartialView("Armazens", ans);
         }
 
