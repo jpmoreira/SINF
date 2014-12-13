@@ -19,6 +19,12 @@ namespace SINF_App.Models
         [Required(ErrorMessage = "Company is required")]
         [Display(Name = "Company")]
         public string Company{ get; set; }
+
+        
+        [Display(Name = "Storage")]
+        public string Storage { get; set; }
+
+
    
     }
 }
