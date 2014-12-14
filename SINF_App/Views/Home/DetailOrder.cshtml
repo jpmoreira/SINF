@@ -190,30 +190,62 @@
                 <div class="panel-heading" role="tab" id="headingTwo">
 
                     <div class="row">
+                        @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
 
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-primary">Qtd. Total</button>
-                        </div>
+                        @{
+            if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
+            {
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary">Qtd. Total</button>
+                </div>
 
-                        <div class="col-md-2">
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
-                                        <span class="glyphicon glyphicon-minus"></span>
-                                    </button>
-                                </span>
+                            <div class="col-md-2">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
 
-                                @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
-                                <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
 
-                                <span class="input-group-btn ">
-                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                </span>
+                                    <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
+
+                                    <span class="input-group-btn ">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+
                             </div>
+            }
+            else
+            {
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary">Qtd. Total</button>
+                </div>
 
-                        </div>
+                            <div class="col-md-2">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
+
+
+                                    <span class="form-control input-number">0</span>
+
+                                    <span class="input-group-btn ">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+
+                            </div>
+            }
+                        }
 
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
 
@@ -261,8 +293,8 @@
 
                         <!-- Armazem -->
                         <h4>
-                                <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
-                            </h4>
+                            <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
+                        </h4>
 
                         <!-- CodArtig -->
                         <h4>
@@ -332,7 +364,7 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                       <small><strong>Armazem</strong> </small>
+                        <small><strong>Armazem</strong> </small>
                     </div>
 
                     <div class="col-md-2">
