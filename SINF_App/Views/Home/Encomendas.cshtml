@@ -18,7 +18,7 @@
 
                     <div class="col-md-3">
                         <h4 class="panel-title">
-                            <strong>@Html.DisplayNameFor(model => model.Entidade)</strong>
+                            <strong>Fornecedor@*@Html.DisplayNameFor(model => model.Entidade)*@</strong>
                         </h4>
                     </div>
 
@@ -30,13 +30,13 @@
 
                     <div class="col-md-3">
                         <h4 class="panel-title">
-                            <strong>@Html.DisplayNameFor(model => model.TotalMerc)</strong>
+                            <strong>Nr. Artigos</strong>
                         </h4>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 text-right">
                         <h4 class="panel-title">
-                            <strong>Nr. Linhas</strong>
+                            <strong>Total</strong>
                         </h4>
                     </div>
                 </div>
@@ -50,8 +50,8 @@
             var rowId = item.Serie.ToString() + item.NumDoc.ToString();
             var rowCollapse = rowId + "Collapse";
             var rowCollapseId = "#" + rowCollapse;
-
-
+            float total;
+            float.TryParse(item.TotalMerc.ToString(), out total);
 
             <div class="panel panel-default">
 
@@ -61,7 +61,7 @@
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
                             <div class="col-md-3">
                                 <h4 class="panel-title">
-                                    @Html.DisplayFor(model => item.Entidade)
+                                  @item.Nome @*@Html.DisplayFor(model => item.Entidade)*@
                                 </h4>
                             </div>
                             <div class="col-md-3">
@@ -69,14 +69,16 @@
                                     @item.Data.ToShortDateString()
                                 </h4>
                             </div>
+
                             <div class="col-md-3">
                                 <h4 class="panel-title">
-                                    @Html.DisplayFor(model => item.TotalMerc)
+                                   @Html.DisplayFor(model => item.LinhasDoc.Count)
                                 </h4>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-3 text-right">
                                 <h4 class="panel-title">
-                                    @Html.DisplayFor(model => item.LinhasDoc.Count)
+                                   @total €
                                 </h4>
                             </div>
                         </a>
@@ -90,7 +92,9 @@
                         @*<div class="col-sm-2">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>*@
                         @*<div class="col-sm-2">@Html.DisplayFor(model => item.NumDocExterno)</div>*@
                         @*<div class="col-sm-2">@Html.DisplayFor(modelItem => item.Descricao)</div>*@
-                        <div class="col-sm-6">@item.Nome</div>
+                        <div class="col-sm-3">Cod. Fornecedor: @item.Entidade</div>
+                        <div class="col-sm-3">Série: @item.Serie</div>
+                        <div class="col-sm-3">Nr. Doc. Externo: @item.NumDocExterno</div>
                         <div class="col-sm-2">
                             @Html.ActionLink("Receber", "DetailOrder", "Home", new
                        {
