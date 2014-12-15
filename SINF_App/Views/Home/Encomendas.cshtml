@@ -87,11 +87,12 @@
                 <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
                     <div class="panel-body">
-                        <div class="col-sm-2">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>
-                        <div class="col-sm-2">@Html.DisplayFor(model => item.NumDocExterno)</div>
-                        <div class="col-sm-2">@Html.DisplayFor(modelItem => item.Descricao)</div>
+                        @*<div class="col-sm-2">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>*@
+                        @*<div class="col-sm-2">@Html.DisplayFor(model => item.NumDocExterno)</div>*@
+                        @*<div class="col-sm-2">@Html.DisplayFor(modelItem => item.Descricao)</div>*@
+                        <div class="col-sm-6">@item.Nome</div>
                         <div class="col-sm-2">
-                            @Html.ActionLink("Details", "DetailOrder", "Home", new
+                            @Html.ActionLink("Receber", "DetailOrder", "Home", new
                        {
                            Company = ViewBag.loginInfo.Company,
                            Username = ViewBag.loginInfo.Username,
@@ -103,9 +104,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         }
     </div>
 </div>

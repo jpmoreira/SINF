@@ -407,13 +407,16 @@ namespace SINF_App.Lib_Primavera
 
                     objFinal.set_Serie(documentoOriginal.Serie);
 
-                    objFinal.set_Tipodoc("VFA");
+                    string docDest;
+                    if (tipoFinal == TipoDoc.Factura_Fornecedor)
+                        docDest = "VFA";
+                    else
+                        docDest = "VGT";
+
+                    objFinal.set_Tipodoc(docDest);
 
                     objFinal.set_TipoEntidade("F");
-                    objFinal.set_NumDocExterno(objInicial.get_NumDocExterno() + 1);//Should be something else
-
-
-
+                    objFinal.set_NumDocExterno(codDocExterno);
                     objFinal = PriEngine.Engine.Comercial.Compras.PreencheDadosRelacionados(objFinal, rl);
 
                     GcpBELinhasDocumentoCompra linhasOriginal = objInicial.get_Linhas();
@@ -757,6 +760,7 @@ namespace SINF_App.Lib_Primavera
             ErpBS objMotor = new ErpBS();
 
             StdBELista objListCab;
+            StdBELista isClosed;
             StdBELista objListLin;
             StdBELista objListLinStatus;
             EncomendaFornecedor dc = new EncomendaFornecedor();
@@ -766,14 +770,27 @@ namespace SINF_App.Lib_Primavera
 
             if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='ECF'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie, Nome From CabecCompras where TipoDoc='ECF'");
                 while (!objListCab.NoFim())
                 {
+                    
+
+
                     bool desiredFornecedor = idFornecedor == null || idFornecedor.Equals(objListCab.Valor("Entidade"), StringComparison.Ordinal);
                     //bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("id"));
                     bool desiredDocumentID = idDoc == null || idDoc.Equals(objListCab.Valor("NumDoc").ToString());
 
                     var test_id = objListCab.Valor("id");
+                    isClosed = PriEngine.Engine.Consulta("SELECT Estado FROM CabecComprasStatus WHERE IdCabecCompras='" + test_id+"'");
+
+                    if (String.Compare(isClosed.Valor("Estado"), "T") == 0 || String.Compare(isClosed.Valor("Estado"), "F") == 0)
+                    {
+                        objListCab.Seguinte();
+                        continue;
+                    }
+
+
+
                     var test_NumDoc = objListCab.Valor("NumDoc");
 
 
@@ -795,6 +812,7 @@ namespace SINF_App.Lib_Primavera
 
                     dc = new EncomendaFornecedor();
                     dc.tipo = "ECF";
+                    dc.Nome = objListCab.Valor("Nome");
                     dc.id = objListCab.Valor("id");
                     dc.NumDocExterno = objListCab.Valor("NumDocExterno");
                     dc.Entidade = objListCab.Valor("Entidade");

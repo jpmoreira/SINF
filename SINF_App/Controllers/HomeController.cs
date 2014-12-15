@@ -105,18 +105,24 @@ namespace SINF_App.Controllers
             f.loginInfo = loginInfo;
 
             //todo documento externo
-            Random rnd = new Random();
-            f.nrDocumentoExterno = idDocument + rnd.Next(0, 100);
+            f.nrDocumentoExterno = Request.Form["nrDocExterno"];
             //
 
             f.quantidades = new Dictionary<int, double>();
-            f.idArmazem = Request.Form["storage"];
-            f.tipoDestino = Request.Form["tipoDestino"];
-            if (f.idArmazem == null)
+            f.idArmazem = ViewBag.loginInfo.Storage;
+
+            if (f.idArmazem == null || String.Compare(f.idArmazem, "") == 0)
             {
                 ViewBag.ErrorMessage = "Armazem não seleccionado ou inválido";
                 return View("GenericError");
             }
+            
+            f.tipoDestino = Request.Form["tipoDestino"];
+            //if (f.idArmazem == null)
+            //{
+            //    ViewBag.ErrorMessage = "Armazem não seleccionado ou inválido";
+            //    return View("GenericError");
+            //}
             if (f.tipoDestino == null)
             {
                 ViewBag.ErrorMessage = "Documento de destino inválido";
@@ -151,7 +157,7 @@ namespace SINF_App.Controllers
 
             Object transfReturn = SINF_App.Lib_Primavera.Comercial.TransformaEncomenda(ans, tipoDest, loginInfo, f.quantidades, f.idArmazem, f.nrDocumentoExterno);
 
-            if(transfReturn.GetType() == typeof(RespostaErro))
+            if (transfReturn.GetType() == typeof(RespostaErro))
             {
                 ViewBag.ErrorMessage = "Falhou a transformação de documentos";
                 return View("GenericError");

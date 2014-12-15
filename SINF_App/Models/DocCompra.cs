@@ -12,6 +12,7 @@ namespace SINF_App.Models
     public class DocCompra
     {
 
+        public string Nome { get; set; }
 
         public string tipo
         {

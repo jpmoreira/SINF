@@ -192,9 +192,8 @@
                     <div class="row">
                         @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
 
-                        @{
-            if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
-            {
+                        
+            
                 <div class="col-md-1">
                     <button type="button" class="btn btn-primary">Qtd. Total</button>
                 </div>
@@ -207,9 +206,13 @@
                                         </button>
                                     </span>
 
-
-                                    <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
-
+                                    @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
+                                    {
+                                        <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
+                                    }
+                                    else{
+                                        <span class="form-control">0</span>
+                                    }
                                     <span class="input-group-btn ">
                                         <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
                                             <span class="glyphicon glyphicon-plus"></span>
@@ -218,34 +221,9 @@
                                 </div>
 
                             </div>
-            }
-            else
-            {
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-primary">Qtd. Total</button>
-                </div>
-
-                            <div class="col-md-2">
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
-                                            <span class="glyphicon glyphicon-minus"></span>
-                                        </button>
-                                    </span>
+            
 
 
-                                    <span class="form-control input-number">0</span>
-
-                                    <span class="input-group-btn ">
-                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                    </span>
-                                </div>
-
-                            </div>
-            }
-                        }
 
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
 
@@ -311,17 +289,6 @@
                             <small>Desconto</small> @Html.DisplayFor(modelItem => line.Desconto)%
                         </h4>
 
-                        <!-- Lote -->
-                        @*<h4>
-                                <small>Lote</small> @Html.DisplayFor(modelItem => line.Lote)
-                            </h4>*@
-
-                        <!-- PrecoUnitario -->
-                        @*<h4>
-                                <small>Preco Unitario</small> @Html.DisplayFor(modelItem => line.PrecoUnitario) €
-                            </h4>*@
-
-                        <!-- Unidade -->
                         <h4>
                             <small>Unidade</small> @Html.DisplayFor(modelItem => line.Unidade)
                         </h4>
@@ -335,17 +302,6 @@
                         <h4>
                             <small>Quantidade Satisfeita</small> @Html.DisplayFor(modelItem => line.QuantidadeSatisfeita) @Html.DisplayFor(modelItem => line.Unidade)
                         </h4>
-
-                        <!-- Total Iliquido -->
-                        @*<h4>
-                                <small>Total Iliquido</small> @Html.DisplayFor(modelItem => line.TotalILiquido) €
-                            </h4>*@
-
-                        <!-- Total Liquido -->
-                        @*<h4>
-                                <small>Total Liquido</small> @Html.DisplayFor(modelItem => line.TotalLiquido) €
-                            </h4>*@
-
                     </div>
                 </div>
             </div>
@@ -380,15 +336,19 @@
             <div class="panel-heading" role="tab" id="headingTwo">
                 <div class="row">
 
-                    <div class="col-md-2">
+                    @*<div class="col-md-2">
                         @{Html.RenderAction("Armazens");}
-                    </div>
+                    </div>*@
 
                     <div class="col-md-2">
                         <select class="form-control" name="tipoDestino">
                             <option value="VFA">Factura</option>
                             <option value="VGT">Guia de Transporte</option>
                         </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="text" name="nrDocExterno" class="form-control" value="Nr. Doc. Externo">
                     </div>
 
                     <div class="col-md-2">
