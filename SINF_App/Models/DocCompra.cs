@@ -160,6 +160,8 @@ namespace SINF_App.Models
             else if (docOriginal.get_Tipodoc().Equals(typeString(TipoDoc.Factura_Fornecedor))) doc = new Factura();
             else doc = new DocCompra();
 
+            doc.Nome = docOriginal.get_Nome();
+            doc.tipo = docOriginal.get_Tipodoc();
             doc.id = docOriginal.get_ID();
             doc.NumDocExterno = docOriginal.get_NumDocExterno();
             doc.NumDoc = docOriginal.get_NumDoc();
