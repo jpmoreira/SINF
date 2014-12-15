@@ -16,6 +16,8 @@
 
                 <div class="row">
 
+                    <div class="col-md-2"></div>
+
                     <div class="col-md-3">
                         <h4 class="panel-title">
                             <strong>Fornecedor@*@Html.DisplayNameFor(model => model.Entidade)*@</strong>
@@ -28,13 +30,13 @@
                         </h4>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <h4 class="panel-title">
                             <strong>Nr. Artigos</strong>
                         </h4>
                     </div>
 
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-2 text-right">
                         <h4 class="panel-title">
                             <strong>Total</strong>
                         </h4>
@@ -58,10 +60,24 @@
                 <!-- VISIBLE -->
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <div class="row">
+
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="@Url.Action("DetailOrder", "Home", new
+                                                        {
+                                                            Company = ViewBag.loginInfo.Company,
+                                                            Username = ViewBag.loginInfo.Username,
+                                                            Password = ViewBag.loginInfo.Password,
+                                                            Storage = ViewBag.loginInfo.Storage,
+                                                            idDocument = @Html.DisplayFor(modelItem => item.id)
+                                                        })">
+                                Receber
+                            </a>
+                        </div>
+
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
                             <div class="col-md-3">
                                 <h4 class="panel-title">
-                                  @item.Nome @*@Html.DisplayFor(model => item.Entidade)*@
+                                    @item.Nome @*@Html.DisplayFor(model => item.Entidade)*@
                                 </h4>
                             </div>
                             <div class="col-md-3">
@@ -70,15 +86,15 @@
                                 </h4>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <h4 class="panel-title">
-                                   @Html.DisplayFor(model => item.LinhasDoc.Count)
+                                    @Html.DisplayFor(model => item.LinhasDoc.Count)
                                 </h4>
                             </div>
 
-                            <div class="col-md-3 text-right">
+                            <div class="col-md-2 text-right">
                                 <h4 class="panel-title">
-                                   @total €
+                                    @total €
                                 </h4>
                             </div>
                         </a>
@@ -92,18 +108,20 @@
                         @*<div class="col-sm-2">@Html.DisplayFor(modelItem => item.Serie) @Html.DisplayNameFor(model => model.NumDoc) </div>*@
                         @*<div class="col-sm-2">@Html.DisplayFor(model => item.NumDocExterno)</div>*@
                         @*<div class="col-sm-2">@Html.DisplayFor(modelItem => item.Descricao)</div>*@
-                        <div class="col-sm-3">Cod. Fornecedor: @item.Entidade</div>
-                        <div class="col-sm-3">Série: @item.Serie</div>
-                        <div class="col-sm-3">Nr. Doc. Externo: @item.NumDocExterno</div>
+                        <div class="col-sm-3">Cod. Fornecedor <strong>@item.Entidade</strong></div>
+                        <div class="col-sm-3">Série <strong>@item.Serie</strong></div>
+                        <div class="col-sm-3">Nr. Doc <strong>@item.NumDoc</strong></div>
                         <div class="col-sm-2">
-                            @Html.ActionLink("Receber", "DetailOrder", "Home", new
-                       {
-                           Company = ViewBag.loginInfo.Company,
-                           Username = ViewBag.loginInfo.Username,
-                           Password = ViewBag.loginInfo.Password,
-                           Storage = ViewBag.loginInfo.Storage,
-                           idDocument = @Html.DisplayFor(modelItem => item.id)
-                       }, htmlAttributes: null)
+
+                            @*@Html.ActionLink("Receber", "DetailOrder", "Home", new
+                                {
+                                    Company = ViewBag.loginInfo.Company,
+                                    Username = ViewBag.loginInfo.Username,
+                                    Password = ViewBag.loginInfo.Password,
+                                    Storage = ViewBag.loginInfo.Storage,
+                                    idDocument = @Html.DisplayFor(modelItem => item.id)
+                                }, htmlAttributes: null)*@
+
                         </div>
                     </div>
                 </div>
