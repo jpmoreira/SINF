@@ -4,58 +4,82 @@
     ViewBag.Title = "ConfirmOrder";
 }
 
-<h2>ConfirmOrder</h2>
+<h2>Transformação de documento</h2>
 
-<fieldset>
-    <legend>DocCompra</legend>
+<div class="alert alert-success" role="alert">
+    <strong>Sucesso!</strong>
+    <p>Transformação de documento realizada com sucesso.</p>
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.tipo)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.tipo)
-    </div>
+<h4>
+    <small>@Html.DisplayNameFor(model => model.NumDoc)</small> @Html.DisplayFor(model => model.NumDoc)
+</h4>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.NumDocExterno)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NumDocExterno)
-    </div>
+<h4>
+    <small>@Html.DisplayNameFor(model => model.Serie)</small> @Html.DisplayFor(model => model.Serie)
+</h4>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Entidade)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Entidade)
-    </div>
+<h4>
+    <small>@Html.DisplayNameFor(model => model.NumDocExterno)</small> @Html.DisplayFor(model => model.NumDocExterno)
+</h4>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.NumDoc)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NumDoc)
-    </div>
+<h4>
+    <small>@Html.DisplayNameFor(model => model.tipo)</small> @Html.DisplayFor(model => model.tipo)
+</h4>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Data)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Data)
-    </div>
+<h4>
+    <small>@Html.DisplayNameFor(model => model.Entidade)</small> @Html.DisplayFor(model => model.Entidade)
+</h4>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TotalMerc)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TotalMerc)
-    </div>
+<h4>
+    <small>@Html.DisplayNameFor(model => model.Data)</small> @Model.Data.ToShortDateString()
+</h4>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Serie)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Serie)
-    </div>
-</fieldset>
+<h4>
+    <small>Total</small> @Math.Abs(Model.TotalMerc) €
+</h4>
+
+<h3>Artigos do Documento</h3>
+
+<div class="table-responsive">
+    <table class="table">
+
+        <tr>
+            <th>Num Linha</th>
+            <th>Codigo</th>
+            <th>Descricao</th>
+            <th>Armazem</th>
+            <th>Lote</th>
+            <th>€ / Unidade</th>
+            <th>Desconto</th>
+            <th>Unidade</th>
+            <th>Quantidade</th>
+            <th>Total Iliquido</th>
+            <th>Total Liquido</th>
+        </tr>
+        
+        @foreach (var line in Model.LinhasDoc)
+        {
+            <tr>
+                <td>@line.NumLinha</td>
+                <td>@line.CodArtigo</td>
+                <td>@line.DescArtigo</td>
+                <td>@line.Armazem</td>
+                <td>@line.Lote</td>
+                <td>@Math.Abs(line.PrecoUnitario) €</td>
+                <td>@line.Desconto</td>
+                <td>@line.Unidade</td>
+                <td>@Math.Abs(line.Quantidade)</td>
+                <td>@Math.Abs(line.TotalILiquido) €</td>
+                <td>@Math.Abs(line.TotalLiquido) €</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+
+
+
 
