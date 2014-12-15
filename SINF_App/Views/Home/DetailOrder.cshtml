@@ -195,7 +195,13 @@
                         
             
                 <div class="col-md-1">
+@if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0) { 
                     <button type="button" class="btn btn-primary">Qtd. Total</button>
+}
+else
+{
+                    <button type="button" class="btn btn-primary" disabled>Qtd. Total</button>
+}
                 </div>
 
                             <div class="col-md-2">
@@ -210,8 +216,10 @@
                                     {
                                         <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
                                     }
-                                    else{
-                                        <span class="form-control">0</span>
+                                    else
+                                    {
+                                        <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max="0" disabled readonly>
+                                        @*<span class="form-control">0</span>*@
                                     }
                                     <span class="input-group-btn ">
                                         <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
