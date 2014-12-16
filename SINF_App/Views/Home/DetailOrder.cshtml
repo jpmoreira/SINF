@@ -255,7 +255,8 @@
 
                             <div class="col-sm-2 col-md-2">
 
-                                @Html.DisplayFor(modelItem => line.PrecoUnitario) €
+                                @line.PrecoUnitario.ToString("0.00")
+                                @*@Html.DisplayFor(modelItem => line.PrecoUnitario) €*@
 
                             </div>
 
