@@ -206,6 +206,7 @@
 
                         @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
                         {
+                            atLeast1 = true;
                         <div class="col-sm-3 col-md-2">
                                 <div class="input-group input-group-sm" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
                                 <span class="input-group-btn">
@@ -215,7 +216,6 @@
                                 </span>
 
                                     <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
-                                    atLeast1 = true;
 
                                     <span class="input-group-btn ">
                                         <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
