@@ -24,62 +24,62 @@
         {
             @*Username*@
             <div class="form-group row">
-                @Html.LabelFor(m => m.Username, new { @class = "control-label col-sm-2" })
-                <div class="col-lg-4">
+                @Html.LabelFor(m => m.Username, new { @class = "control-label col-lg-1 col-md-3 col-sm-2 col-xs-3" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
 
-                    @if(ViewBag.loginInfo != null)
+                    @if (ViewBag.loginInfo != null)
                     {
-                          @Html.TextBoxFor(m => m.Username, new { @readonly=true , placeholder = "Username", @class = "form-control", id = "lblUser" })
+                        @Html.TextBoxFor(m => m.Username, new { @readonly = true, placeholder = "Username", @class = "form-control", id = "lblUser" })
                     }
                     else
                     {
                         @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "form-control", id = "lblUser" })
                     }
-                    
+
                     @Html.ValidationMessageFor(m => m.Username)
                 </div>
             </div>
 
             @*Password*@
             <div class="form-group row">
-                @Html.LabelFor(m => m.Password, new { @class = "control-label col-sm-2" })
-                <div class="col-lg-4">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-3" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
 
-                    @if(ViewBag.loginInfo != null)
+                    @if (ViewBag.loginInfo != null)
                     {
-                        @Html.TextBoxFor(m => m.Password, new { @readonly="true", placeholder = "Password", type = "password", @class = "form-control", id = "lblPassword" })
+                        @Html.TextBoxFor(m => m.Password, new { @readonly = "true", placeholder = "Password", type = "password", @class = "form-control", id = "lblPassword" })
                     }
                     else
                     {
                         @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", type = "password", @class = "form-control", id = "lblPassword" })
                     }
-                    
+
                     @Html.ValidationMessageFor(m => m.Password)
                 </div>
             </div>
 
             @*Company*@
             <div class="form-group row">
-                @Html.LabelFor(m => m.Company, new { @class = "control-label col-sm-2" })
-                <div class="col-lg-4">
+                @Html.LabelFor(m => m.Company, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-3" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
 
-                    @if(ViewBag.loginInfo != null)
+                    @if (ViewBag.loginInfo != null)
                     {
-                        @Html.TextBoxFor(m => m.Company, new { @readonly="true", placeholder = "Company", @class = "form-control", id = "lblCompany" })
+                        @Html.TextBoxFor(m => m.Company, new { @readonly = "true", placeholder = "Company", @class = "form-control", id = "lblCompany" })
                     }
                     else
                     {
                         @Html.TextBoxFor(m => m.Company, new { placeholder = "Company", @class = "form-control", id = "lblCompany" })
                     }
-                    
+
                     @Html.ValidationMessageFor(m => m.Company)
                 </div>
             </div>
 
             if (ViewBag.loginInfo != null) { 
             <div class="form-group row">
-                @Html.LabelFor(m => m.Storage, new { @class = "control-label col-sm-2" })
-                <div class="col-lg-4">
+                @Html.LabelFor(m => m.Storage, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-3" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
                     @{Html.RenderAction("Armazens");}
                 </div>
             </div>
