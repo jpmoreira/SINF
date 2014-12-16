@@ -70,12 +70,12 @@
                 <td>@line.DescArtigo</td>
                 <td>@line.Armazem</td>
                 <td>@line.Lote</td>
-                <td>@Math.Abs(line.PrecoUnitario) €</td>
+                <td>@Math.Abs(line.PrecoUnitario).ToString("0.00") €</td>
                 <td>@line.Desconto</td>
                 <td>@line.Unidade</td>
                 <td>@Math.Abs(line.Quantidade)</td>
-                <td>@Math.Abs(line.TotalILiquido) €</td>
-                <td>@Math.Abs(line.TotalLiquido) €</td>
+                <td>@(Math.Abs(line.TotalILiquido).ToString("0.00")) €</td>
+                <td>@Math.Abs(line.TotalLiquido).ToString("0.00") €</td>
             </tr>
         }
 
