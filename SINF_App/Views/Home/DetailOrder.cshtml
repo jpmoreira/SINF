@@ -173,7 +173,7 @@
 
         </div>
 
-        @{ bool atLeast1 = false;}
+
         <!-- LINHAS DOC - Lista de Artigos -->
         @foreach (var line in Model.LinhasDoc)
         {
@@ -192,45 +192,46 @@
                     <div class="row">
                         @{var qtdEmFalta = line.Quantidade - line.QuantidadeSatisfeita;}
 
-                        
-            
-                <div class="col-md-1">
-@if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0) { 
-                    <button type="button" class="btn btn-primary">Qtd. Total</button>
-}
-else
-{
-                    <button type="button" class="btn btn-primary" disabled>Qtd. Total</button>
-}
-                </div>
 
-                            <div class="col-md-2">
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
-                                            <span class="glyphicon glyphicon-minus"></span>
-                                        </button>
-                                    </span>
 
-                                    @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
-                                    {
-                                        atLeast1 = true;
-                                        <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
-                                    }
-                                    else
-                                    {
-                                        <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max="0" disabled readonly>
-                                        @*<span class="form-control">0</span>*@
-                                    }
-                                    <span class="input-group-btn ">
-                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                    </span>
-                                </div>
+                        <div class="col-md-1">
+                            @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
+                            {
+                                <button type="button" class="btn btn-primary">Qtd. Total</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary" disabled>Qtd. Total</button>
+                            }
+                        </div>
 
+                        <div class="col-md-2">
+                            <div class="input-group input-group-sm" id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                </span>
+
+                                @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
+                                {
+                                    <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
+                                }
+                                else
+                                {
+                                    @*<div id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">*@
+                                    <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max="0" disabled readonly>
+                                    @*</div>*@
+                                }
+                                <span class="input-group-btn ">
+                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </span>
                             </div>
-            
+
+                        </div>
+
 
 
 
@@ -329,11 +330,11 @@ else
 
                 <div class="row">
                     <div class="col-md-2">
-                        <small><strong>Documento</strong> </small>
+                        <small><strong>Armazem</strong> </small>
                     </div>
 
                     <div class="col-md-2">
-                        <small><strong>Nr. Doc. Externo</strong></small>
+                        <small><strong>Documento</strong></small>
                     </div>
                 </div>
             </div>
@@ -346,8 +347,8 @@ else
                 <div class="row">
 
                     @*<div class="col-md-2">
-                        @{Html.RenderAction("Armazens");}
-                    </div>*@
+                            @{Html.RenderAction("Armazens");}
+                        </div>*@
 
                     <div class="col-md-2">
                         <select class="form-control" name="tipoDestino">
@@ -361,20 +362,9 @@ else
                     </div>
 
                     <div class="col-md-2">
-                        @{if (atLeast1)
-                        {
-                            <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
-                                Confirmar recepção
-                            </button>
-                        }
-                          else
-                          {
-                            <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary" disabled>
-                                Confirmar recepção
-                            </button>
-                          }
-}
-                        
+                        <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
+                            Confirmar recepção
+                        </button>
                     </div>
 
                 </div>

@@ -2,6 +2,16 @@
 
 function setUp() {
     $("#login_submit").click(savelocalsession);
+
+    // Detail Order - Spinner =====================================
+    $(".btn-number").click(actualizaQtd);
+    $(".input-number").change(changeQtd);
+
+    //======== Set Missing quantity =============
+    $(".btn-primary").click(setQtdEmFalta);
+
+    //======== Enable Detail Order Popovers =============
+    $('#inputDisabled').tooltip({ container: 'body' });
 }
 
 function savelocalsession(event) {
@@ -14,10 +24,7 @@ function savelocalsession(event) {
 }
 
 
-// Detail Order - Spinner ======================================
-$(".btn-number").click(actualizaQtd);
-$(".input-number").change(changeQtd);
-
+// Detail Order - Spinner =====================================
 function changeQtd(event) {
     minValue = parseInt($(this).attr('min'));
     maxValue = parseInt($(this).attr('max'));
@@ -94,7 +101,6 @@ function actualizaQtd(event) {
 }
 
 //======== Set Missing quantity =============
-$(".btn-primary").click(setQtdEmFalta);
 
 function setQtdEmFalta(event) {
     var qtdEmFalta = parseInt($(event.target).closest(".row").find("#qtdEmFalta").html());
