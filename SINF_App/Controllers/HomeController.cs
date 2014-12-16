@@ -148,6 +148,12 @@ namespace SINF_App.Controllers
                 f.quantidades.Add(nrLinha, quantidade);
             }
 
+            if(f.quantidades.Count == 0)
+            {
+                ViewBag.ErrorMessage=  "Nenhuma produto recebido.";
+                return View("GenericError");
+            }
+
 
             DocCompraController.FiltroEncomendas filterOrder = new DocCompraController.FiltroEncomendas();
             DocCompraController docCmpC = new DocCompraController();
