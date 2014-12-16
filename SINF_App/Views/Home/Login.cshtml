@@ -24,8 +24,8 @@
         {
             @*Username*@
             <div class="form-group row">
-                @Html.LabelFor(m => m.Username, new { @class = "control-label col-lg-1 col-md-3 col-sm-2 col-xs-3" })
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
+                @Html.LabelFor(m => m.Username, new { @class = "control-label col-lg-1 col-md-3 col-sm-2 col-xs-4" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
 
                     @if (ViewBag.loginInfo != null)
                     {
@@ -42,8 +42,8 @@
 
             @*Password*@
             <div class="form-group row">
-                @Html.LabelFor(m => m.Password, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-3" })
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-4" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
 
                     @if (ViewBag.loginInfo != null)
                     {
@@ -60,8 +60,8 @@
 
             @*Company*@
             <div class="form-group row">
-                @Html.LabelFor(m => m.Company, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-3" })
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
+                @Html.LabelFor(m => m.Company, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-4" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
 
                     @if (ViewBag.loginInfo != null)
                     {
@@ -78,8 +78,8 @@
 
             if (ViewBag.loginInfo != null) { 
             <div class="form-group row">
-                @Html.LabelFor(m => m.Storage, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-3" })
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
+                @Html.LabelFor(m => m.Storage, new { @class = "control-label col-lg-1 col-md-1 col-sm-2 col-xs-4" })
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
                     @{Html.RenderAction("Armazens");}
                 </div>
             </div>
