@@ -11,7 +11,7 @@ function setUp() {
     $(".btn-primary").click(setQtdEmFalta);
 
     //======== Enable Detail Order Popovers =============
-    $('#inputDisabled').tooltip({ container: 'body' });
+    $('body').tooltip({ container: 'body', selector:'#inputDisabled' });
 }
 
 function savelocalsession(event) {

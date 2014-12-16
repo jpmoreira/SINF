@@ -203,35 +203,49 @@
                             }
                         </div>
 
-                        <div class="col-sm-3 col-md-2">
-                            <div class="input-group input-group-sm" id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
-                                        <span class="glyphicon glyphicon-minus"></span>
-                                    </button>
-                                </span>
+                        @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
+                        {
+                            <div class="col-sm-3 col-md-2">
+                                <div class="input-group input-group-sm" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
 
-                                @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
-                                {
                                     <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
-                                }
-                                else
-                                {
-                                    @*<div id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">*@
-                                    <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max="0" disabled readonly>
-                                    @*</div>*@
-                                }
-                                <span class="input-group-btn ">
-                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                </span>
+
+                                    <span class="input-group-btn ">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+
                             </div>
 
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-3 col-md-2">
+                                <div class="input-group input-group-sm" id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
 
+                                    <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max="0" disabled readonly>
 
+                                    <span class="input-group-btn ">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
 
+                            </div>
+                        }
 
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
 
@@ -263,56 +277,58 @@
 
                     </div>
 
-                </div>
+
+
+        </div>
 
 
 
                 <!-- COLLAPSE -->
-                <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div id=@rowCollapse class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
-                    <div class="panel-body">
+            <div class="panel-body">
 
-                        <!-- Num Linha -->
-                        <h4>
-                            <small>Num Linha</small> @Html.DisplayFor(modelItem => line.NumLinha)
-                        </h4>
+                <!-- Num Linha -->
+                <h4>
+                    <small>Num Linha</small> @Html.DisplayFor(modelItem => line.NumLinha)
+                </h4>
 
-                        <!-- Armazem -->
-                        <h4>
-                            <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
-                        </h4>
+                <!-- Armazem -->
+                <h4>
+                    <small>Armazem</small> @Html.DisplayFor(modelItem => line.Armazem)
+                </h4>
 
-                        <!-- CodArtig -->
-                        <h4>
-                            <small>Cod. Artigo</small> @Html.DisplayFor(modelItem => line.CodArtigo)
-                        </h4>
+                <!-- CodArtig -->
+                <h4>
+                    <small>Cod. Artigo</small> @Html.DisplayFor(modelItem => line.CodArtigo)
+                </h4>
 
-                        <!-- DescArtigo -->
-                        <h4>
-                            <small>Desc. Artigo</small> @Html.DisplayFor(modelItem => line.DescArtigo)
-                        </h4>
+                <!-- DescArtigo -->
+                <h4>
+                    <small>Desc. Artigo</small> @Html.DisplayFor(modelItem => line.DescArtigo)
+                </h4>
 
-                        <!-- Desconto -->
-                        <h4>
-                            <small>Desconto</small> @Html.DisplayFor(modelItem => line.Desconto)%
-                        </h4>
+                <!-- Desconto -->
+                <h4>
+                    <small>Desconto</small> @Html.DisplayFor(modelItem => line.Desconto)%
+                </h4>
 
-                        <h4>
-                            <small>Unidade</small> @Html.DisplayFor(modelItem => line.Unidade)
-                        </h4>
+                <h4>
+                    <small>Unidade</small> @Html.DisplayFor(modelItem => line.Unidade)
+                </h4>
 
-                        <!-- Quantidade -->
-                        <h4>
-                            <small>Quantidade</small> @Html.DisplayFor(modelItem => line.Quantidade) @Html.DisplayFor(modelItem => line.Unidade)
-                        </h4>
+                <!-- Quantidade -->
+                <h4>
+                    <small>Quantidade</small> @Html.DisplayFor(modelItem => line.Quantidade) @Html.DisplayFor(modelItem => line.Unidade)
+                </h4>
 
-                        <!-- Quantidade Satisfeita -->
-                        <h4>
-                            <small>Quantidade Satisfeita</small> @Html.DisplayFor(modelItem => line.QuantidadeSatisfeita) @Html.DisplayFor(modelItem => line.Unidade)
-                        </h4>
-                    </div>
-                </div>
+                <!-- Quantidade Satisfeita -->
+                <h4>
+                    <small>Quantidade Satisfeita</small> @Html.DisplayFor(modelItem => line.QuantidadeSatisfeita) @Html.DisplayFor(modelItem => line.Unidade)
+                </h4>
             </div>
+        </div>
+                </div>
 
         }
     </div>
