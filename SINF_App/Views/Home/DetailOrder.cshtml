@@ -173,6 +173,7 @@
 
 
         <!-- LINHAS DOC - Lista de Artigos -->
+        @{bool atLeast1 = false;}
         @foreach (var line in Model.LinhasDoc)
         {
             var rowId = line.NumLinha.ToString();
@@ -214,6 +215,7 @@
                                 @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
                                 {
                                     <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
+                                    atLeast1 = true;
                                 }
                                 else
                                 {
@@ -256,7 +258,6 @@
                             <div class="col-sm-2 col-md-2">
 
                                 @line.PrecoUnitario.ToString("0.00")
-                                @*@Html.DisplayFor(modelItem => line.PrecoUnitario) €*@
 
                             </div>
 
@@ -329,11 +330,11 @@
 
                 <div class="row">
                     <div class="col-sm-2 col-md-2">
-                        <small><strong>Armazem</strong> </small>
+                        <small><strong>Tipo Doc.</strong> </small>
                     </div>
 
                     <div class="col-sm-3 col-md-2">
-                        <small><strong>Documento</strong></small>
+                        <small><strong>Nr. Doc. Externo</strong></small>
                     </div>
                 </div>
             </div>
@@ -344,10 +345,6 @@
             <!-- VISIBLE -->
             <div class="panel-heading" role="tab" id="headingTwo">
                 <div class="row">
-
-                    @*<div class="col-md-2">
-                            @{Html.RenderAction("Armazens");}
-                        </div>*@
 
                     <div class="col-sm-2 col-md-2">
                         <select class="form-control" name="tipoDestino">
@@ -361,9 +358,17 @@
                     </div>
 
                     <div class="col-sm-2 col-md-2">
+                        @if (atLeast1) { 
                         <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
                             Confirmar recepção
                         </button>
+                        }
+                        else
+                        {
+                            <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary" disabled>
+                                Confirmar recepção
+                            </button>
+                        }
                     </div>
 
                 </div>
