@@ -28,19 +28,19 @@
 
                 <div class="row">
 
-                    <div class="col-md-1">
+                    <div class="col-sm-2 col-md-2">
                         <h4 class="panel-title">
                             <strong>@Html.DisplayNameFor(model => model.Entidade)</strong>
                         </h4>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-sm-2 col-md-2">
                         <h4 class="panel-title">
                             <strong>@Html.DisplayNameFor(model => model.Data)</strong>
                         </h4>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-sm-2 col-md-2">
                         <h4 class="panel-title">
                             <strong>Total</strong>
                         </h4>
@@ -63,19 +63,19 @@
 
                 <div class="row">
 
-                    <div class="col-md-1">
+                    <div class="col-sm-2 col-md-2">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             @Html.DisplayFor(model => model.Entidade)
                         </a>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-sm-2 col-md-2">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             @Model.Data.ToShortDateString()
                         </a>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-sm-2 col-md-2">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             @Html.DisplayFor(model => model.TotalMerc) €
                         </a>
@@ -135,36 +135,34 @@
 
                 <div class="row">
 
-                    <div class="col-md-1"></div>
-
-                    <div class="col-md-2">
-                        <h4 class="panel-title">
+                    <div class="col-sm-3 col-sm-offset-2 col-md-2 col-md-offset-2 col-lg-offset-1">
+                        <h5 class="panel-title">
                             <strong>Quantidade recebida</strong>
-                        </h4>
+                        </h5>
                     </div>
 
-                    <div class="col-md-1">
-                        <h4 class="panel-title">
+                    <div class="col-sm-1 col-md-1">
+                        <h5 class="panel-title">
                             <strong>Codigo</strong>
-                        </h4>
+                        </h5>
                     </div>
 
-                    <div class="col-md-4">
-                        <h4 class="panel-title">
+                    <div class="col-sm-2 col-md-3">
+                        <h5 class="panel-title">
                             <strong>Descricao</strong>
-                        </h4>
+                        </h5>
                     </div>
 
-                    <div class="col-md-1">
-                        <h4 class="panel-title">
+                    <div class="col-sm-2 col-md-2">
+                        <h5 class="panel-title">
                             <strong>Quantidade em falta</strong>
-                        </h4>
+                        </h5>
                     </div>
 
-                    <div class="col-md-1">
-                        <h4 class="panel-title">
+                    <div class="col-sm-2 col-md-2">
+                        <h5 class="panel-title">
                             <strong>€ / Unidade</strong>
-                        </h4>
+                        </h5>
                     </div>
 
                 </div>
@@ -194,7 +192,7 @@
 
 
 
-                        <div class="col-md-1">
+                        <div class="col-sm-2 col-md-2 col-lg-1">
                             @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
                             {
                                 <button type="button" class="btn btn-primary">Qtd. Total</button>
@@ -205,7 +203,7 @@
                             }
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-sm-3 col-md-2">
                             <div class="input-group input-group-sm" id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
@@ -237,25 +235,25 @@
 
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
 
-                            <div class="col-md-1">
+                            <div class="col-sm-1 col-md-1">
 
                                 @Html.DisplayFor(modelItem => line.CodArtigo)
 
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-sm-2 col-md-3">
 
                                 @Html.DisplayFor(modelItem => line.DescArtigo)
 
                             </div>
 
-                            <div class="col-md-1" id="qtdEmFalta">
+                            <div class="col-sm-2 col-md-2" id="qtdEmFalta">
 
                                 @qtdEmFalta @Html.DisplayFor(modelItem => line.Unidade)
 
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-sm-2 col-md-2">
 
                                 @Html.DisplayFor(modelItem => line.PrecoUnitario) €
 
@@ -329,11 +327,11 @@
             <div class="panel-heading" role="tab" id="headingTwo">
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-sm-2 col-md-2">
                         <small><strong>Armazem</strong> </small>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-sm-3 col-md-2">
                         <small><strong>Documento</strong></small>
                     </div>
                 </div>
@@ -350,18 +348,18 @@
                             @{Html.RenderAction("Armazens");}
                         </div>*@
 
-                    <div class="col-md-2">
+                    <div class="col-sm-2 col-md-2">
                         <select class="form-control" name="tipoDestino">
                             <option value="VFA">Factura</option>
                             <option value="VGT">Guia de Transporte</option>
                         </select>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-sm-3 col-md-2">
                         <input type="text" name="nrDocExterno" class="form-control" value="Nr. Doc. Externo">
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-sm-2 col-md-2">
                         <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary">
                             Confirmar recepção
                         </button>
