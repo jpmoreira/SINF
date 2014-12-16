@@ -204,25 +204,41 @@
                             }
                         </div>
 
+                        @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
+                        {
                         <div class="col-sm-3 col-md-2">
-                            <div class="input-group input-group-sm" id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
+                                <div class="input-group input-group-sm" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
                                         <span class="glyphicon glyphicon-minus"></span>
                                     </button>
                                 </span>
 
-                                @if (qtdEmFalta > 0 && String.Compare(line.Armazem, ViewBag.loginInfo.Storage) == 0)
-                                {
                                     <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max=@qtdEmFalta>
                                     atLeast1 = true;
+
+                                    <span class="input-group-btn ">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+
+                            </div>
+
                                 }
                                 else
                                 {
-                                    @*<div id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">*@
+                            <div class="col-sm-3 col-md-2">
+                                <div class="input-group input-group-sm" id="inputDisabled" data-toggle="tooltip" data-placement="right" title="O armazém actual não é o local de recepção deste artigo.">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field=@rowId>
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
+
                                     <input type="text" name=@rowId class="form-control input-number" value="0" min="0" max="0" disabled readonly>
-                                    @*</div>*@
-                                }
+
                                 <span class="input-group-btn ">
                                     <button type="button" class="btn btn-default btn-number" data-type="plus" data-field=@rowId>
                                         <span class="glyphicon glyphicon-plus"></span>
@@ -231,9 +247,7 @@
                             </div>
 
                         </div>
-
-
-
+                        }
 
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=@rowCollapseId aria-expanded="false" aria-controls="collapseTwo">
 
@@ -264,6 +278,8 @@
                         </a>
 
                     </div>
+
+
 
                 </div>
 
