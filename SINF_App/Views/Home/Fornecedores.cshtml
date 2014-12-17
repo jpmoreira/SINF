@@ -1,35 +1,10 @@
 ﻿@model IEnumerable<SINF_App.Models.Fornecedor>
 
+@*<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">*@
 
-@*<h2>&nbsp;</h2>
-<div class="control-group">
+    @*<div class="panel panel-default">*@
 
-
-                    @foreach (var item in Model)
-                    {
-
-                        if (String.Compare(ViewBag.loginInfo.Storage, item.ID) == 0)
-                        {
-                            <option value=@item.ID selected="selected">@item.Nome</option>
-                        }
-                        if (String.Compare(ViewBag.loginInfo.Storage, item.ID) != 0)
-                        {
-                            <option value=@item.ID>@item.Nome</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="col-lg-1 col-md-2 col-sm-3"><button type="submit" id="fornecedores_submit" class="btn btn-default">Filtrar</button></div>
-        </div>
-    }
-</div>
-<h5>&nbsp;</h5>*@
-
-
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-    <div class="panel panel-default">
-
+<div class="row">
         <div class="panel-heading" role="tab" id="headingTwo">
 
             <div class="dropdown">
@@ -65,4 +40,5 @@
             </div>
         </div>
     </div>
-</div>
+@*</div>*@
+@*</div>*@
