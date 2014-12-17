@@ -1264,6 +1264,35 @@ namespace SINF_App.Lib_Primavera
             return false;
         }
 
+
+        public static List<Fornecedor> Fornecedores(Login loginInfo)
+        {
+
+            //Dictionary<string, string> fornecedores = new Dictionary<string, string>();
+
+            List<Fornecedor> fornecedores = new List<Fornecedor>();
+
+            if (PriEngine.InitializeCompany(loginInfo.Company, loginInfo.Username, loginInfo.Password) == true)
+            {
+                
+                StdBELista objList;
+                string queryString = "Select Fornecedor, Nome FROM Fornecedores";
+                objList = PriEngine.Engine.Consulta(queryString);
+
+                while (!objList.NoFim())
+                {
+                    Fornecedor fornecedor = new Fornecedor();
+                    fornecedor.Nome = objList.Valor("Nome");
+                    fornecedor.ID = objList.Valor("Fornecedor");
+
+                    fornecedores.Add(fornecedor);
+                    objList.Seguinte();
+                }
+            }
+
+            return fornecedores;
+        }
+
         #endregion Fornecedores
     }
 }

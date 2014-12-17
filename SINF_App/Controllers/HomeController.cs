@@ -40,7 +40,7 @@ namespace SINF_App.Controllers
                 {
                     ViewBag.loginInfo = loginInfo;
                     if (loginInfo.Storage != null)
-                        return Encomendas(loginInfo);
+                        return Encomendas(loginInfo, null);
                     return View();
                 }
             }
@@ -52,12 +52,14 @@ namespace SINF_App.Controllers
         /**
          * View all orders
          */
-        public ViewResult Encomendas(Login loginInfo)
+        public ViewResult Encomendas(Login loginInfo, string idFornecedor)
         {
 
             DocCompraController docCmpC = new DocCompraController();
             DocCompraController.FiltroEncomendas filtro = new DocCompraController.FiltroEncomendas();
             filtro.loginInfo = loginInfo;
+            if (idFornecedor != null && String.Compare(idFornecedor, "todos") != 0)
+                filtro.idFornecedor = idFornecedor;
 
             ViewBag.loginInfo = loginInfo;
 
@@ -116,7 +118,7 @@ namespace SINF_App.Controllers
                 ViewBag.ErrorMessage = "Armazem não seleccionado ou inválido";
                 return View("GenericError");
             }
-            
+
             f.tipoDestino = Request.Form["tipoDestino"];
             //if (f.idArmazem == null)
             //{
@@ -148,9 +150,9 @@ namespace SINF_App.Controllers
                 f.quantidades.Add(nrLinha, quantidade);
             }
 
-            if(f.quantidades.Count == 0)
+            if (f.quantidades.Count == 0)
             {
-                ViewBag.ErrorMessage=  "Nenhuma produto recebido.";
+                ViewBag.ErrorMessage = "Nenhuma produto recebido.";
                 return View("GenericError");
             }
 
@@ -178,6 +180,13 @@ namespace SINF_App.Controllers
             var ans = SINF_App.Lib_Primavera.Comercial.ListaArmazens(loginInfo);
             ViewBag.loginInfo = loginInfo;
             return PartialView("Armazens", ans);
+        }
+
+        public ActionResult Fornecedores(Login loginInfo)
+        {
+            var ans = SINF_App.Lib_Primavera.Comercial.Fornecedores(loginInfo);
+            ViewBag.loginInfo = loginInfo;
+            return PartialView(ans);
         }
 
     }

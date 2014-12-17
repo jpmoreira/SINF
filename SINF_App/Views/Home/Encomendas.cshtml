@@ -7,6 +7,63 @@
     <h2>Encomendas</h2>
 
 
+    <!--Pesquisa-->
+    @*<div class="form-group">
+            <div class="row">
+                <label for="sel1">Select list:</label>
+                <select class="form-control" id="fornecedor">
+
+                </select>
+            </div>
+        </div>*@
+
+
+    @{
+        Dictionary<string, string> fornecedores = new Dictionary<string, string>();
+
+        foreach (var item in Model)
+        {
+            if (!fornecedores.ContainsKey(item.Entidade))
+            {
+                fornecedores.Add(item.Entidade, item.Nome);
+            }
+        }
+    }
+
+    @*<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading" role="tab" id="headingTwo">
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        Fornecedor
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        @foreach (KeyValuePair<string, string> pair in fornecedores)
+                        {
+                            <li role="presentation">
+                                @Html.ActionLink(pair.Value, "Encomendas", "Home", new
+                       {
+                           Username = ViewBag.loginInfo.Username,
+                           Company = ViewBag.loginInfo.Company,
+                           Password = ViewBag.loginInfo.Password,
+                           Storage = ViewBag.loginInfo.Storage,
+                           IdFornecedor = pair.Key
+                       }, null)
+                                </li>
+                                }
+                        </ul>
+                    </div>
+                        </div>
+                    </div>
+                </div>*@
+
+    @{Html.RenderAction("Fornecedores");}
+
+
     <!-- HEADER -->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
