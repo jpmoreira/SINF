@@ -783,7 +783,7 @@ namespace SINF_App.Lib_Primavera
                     var test_id = objListCab.Valor("id");
                     isClosed = PriEngine.Engine.Consulta("SELECT Estado FROM CabecComprasStatus WHERE IdCabecCompras='" + test_id+"'");
 
-                    if (String.Compare(isClosed.Valor("Estado"), "T") == 0 || String.Compare(isClosed.Valor("Estado"), "F") == 0)
+                    if (String.Compare(isClosed.Valor("Estado"), "T") == 0 || String.Compare(isClosed.Valor("Estado"), "R") == 0)
                     {
                         objListCab.Seguinte();
                         continue;
