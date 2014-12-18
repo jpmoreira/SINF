@@ -450,14 +450,7 @@ namespace SINF_App.Lib_Primavera
 
 
                         //tudo está ok aqui... entao faz conversao
-
-                        string previousArmazem = line.get_Armazem();
-                        line.set_Armazem(idArmazem);//temporarly change armazem to the desired one
-
                         PriEngine.Engine.Comercial.Internos.CopiaLinha("C", objInicial, "C", objFinal, nrLinha, quantAConverter); //nrLinha+1
-
-
-                        line.set_Armazem(previousArmazem);//change to the original armazem again!
 
                         line.set_QuantSatisfeita(line.get_QuantSatisfeita() + quantAConverter);
 
